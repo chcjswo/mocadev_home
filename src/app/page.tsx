@@ -1,212 +1,176 @@
-'use client';
-
-import React from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ArrowRight } from 'lucide-react';
 import { PageSEO } from '@/components/seo';
-import { pageDefaults } from '@/lib/seo/config';
+import { pageDefaults, structuredDataTemplates } from '@/lib/seo/config';
+import { getAllApps } from '@/lib/data/apps';
+import { AppCard } from '@/components/apps/AppCard';
+import { Card, CardContent } from '@/components/ui/card';
 
 export default function Home() {
-  const features = [
-    {
-      title: '⚡️ 빠른 개발 환경',
-      description: 'Next.js 15 + React 19 + TypeScript 기반의 최신 설정',
-      status: 'completed',
-    },
-    {
-      title: '🎨 Shadcn/ui 컴포넌트',
-      description: '모던하고 접근성 좋은 UI 컴포넌트 라이브러리',
-      status: 'completed',
-    },
-    {
-      title: '🚀 SEO 최적화',
-      description: '동적 메타태그, 사이트맵, 구조화된 데이터',
-      status: 'completed',
-    },
-  ];
+  const featuredApps = getAllApps();
 
   return (
     <>
-      {/* SEO 메타태그 */}
       <PageSEO
         title={pageDefaults.home.title}
         description={pageDefaults.home.description}
         keywords={pageDefaults.home.keywords}
-        ogImage="/images/og/home.jpg"
+        ogImage="/images/og/home.svg"
+        structuredData={[
+          { type: 'SoftwareApplication', data: structuredDataTemplates.softwareApplication },
+        ]}
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-        {/* 헤더 */}
-        <header className="bg-white/80 backdrop-blur-md border-b">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center py-4">
-              <div className="flex items-center space-x-2">
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  딩코딩코 스타터킷
-                </h1>
-                <Badge variant="secondary">v1.0</Badge>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Link href="#features">
-                  <Button variant="outline">구성 살펴보기</Button>
-                </Link>
-                <Link href="https://github.com/dingco/starter-kit" target="_blank" rel="noreferrer">
-                  <Button>GitHub 바로가기</Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        {/* 메인 컨텐츠 */}
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {/* 히어로 섹션 */}
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              개발 시간을{' '}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                70% 단축
-              </span>
-              시키는
-              <br />
-              올인원 스타터킷
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              최소한의 설정으로 프로젝트를 바로 시작할 수 있도록 구성한 Next.js 템플릿입니다.
-              <br />
-              UI 컴포넌트, SEO, 배포 파이프라인까지 기본기를 빠르게 갖추세요.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="#features">
-                <Button size="lg" className="min-w-[200px]">
-                  기능 확인하기
-                </Button>
-              </Link>
-              <Link href="https://github.com/dingco/starter-kit" target="_blank" rel="noreferrer">
-                <Button variant="outline" size="lg" className="min-w-[200px]">
-                  템플릿 다운로드
-                </Button>
-              </Link>
-            </div>
-          </div>
-
-          {/* 기능 섹션 */}
-          <div id="features" className="mb-16">
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-              포함된 핵심 기능들
-            </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {features.map((feature, index) => (
-                <Card key={index} className="relative overflow-hidden">
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg">{feature.title}</CardTitle>
-                      <Badge variant={feature.status === 'completed' ? 'default' : 'secondary'}>
-                        {feature.status === 'completed' ? '완료' : '진행중'}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription>{feature.description}</CardDescription>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-
-          {/* 기술 스택 */}
-          <Card className="mb-16">
-            <CardHeader>
-              <CardTitle className="text-2xl text-center">사용된 기술 스택</CardTitle>
-              <CardDescription className="text-center">
-                최신 기술과 검증된 라이브러리들로 구성
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Tabs defaultValue="frontend" className="w-full">
-                <TabsList className="grid w-full grid-cols-3">
-                  <TabsTrigger value="frontend">프론트엔드</TabsTrigger>
-                  <TabsTrigger value="backend">백엔드 & 데이터</TabsTrigger>
-                  <TabsTrigger value="tools">도구 & 배포</TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="frontend" className="mt-6">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'Shadcn/ui'].map(
-                      (tech) => (
-                        <div
-                          key={tech}
-                          className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg text-center"
-                        >
-                          <p className="font-semibold text-gray-900">{tech}</p>
-                        </div>
-                      ),
-                    )}
-                  </div>
-                </TabsContent>
-
-                <TabsContent value="backend" className="mt-6">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {['Next.js API Routes', 'Edge 환경 변수', '서버 액션', '캐시 전략'].map((tech) => (
-                      <div
-                        key={tech}
-                        className="bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-lg text-center"
-                      >
-                        <p className="font-semibold text-gray-900">{tech}</p>
-                      </div>
-                    ))}
-                  </div>
-                </TabsContent>
-
-                <TabsContent value="tools" className="mt-6">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {['Vercel', 'ESLint', 'Prettier', 'Husky', 'Commitlint'].map((tech) => (
-                      <div
-                        key={tech}
-                        className="bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-lg text-center"
-                      >
-                        <p className="font-semibold text-gray-900">{tech}</p>
-                      </div>
-                    ))}
-                  </div>
-                </TabsContent>
-              </Tabs>
-            </CardContent>
-          </Card>
-
-          {/* CTA 섹션 */}
-          <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-            <CardContent className="text-center py-12">
-              <h2 className="text-3xl font-bold mb-4">지금 바로 시작하세요!</h2>
-              <p className="text-xl mb-8 opacity-90">
-                모든 설정이 완료된 개발 환경에서 바로 프로젝트를 시작할 수 있습니다.
+      <div className="bg-gradient-to-br from-[#f5f3ff] via-white to-[#e0f2fe]">
+        <section className="border-b border-black/5">
+          <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-[1.2fr,0.8fr] md:items-center">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">
+                MokaDev
               </p>
-            </CardContent>
-          </Card>
-        </main>
-
-        {/* 푸터 */}
-        <footer className="bg-white border-t">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="text-center text-gray-600">
-              <p className="mb-2">
-                Made with ❤️ by{' '}
-                <a
-                  href="https://www.inflearn.com/users/408812/@dingcodingco"
-                  className="text-blue-600 hover:text-blue-500 font-medium"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <h1 className="mt-4 text-4xl font-bold leading-tight text-gray-900 md:text-5xl">
+                개인이 만든
+                <br />
+                생활형 모바일 실험실
+              </h1>
+              <p className="mt-6 text-lg text-gray-700">
+                랜덤 식당 추천, 포춘 메시지, 스케줄 기반 점심 관리까지. 작은 문제를 날카롭게
+                정의하고 앱으로 해결하는 개인 개발자 모카데브의 작업실입니다.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-6 text-sm text-gray-600">
+                <div>
+                  <p className="text-2xl font-bold text-gray-900">3</p>
+                  <p>출시 앱</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-gray-900">120K+</p>
+                  <p>누적 다운로드</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-gray-900">71%</p>
+                  <p>재방문 비율</p>
+                </div>
+              </div>
+            </div>
+            <Card className="border-none bg-white/90 shadow-xl">
+              <CardContent className="space-y-5 p-6">
+                <p className="text-sm font-semibold text-gray-500">모카데브의 제작 원칙</p>
+                <ul className="space-y-3 text-sm text-gray-700">
+                  <li>• 문제 정의와 데이터 수집을 먼저 끝낸다.</li>
+                  <li>• 사용성 테스트 결과를 주 1회 이상 반영한다.</li>
+                  <li>• 개인정보는 기능에 필요한 최소 범위만 수집한다.</li>
+                </ul>
+                <Link
+                  href="#apps"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-gray-900"
                 >
-                  딩코딩코
-                </a>
+                  앱 살펴보기
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        <section id="apps" className="mx-auto max-w-6xl px-4 py-16">
+          <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-semibold text-gray-500">MokaDev Apps</p>
+              <h2 className="text-3xl font-bold text-gray-900">모카데브가 만든 앱들</h2>
+              <p className="text-sm text-gray-600">
+                각 카드에서 상세 페이지로 이동해 스크린샷과 다운로드 링크를 확인하세요.
               </p>
-              <p className="text-sm">© 2025 dingcodingco. All rights reserved.</p>
+            </div>
+            <Link
+              href="mailto:hello@mocadev.com"
+              className="text-sm font-semibold text-gray-900"
+              aria-label="앱 협업 제안하기"
+            >
+              앱 협업 제안하기 →
+            </Link>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {featuredApps.map((app) => (
+              <AppCard key={app.slug} app={app} />
+            ))}
+          </div>
+        </section>
+
+        <section className="border-t border-black/5 bg-white">
+          <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-2">
+            <div>
+              <p className="text-sm font-semibold text-gray-500">About MokaDev</p>
+              <h2 className="text-3xl font-bold text-gray-900">작은 문제를 발견하는 능력</h2>
+              <p className="mt-4 text-sm text-gray-600">
+                사용자 인터뷰를 통해 점심 의사결정과 감정 케어라는 두 가지 문제를 발견했고, 이를
+                해결하기 위한 실험을 계속하고 있습니다. 앱 하나하나에는 모카데브의 디자인 시스템과
+                데이터 파이프라인이 녹아 있습니다.
+              </p>
+            </div>
+            <div className="grid gap-4 text-sm text-gray-600">
+              <Card className="border-black/5 bg-gray-50">
+                <CardContent className="p-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
+                    Workflow
+                  </p>
+                  <p className="mt-2">
+                    아이디어 → 프로토타입 → 커뮤니티 피드백 → 데이터 계측 → 제품화 순으로 반복하며,
+                    각 단계별로 Notion/Linear를 통해 기록을 남깁니다.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="border-black/5 bg-gray-50">
+                <CardContent className="p-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
+                    Stack
+                  </p>
+                  <p className="mt-2">
+                    Next.js, React Native, Expo, Firebase, Supabase, Vercel, Cloudflare, GA4, FCM,
+                    RevenueCat.
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="border-black/5 bg-gray-50">
+                <CardContent className="p-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
+                    Contact
+                  </p>
+                  <p className="mt-2">
+                    사이드 프로젝트 협업 혹은 강연 요청은{' '}
+                    <Link href="mailto:hello@mocadev.com" className="font-semibold text-gray-900">
+                      hello@mocadev.com
+                    </Link>
+                    으로 편하게 보내주세요.
+                  </p>
+                </CardContent>
+              </Card>
             </div>
           </div>
-        </footer>
+        </section>
+
+        <section className="border-t border-black/5 bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
+          <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-16 text-center">
+            <h2 className="text-3xl font-bold">다음 실험에 함께하고 싶다면</h2>
+            <p className="text-base text-white/80">
+              새로운 아이디어 제안, 강연, 인터뷰 요청을 기다리고 있어요.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 text-sm font-semibold">
+              <Link
+                href="mailto:hello@mocadev.com"
+                className="rounded-full bg-white px-5 py-3 text-gray-900"
+              >
+                이메일 보내기
+              </Link>
+              <Link
+                href="https://github.com/mocadev"
+                target="_blank"
+                className="rounded-full border border-white/50 px-5 py-3"
+              >
+                GitHub 살펴보기
+              </Link>
+            </div>
+          </div>
+        </section>
       </div>
     </>
   );

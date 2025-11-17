@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { StagewiseToolbar } from '@stagewise/toolbar-next';
 import { structuredDataTemplates } from '@/lib/seo/config';
+import { SiteHeader } from '@/components/layout/SiteHeader';
+import { SiteFooter } from '@/components/layout/SiteFooter';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -15,8 +17,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: '딩코딩코 올인원 스타터킷',
-  description: '수강생들의 개발 시간을 70% 단축시키는 완성형 개발 환경',
+  metadataBase:
+    typeof process.env.NEXT_PUBLIC_SITE_URL === 'string'
+      ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
+      : undefined,
+  title: {
+    default: '모카데브 – 개인 앱 개발자',
+    template: '%s | 모카데브',
+  },
+  description:
+    '랜덤 식당 추천부터 포춘쿠키 메시지까지. 모카데브가 직접 설계하고 운영하는 생활형 앱 컬렉션을 만나보세요.',
 };
 
 export default function RootLayout({
@@ -41,8 +51,12 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#f7f6fb]`}>
+        <div className="flex min-h-screen flex-col">
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+        </div>
         <StagewiseToolbar
           config={{
             plugins: [],

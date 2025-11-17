@@ -3,11 +3,11 @@ import { seoConfig } from './config';
 
 // 정적 페이지 URL들 (실제 프로젝트에 맞게 수정)
 const staticPages = [
-  { url: '/', priority: 1.0, changeFrequency: 'daily' as const },
-  { url: '/auth', priority: 0.8, changeFrequency: 'monthly' as const },
-  { url: '/payment', priority: 0.8, changeFrequency: 'monthly' as const },
-  { url: '/payment/success', priority: 0.5, changeFrequency: 'monthly' as const },
-  { url: '/payment/fail', priority: 0.5, changeFrequency: 'monthly' as const },
+  { url: '/', priority: 1.0, changeFrequency: 'weekly' as const },
+  { url: '/apps/bapjeongne', priority: 0.8, changeFrequency: 'monthly' as const },
+  { url: '/apps/fortune-cookie', priority: 0.8, changeFrequency: 'monthly' as const },
+  { url: '/apps/lunch-picker', priority: 0.8, changeFrequency: 'monthly' as const },
+  { url: '/privacy', priority: 0.6, changeFrequency: 'yearly' as const },
 ];
 
 // 동적 페이지 URL 생성 함수
@@ -71,7 +71,7 @@ export const generateRobotsTxt = (): string => {
     {
       userAgent: '*',
       allow: ['/'],
-      disallow: ['/api/', '/admin/', '/_next/', '/static/', '/private/', '*.json', '*.xml'],
+      disallow: ['/api/', '/admin/'],
     },
     {
       userAgent: 'Googlebot',
@@ -107,7 +107,6 @@ export const generateRobotsTxt = (): string => {
 
   // 사이트맵 URL 추가
   robotsTxt += `Sitemap: ${seoConfig.siteUrl}/sitemap.xml\n`;
-  robotsTxt += `Sitemap: ${seoConfig.siteUrl}/sitemap-news.xml\n`;
 
   return robotsTxt;
 };

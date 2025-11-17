@@ -23,51 +23,46 @@ export const MetaTags: React.FC<SEOProps> = ({
   noindex = false,
   nofollow = false,
 }) => {
-  // 제목 포맷팅
-  const formatTitle = (title: string) => {
-    if (seoConfig.titleTemplate && title !== seoConfig.defaultTitle) {
-      return seoConfig.titleTemplate.replace('%s', title);
-    }
-    return title;
-  };
-
-  // canonical URL 생성
-  const getCanonicalUrl = () => {
-    if (meta.canonical) {
-      return meta.canonical.startsWith('http')
-        ? meta.canonical
-        : `${seoConfig.siteUrl}${meta.canonical}`;
-    }
-    return undefined;
-  };
-
-  // robots meta 생성
-  const getRobotsMeta = () => {
-    const robots = [];
-    if (noindex) robots.push('noindex');
-    if (nofollow) robots.push('nofollow');
-    if (meta.robots) robots.push(meta.robots);
-    return robots.length > 0 ? robots.join(', ') : 'index, follow';
-  };
-
-  // Open Graph URL 생성
-  const getOpenGraphUrl = () => {
-    return (
-      openGraph?.url || (typeof window !== 'undefined' ? window.location.href : seoConfig.siteUrl)
-    );
-  };
-
-  // Open Graph 이미지 URL 생성
-  const getOpenGraphImage = () => {
-    if (openGraph?.image) {
-      return openGraph.image.startsWith('http')
-        ? openGraph.image
-        : `${seoConfig.siteUrl}${openGraph.image}`;
-    }
-    return `${seoConfig.siteUrl}${seoConfig.defaultImage}`;
-  };
-
   useEffect(() => {
+    const formatTitle = (title: string) => {
+      if (seoConfig.titleTemplate && title !== seoConfig.defaultTitle) {
+        return seoConfig.titleTemplate.replace('%s', title);
+      }
+      return title;
+    };
+
+    const getCanonicalUrl = () => {
+      if (meta.canonical) {
+        return meta.canonical.startsWith('http')
+          ? meta.canonical
+          : `${seoConfig.siteUrl}${meta.canonical}`;
+      }
+      return undefined;
+    };
+
+    const getRobotsMeta = () => {
+      const robots = [];
+      if (noindex) robots.push('noindex');
+      if (nofollow) robots.push('nofollow');
+      if (meta.robots) robots.push(meta.robots);
+      return robots.length > 0 ? robots.join(', ') : 'index, follow';
+    };
+
+    const getOpenGraphUrl = () => {
+      return (
+        openGraph?.url || (typeof window !== 'undefined' ? window.location.href : seoConfig.siteUrl)
+      );
+    };
+
+    const getOpenGraphImage = () => {
+      if (openGraph?.image) {
+        return openGraph.image.startsWith('http')
+          ? openGraph.image
+          : `${seoConfig.siteUrl}${openGraph.image}`;
+      }
+      return `${seoConfig.siteUrl}${seoConfig.defaultImage}`;
+    };
+
     if (typeof document === 'undefined') return;
 
     // 동적으로 메타태그 업데이트 (App Router에서는 이 방식 사용)
@@ -140,7 +135,7 @@ export const MetaTags: React.FC<SEOProps> = ({
       });
 
       // 새로운 JSON-LD 추가
-      structuredData.forEach((data, index) => {
+      structuredData.forEach((data) => {
         const script = document.createElement('script');
         script.type = 'application/ld+json';
         script.setAttribute('data-dynamic', 'true');
@@ -161,6 +156,9 @@ interface PageSEOProps {
   keywords?: string;
   canonical?: string;
   ogImage?: string;
+  ogType?: OpenGraphProps['type'];
+  twitterCard?: TwitterCardsProps['card'];
+  structuredData?: StructuredDataProps[];
   noindex?: boolean;
 }
 
@@ -170,6 +168,9 @@ export const PageSEO: React.FC<PageSEOProps> = ({
   keywords,
   canonical,
   ogImage,
+  ogType = 'website',
+  twitterCard = 'summary_large_image',
+  structuredData,
   noindex = false,
 }) => {
   return (
@@ -184,14 +185,15 @@ export const PageSEO: React.FC<PageSEOProps> = ({
         title,
         description,
         image: ogImage,
-        type: 'website',
+        type: ogType,
       }}
       twitter={{
         title,
         description,
         image: ogImage,
-        card: 'summary_large_image',
+        card: twitterCard,
       }}
+      structuredData={structuredData}
       noindex={noindex}
     />
   );

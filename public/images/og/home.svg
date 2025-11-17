@@ -1,0 +1,22 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="50%" stop-color="#fef9c3"/>
+      <stop offset="100%" stop-color="#cffafe"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="260" cy="180" r="140" fill="#c7d2fe"/>
+  <circle cx="980" cy="420" r="180" fill="#fed7aa"/>
+  <text x="120" y="320" fill="#111827" font-size="72" font-family="Inter, 'Pretendard', sans-serif" font-weight="700">
+    MokaDev
+  </text>
+  <text x="120" y="400" fill="#4338ca" font-size="40" font-family="Inter, 'Pretendard', sans-serif" font-weight="600">
+    개인 개발자가 만드는 생활형 앱 실험실
+  </text>
+  <text x="120" y="460" fill="#4b5563" font-size="28" font-family="Inter, 'Pretendard', sans-serif">
+    밥정너 · 포춘쿠키 · 점심 뭐 먹지
+  </text>
+</svg>
+
