@@ -130,7 +130,10 @@ export default function Home() {
                   </p>
                   <p className="mt-2">
                     사이드 프로젝트 협업 혹은 강연 요청은{' '}
-                    <Link href="mailto:mocadev.tony@gmail.com" className="font-semibold text-gray-900">
+                    <Link
+                      href="mailto:mocadev.tony@gmail.com"
+                      className="font-semibold text-gray-900"
+                    >
                       mocadev.tony@gmail.com
                     </Link>
                     으로 편하게 보내주세요.
