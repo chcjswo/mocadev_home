@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import { StagewiseToolbar } from '@stagewise/toolbar-next';
 import { structuredDataTemplates } from '@/lib/seo/config';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SiteFooter } from '@/components/layout/SiteFooter';
@@ -57,11 +56,6 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <SiteFooter />
         </div>
-        <StagewiseToolbar
-          config={{
-            plugins: [],
-          }}
-        />
       </body>
     </html>
   );
