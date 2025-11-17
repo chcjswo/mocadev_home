@@ -91,8 +91,8 @@ export default function PrivacyPage() {
             <h2 className="text-xl font-bold text-gray-900">6. 문의처</h2>
             <p className="mt-4">
               개인정보 관련 문의는{' '}
-              <a href="mailto:privacy@mocadev.com" className="font-semibold text-gray-900">
-                privacy@mocadev.com
+              <a href="mailto:mocadev.tony@gmail.com" className="font-semibold text-gray-900">
+                mocadev.tony@gmail.com
               </a>
               으로 연락해 주세요. 영업일 기준 7일 이내에 답변드리겠습니다.
             </p>

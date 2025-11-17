@@ -82,7 +82,7 @@ export default function Home() {
               </p>
             </div>
             <Link
-              href="mailto:hello@mocadev.com"
+              href="mailto:mocadev.tony@gmail.com"
               className="text-sm font-semibold text-gray-900"
               aria-label="앱 협업 제안하기"
             >
@@ -137,8 +137,8 @@ export default function Home() {
                   </p>
                   <p className="mt-2">
                     사이드 프로젝트 협업 혹은 강연 요청은{' '}
-                    <Link href="mailto:hello@mocadev.com" className="font-semibold text-gray-900">
-                      hello@mocadev.com
+                    <Link href="mailto:mocadev.tony@gmail.com" className="font-semibold text-gray-900">
+                      mocadev.tony@gmail.com
                     </Link>
                     으로 편하게 보내주세요.
                   </p>
@@ -156,7 +156,7 @@ export default function Home() {
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm font-semibold">
               <Link
-                href="mailto:hello@mocadev.com"
+                href="mailto:mocadev.tony@gmail.com"
                 className="rounded-full bg-white px-5 py-3 text-gray-900"
               >
                 이메일 보내기

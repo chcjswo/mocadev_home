@@ -50,7 +50,7 @@ export function SiteHeader() {
 
         <div className="hidden md:block">
           <Button asChild variant="default">
-            <a href="mailto:hello@mocadev.com" aria-label="이메일로 문의하기">
+            <a href="mailto:mocadev.tony@gmail.com" aria-label="이메일로 문의하기">
               문의하기
             </a>
           </Button>
@@ -71,7 +71,7 @@ export function SiteHeader() {
             </Link>
           ))}
           <a
-            href="mailto:hello@mocadev.com"
+            href="mailto:mocadev.tony@gmail.com"
             className="rounded-full bg-gray-900 px-3 py-1 text-white"
             aria-label="이메일로 문의하기"
           >
