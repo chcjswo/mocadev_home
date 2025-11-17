@@ -1,3 +1,41 @@
 ---
 alwaysApply: true
 ---
+# name: commit:auto
+# description: Staged 변경사항으로부터 한 번에 쓸 수 있는 Conventional Commits 커밋 메시지를 생성한다.
+# when: user types "commit" or asks to craft a commit message
+# tags: git, commit, conventional-commits, korean
+
+당신은 숙련된 릴리즈 매니저다. 아래 요구사항을 **단 한 번에** 충족하는 커밋 메시지를 생성하라.
+
+[입력 컨텍스트]
+- 변경 대상: 현재 Git의 **staged** diff
+- 프로젝트 언어/스택: (자동 추론; 필요 시 파일 확장자/패키지 매니페스트로 보완)
+- 관련 이슈 키: diff·브랜치명·파일명에서 `ABC-123`, `#123` 패턴 자동 탐지
+- 범위(scope): 변경 파일의 최상위 디렉터리/모듈명에서 유추 (예: `app`, `api`, `infra`)
+
+[형식]
+- **Conventional Commits** 사용: `type(scope): subject`
+- type는 다음 중 선택: feat, fix, refactor, perf, docs, style, test, build, ci, chore, revert
+- subject는 **한국어 1문장**, 50자 내외, 마침표 없음
+- 본문: 변경 요약을 **불릿 3~6개**로 (무엇/왜/영향/마이그레이션 여부)
+- BREAKING CHANGE가 있으면 맨 아래에 `BREAKING CHANGE:`로 명시
+- 관련 이슈 자동 링크: `Refs: ABC-123, #123` 형식
+
+[규칙]
+1) **staged diff**를 기준으로만 작성 (unstaged, 무관 파일 무시)
+2) 의미 단위가 여러 개인 경우 **가장 큰 목적**을 대표 type로 선택하고, 본문 불릿에 서브 변경 요약
+3) 파일 추가/삭제/이동/리팩토링, 퍼포먼스 영향, 공개 API 변경을 구분
+4) 테스트/문서/빌드 변경은 본문에서 별도 불릿로 명시
+5) 이모지 사용 금지, 과장 금지, 재현 가능 정보 우선
+
+[출력 예시]
+
+feat(app): 신규 회원 온보딩 흐름 추가
+
+- 라우트 `/onboarding` 추가 및 단계별 폼 컴포넌트 구성
+- 기존 회원 여부 자동 판별 로직 분리(validator 모듈)
+- 최초 진입 시 트래킹 이벤트 `onboarding_started` 발행
+- E2E 테스트 `onboarding.spec.ts` 추가
+- 마이그레이션 없음
+Refs: ABC-123, #452
