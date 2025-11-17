@@ -81,13 +81,6 @@ export default function Home() {
                 각 카드에서 상세 페이지로 이동해 스크린샷과 다운로드 링크를 확인하세요.
               </p>
             </div>
-            <Link
-              href="mailto:mocadev.tony@gmail.com"
-              className="text-sm font-semibold text-gray-900"
-              aria-label="앱 협업 제안하기"
-            >
-              앱 협업 제안하기 →
-            </Link>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
             {featuredApps.map((app) => (
