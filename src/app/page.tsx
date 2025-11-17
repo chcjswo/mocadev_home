@@ -43,11 +43,11 @@ export default function Home() {
                   <p>출시 앱</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-gray-900">120K+</p>
+                  <p className="text-2xl font-bold text-gray-900">1000+</p>
                   <p>누적 다운로드</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-gray-900">71%</p>
+                  <p className="text-2xl font-bold text-gray-900">10%</p>
                   <p>재방문 비율</p>
                 </div>
               </div>
