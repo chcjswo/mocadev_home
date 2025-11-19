@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 
 const navigation = [
   { label: 'Apps', href: '/#apps' },
+  { label: '만든 사람들', href: '/team' },
 ];
 
 export function SiteHeader() {

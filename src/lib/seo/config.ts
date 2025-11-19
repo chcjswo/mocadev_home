@@ -30,6 +30,11 @@ export const pageDefaults = {
       '모카데브가 서비스하는 밥정너, 포춘쿠키, 점심 뭐 먹지 앱에 적용되는 개인정보 처리방침입니다.',
     keywords: '모카데브 개인정보 처리방침, 개인정보 보호, 약관',
   },
+  team: {
+    title: '만든 사람들',
+    description: '모카데브 앱을 함께 만드는 팀원들을 소개합니다.',
+    keywords: '모카데브 팀, 개발자, 기획자, 디자이너',
+  },
   apps: {
     bapjeongne: {
       title: '밥정너 – 주변 맛집 랜덤 추천',
