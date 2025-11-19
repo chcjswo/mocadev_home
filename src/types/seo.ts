@@ -46,7 +46,8 @@ export interface StructuredDataProps {
     | 'Product'
     | 'LocalBusiness'
     | 'Event'
-    | 'Review';
+    | 'Review'
+    | 'SoftwareApplication';
   data: Record<string, unknown>;
 }
 
