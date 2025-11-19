@@ -7,7 +7,6 @@ import { cn } from '@/lib/utils';
 
 const navigation = [
   { label: 'Apps', href: '/#apps' },
-  { label: 'Privacy', href: '/privacy' },
 ];
 
 export function SiteHeader() {
