@@ -21,7 +21,7 @@ export const apps: AppContent[] = [
     storeLinks: [
       {
         platform: 'ios',
-        url: 'https://apps.apple.com/kr/app/id0000000000',
+        url: 'https://apps.apple.com/kr/app/%EB%B0%A5%EC%A0%95%EB%84%88/id6755356516',
         label: 'App Store',
         badge: 'iOS 다운로드',
       },
