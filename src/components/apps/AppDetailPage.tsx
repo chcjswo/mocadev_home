@@ -115,6 +115,23 @@ export function AppDetailPage({ app }: AppDetailPageProps) {
           <ScreenshotCarousel screenshots={app.screenshots} accentColor={app.theme.accent} />
         </section>
 
+        {app.slug === 'bapjeongne' && (
+          <section>
+            <p className="text-sm font-semibold text-gray-500">앱 소개</p>
+            <h2 className="mb-6 text-2xl font-bold text-gray-900">밥정너를 만나보세요</h2>
+            <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-4 shadow-lg">
+              <Image
+                src="/images/apps/bobjeongneo/ChatGPT Image 2025년 11월 25일 오전 01_17_08.png"
+                alt="밥정너 앱 소개 이미지"
+                width={1200}
+                height={800}
+                className="h-auto w-full rounded-2xl object-contain"
+                priority={false}
+              />
+            </div>
+          </section>
+        )}
+
         {app.messageExamples && (
           <section>
             <p className="text-sm font-semibold text-gray-500">메시지 예시</p>

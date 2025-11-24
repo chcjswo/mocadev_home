@@ -9,8 +9,7 @@ export const apps: AppContent[] = [
     tagline: '주변 맛집을 랜덤으로 추천해 주는 점심 파트너',
     description:
       '현재 위치와 먹고 싶은 분위기를 기준으로 3분 안에 점심 고민을 끝냅니다. 팀 회식이나 혼밥 모두 밥정너가 제안해요.',
-    heroImage:
-      'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1400&q=80',
+    heroImage: '/images/apps/bobjeongneo/icons/icon.png',
     theme: {
       accent: '#7C3AED',
       gradientFrom: '#ede9fe',
@@ -65,19 +64,24 @@ export const apps: AppContent[] = [
     ],
     screenshots: [
       {
-        src: 'https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=900&q=80',
+        src: '/images/apps/bobjeongneo/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2025-11-10 at 20.50.33.png',
         alt: '식당 추천 화면',
         caption: '조건에 맞는 식당을 3곳 제안합니다.',
       },
       {
-        src: 'https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=900&q=80',
+        src: '/images/apps/bobjeongneo/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2025-11-10 at 20.50.51.png',
         alt: '필터 설정 화면',
         caption: '예산·분위기·거리 필터를 직관적으로 조절할 수 있어요.',
       },
       {
-        src: 'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=900&q=80',
+        src: '/images/apps/bobjeongneo/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2025-11-10 at 20.50.59.png',
         alt: '공유 화면',
         caption: '추천 결과를 링크로 공유해 투표를 받을 수 있습니다.',
+      },
+      {
+        src: '/images/apps/bobjeongneo/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2025-11-10 at 20.51.07.png',
+        alt: '앱 화면',
+        caption: '밥정너 앱의 다양한 기능을 확인할 수 있습니다.',
       },
     ],
     qna: [
@@ -235,8 +239,7 @@ export const apps: AppContent[] = [
     tagline: '스케줄 기반 푸시로 점심 고민을 자동화',
     description:
       '팀 식사 스케줄을 등록하고 식당을 미리 정해두면, 요일별로 자동 푸시가 떠서 빠르게 확정할 수 있습니다.',
-    heroImage:
-      'https://images.unsplash.com/photo-1485182708500-e8f1f318ba72?auto=format&fit=crop&w=1400&q=80',
+    heroImage: '/images/apps/lunch-pick/icons/icon.png',
     theme: {
       accent: '#0ea5e9',
       gradientFrom: '#cffafe',
@@ -291,19 +294,39 @@ export const apps: AppContent[] = [
     ],
     screenshots: [
       {
-        src: 'https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=900&q=80',
+        src: '/images/apps/lunch-pick/screenshot/Simulator Screenshot - iPhone 17 Pro - 2025-11-23 at 13.43.27.png',
         alt: '스케줄 등록 화면',
         caption: '요일별로 원하는 시간대와 팀을 설정합니다.',
       },
       {
-        src: 'https://images.unsplash.com/photo-1506812574058-fc75fa93fead?auto=format&fit=crop&w=900&q=80',
+        src: '/images/apps/lunch-pick/screenshot/Simulator Screenshot - iPhone 17 Pro - 2025-11-23 at 13.43.36.png',
         alt: '푸시 알림',
         caption: '알림에서 바로 식당을 확정할 수 있는 액션 버튼 제공',
       },
       {
-        src: 'https://images.unsplash.com/photo-1506086679524-493c64fdfaa6?auto=format&fit=crop&w=900&q=80',
+        src: '/images/apps/lunch-pick/screenshot/Simulator Screenshot - iPhone 17 Pro - 2025-11-23 at 13.45.58.png',
         alt: '통계 화면',
         caption: '최근 30일간의 점심 로그와 선호도를 차트로 보여줍니다.',
+      },
+      {
+        src: '/images/apps/lunch-pick/screenshot/Simulator Screenshot - iPhone 17 Pro - 2025-11-23 at 13.46.03.png',
+        alt: '앱 화면',
+        caption: '점심 뭐 먹지 앱의 다양한 기능을 확인할 수 있습니다.',
+      },
+      {
+        src: '/images/apps/lunch-pick/screenshot/Simulator Screenshot - iPhone 17 Pro - 2025-11-23 at 13.46.13.png',
+        alt: '앱 화면',
+        caption: '직관적인 UI로 쉽게 사용할 수 있습니다.',
+      },
+      {
+        src: '/images/apps/lunch-pick/screenshot/Simulator Screenshot - iPhone 17 Pro - 2025-11-23 at 13.46.19.png',
+        alt: '앱 화면',
+        caption: '팀 협업을 위한 다양한 기능을 제공합니다.',
+      },
+      {
+        src: '/images/apps/lunch-pick/screenshot/Simulator Screenshot - iPhone 17 Pro - 2025-11-23 at 13.46.40.png',
+        alt: '앱 화면',
+        caption: '스케줄 기반 점심 추천을 자동화합니다.',
       },
     ],
     qna: [
