@@ -12,19 +12,26 @@ interface ScreenshotCarouselProps {
 }
 
 export function ScreenshotCarousel({ screenshots, accentColor }: ScreenshotCarouselProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [slideIndex, setSlideIndex] = useState(0); // 슬라이드 위치
+  const [activeIndex, setActiveIndex] = useState(0); // 활성화된 이미지 인덱스
 
   const goTo = (index: number) => {
     const normalized = (index + screenshots.length) % screenshots.length;
+    setSlideIndex(normalized);
     setActiveIndex(normalized);
+  };
+
+  const handleImageClick = (index: number) => {
+    setActiveIndex(index);
+    // 슬라이드는 이동하지 않음
   };
 
   if (screenshots.length === 0) return null;
 
   // 슬라이드 이동 거리 계산
   // 모바일: 100%씩 이동, 데스크톱: 33.333%씩 이동 (3개씩 보이므로)
-  const slideOffset = activeIndex * -100; // 모바일 기준
-  const slideOffsetMd = activeIndex * -(100 / 3); // 데스크톱 기준
+  const slideOffset = slideIndex * -100; // 모바일 기준
+  const slideOffsetMd = slideIndex * -(100 / 3); // 데스크톱 기준
 
   return (
     <div className="space-y-4">
@@ -49,8 +56,9 @@ export function ScreenshotCarousel({ screenshots, accentColor }: ScreenshotCarou
                 className="min-w-0 flex-shrink-0 flex-grow-0 basis-full md:basis-[calc(33.333%-0.67rem)]"
               >
                 <div
+                  onClick={() => handleImageClick(index)}
                   className={cn(
-                    'relative mx-auto max-w-[360px] overflow-hidden rounded-3xl border bg-white p-4 shadow-lg transition-all duration-300',
+                    'relative mx-auto max-w-[360px] cursor-pointer overflow-hidden rounded-3xl border bg-white p-4 shadow-lg transition-all duration-300 hover:shadow-xl',
                     isActive ? 'border-2 opacity-100' : 'border border-black/5 opacity-75',
                   )}
                   style={{
@@ -76,7 +84,7 @@ export function ScreenshotCarousel({ screenshots, accentColor }: ScreenshotCarou
         <button
           type="button"
           aria-label="이전 스크린샷"
-          onClick={() => goTo(activeIndex - 1)}
+          onClick={() => goTo(slideIndex - 1)}
           className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 text-gray-700 shadow-sm transition hover:bg-white"
         >
           <ChevronLeft className="h-4 w-4" />
@@ -84,7 +92,7 @@ export function ScreenshotCarousel({ screenshots, accentColor }: ScreenshotCarou
         <button
           type="button"
           aria-label="다음 스크린샷"
-          onClick={() => goTo(activeIndex + 1)}
+          onClick={() => goTo(slideIndex + 1)}
           className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 text-gray-700 shadow-sm transition hover:bg-white"
         >
           <ChevronRight className="h-4 w-4" />
