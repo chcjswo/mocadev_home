@@ -129,8 +129,7 @@ export const apps: AppContent[] = [
     tagline: '쿠키를 톡! 오늘의 메시지가 도착합니다',
     description:
       '포춘쿠키를 클릭해 하루의 방향을 잡아보세요. 텍스트 애니메이션과 잔잔한 사운드로 감성적인 경험을 제공합니다.',
-    heroImage:
-      'https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?auto=format&fit=crop&w=1400&q=80',
+    heroImage: '/images/apps/fortune-cookie/icons/icon.png',
     theme: {
       accent: '#ec4899',
       gradientFrom: '#ffe4e6',
@@ -185,19 +184,24 @@ export const apps: AppContent[] = [
     ],
     screenshots: [
       {
-        src: 'https://images.unsplash.com/photo-1501426026826-31c667bdf23d?auto=format&fit=crop&w=900&q=80',
+        src: '/images/apps/fortune-cookie/screenshot/preview-1.png',
         alt: '포춘쿠키 메인',
         caption: '테마별 포춘쿠키를 선택하는 메인 화면',
       },
       {
-        src: 'https://images.unsplash.com/photo-1492799801644-5c5b710bdd3e?auto=format&fit=crop&w=900&q=80',
+        src: '/images/apps/fortune-cookie/screenshot/preview-2.png',
         alt: '메시지 카드',
         caption: '감성적인 일러스트와 함께 메시지를 제공합니다.',
       },
       {
-        src: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=80',
+        src: '/images/apps/fortune-cookie/screenshot/preview-3.png',
         alt: '공유 기능',
         caption: 'SNS에 바로 공유할 수 있는 정사각형 카드',
+      },
+      {
+        src: '/images/apps/fortune-cookie/screenshot/preview-4.png',
+        alt: '앱 화면',
+        caption: '포춘쿠키 앱의 다양한 기능을 확인할 수 있습니다.',
       },
     ],
     qna: [
@@ -294,37 +298,37 @@ export const apps: AppContent[] = [
     ],
     screenshots: [
       {
-        src: '/images/apps/lunch-pick/screenshot/Simulator Screenshot - iPhone 17 Pro - 2025-11-23 at 13.43.27.png',
+        src: '/images/apps/lunch-pick/screenshot/preview-1.png',
         alt: '스케줄 등록 화면',
         caption: '요일별로 원하는 시간대와 팀을 설정합니다.',
       },
       {
-        src: '/images/apps/lunch-pick/screenshot/Simulator Screenshot - iPhone 17 Pro - 2025-11-23 at 13.43.36.png',
+        src: '/images/apps/lunch-pick/screenshot/preview-2.png',
         alt: '푸시 알림',
         caption: '알림에서 바로 식당을 확정할 수 있는 액션 버튼 제공',
       },
       {
-        src: '/images/apps/lunch-pick/screenshot/Simulator Screenshot - iPhone 17 Pro - 2025-11-23 at 13.45.58.png',
+        src: '/images/apps/lunch-pick/screenshot/preview-3.png',
         alt: '통계 화면',
         caption: '최근 30일간의 점심 로그와 선호도를 차트로 보여줍니다.',
       },
       {
-        src: '/images/apps/lunch-pick/screenshot/Simulator Screenshot - iPhone 17 Pro - 2025-11-23 at 13.46.03.png',
+        src: '/images/apps/lunch-pick/screenshot/preview-4.png',
         alt: '앱 화면',
         caption: '점심 뭐 먹지 앱의 다양한 기능을 확인할 수 있습니다.',
       },
       {
-        src: '/images/apps/lunch-pick/screenshot/Simulator Screenshot - iPhone 17 Pro - 2025-11-23 at 13.46.13.png',
+        src: '/images/apps/lunch-pick/screenshot/preview-5.png',
         alt: '앱 화면',
         caption: '직관적인 UI로 쉽게 사용할 수 있습니다.',
       },
       {
-        src: '/images/apps/lunch-pick/screenshot/Simulator Screenshot - iPhone 17 Pro - 2025-11-23 at 13.46.19.png',
+        src: '/images/apps/lunch-pick/screenshot/preview-6.png',
         alt: '앱 화면',
         caption: '팀 협업을 위한 다양한 기능을 제공합니다.',
       },
       {
-        src: '/images/apps/lunch-pick/screenshot/Simulator Screenshot - iPhone 17 Pro - 2025-11-23 at 13.46.40.png',
+        src: '/images/apps/lunch-pick/screenshot/preview-8.png',
         alt: '앱 화면',
         caption: '스케줄 기반 점심 추천을 자동화합니다.',
       },
