@@ -140,7 +140,7 @@ export const apps: AppContent[] = [
     storeLinks: [
       {
         platform: 'ios',
-        url: 'https://apps.apple.com/kr/app/id0000000001',
+        url: 'https://apps.apple.com/kr/app/fortune-cookie/id6755540351',
         label: 'App Store',
         badge: 'iOS 다운로드',
       },
@@ -254,7 +254,7 @@ export const apps: AppContent[] = [
     storeLinks: [
       {
         platform: 'ios',
-        url: 'https://apps.apple.com/kr/app/id0000000002',
+        url: 'https://apps.apple.com/kr/app/%EC%A0%90%EC%8B%AC%EC%9A%94%EC%A0%95/id6755688150',
         label: 'App Store',
         badge: 'iOS 다운로드',
       },
