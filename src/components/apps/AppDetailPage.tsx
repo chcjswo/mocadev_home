@@ -119,15 +119,50 @@ export function AppDetailPage({ app }: AppDetailPageProps) {
           <section>
             <p className="text-sm font-semibold text-gray-500">앱 소개</p>
             <h2 className="mb-6 text-2xl font-bold text-gray-900">밥정너를 만나보세요</h2>
-            <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-4 shadow-lg">
-              <Image
-                src="/images/apps/bobjeongneo/ChatGPT Image 2025년 11월 25일 오전 01_17_08.png"
-                alt="밥정너 앱 소개 이미지"
-                width={1200}
-                height={800}
-                className="h-auto w-full rounded-2xl object-contain"
-                priority={false}
-              />
+            <div className="space-y-6">
+              <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-4 shadow-lg">
+                <Image
+                  src="/images/apps/bobjeongneo/ChatGPT Image 2025년 11월 25일 오전 01_17_08.png"
+                  alt="밥정너 앱 소개 이미지"
+                  width={1200}
+                  height={800}
+                  className="h-auto w-full rounded-2xl object-contain"
+                  priority={false}
+                />
+              </div>
+              <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-gray-50 to-white p-8">
+                <h3 className="text-xl font-bold text-gray-900">가볍지만 흐트러짐 없는 사용 흐름</h3>
+                <p className="text-gray-700">
+                  앱은 네 가지 단순한 화면으로 돌아간다. 시작하기 화면, 지도에서 위치 선택 & 검색 반경 설정, 3초 카운트다운 → 랜덤 추천, 식당 정보 & 방문 통계. 필요한 것만 남긴 구성이라 누구나 처음 보는 순간부터 바로 사용할 수 있다.
+                </p>
+                <p className="text-gray-700">
+                  똑똑한 기능이지만 다루기는 편한 앱, 그것이 밥정너의 핵심이다.
+                </p>
+              </div>
+              <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-white to-gray-50 p-8">
+                <h3 className="text-xl font-bold text-gray-900">밥정너가 해결하는 것</h3>
+                <ul className="space-y-2 text-gray-700">
+                  <li className="flex items-start">
+                    <span className="mr-2 text-purple-600">✓</span>
+                    <span>점심 메뉴 결정 스트레스</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-purple-600">✓</span>
+                    <span>매번 같은 곳만 가는 단조로움</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-purple-600">✓</span>
+                    <span>새로운 식당을 찾아보기 귀찮은 순간</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-purple-600">✓</span>
+                    <span>식당 선택을 대신해줄 누군가가 필요한 시간</span>
+                  </li>
+                </ul>
+                <p className="mt-4 text-gray-700">
+                  당신이 해야 할 일은 단 한 가지다. 위치를 고르고, "저 여기 있어요!" 버튼을 누르는 것. 나머지는 밥정너가 알아서 움직인다.
+                </p>
+              </div>
             </div>
           </section>
         )}
