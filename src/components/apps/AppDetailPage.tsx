@@ -167,6 +167,45 @@ export function AppDetailPage({ app }: AppDetailPageProps) {
           </section>
         )}
 
+        {app.slug === 'lunch-picker' && (
+          <section>
+            <p className="text-sm font-semibold text-gray-500">앱 소개</p>
+            <h2 className="mb-6 text-2xl font-bold text-gray-900">점심 뭐 먹지를 만나보세요</h2>
+            <div className="space-y-6">
+              <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-gray-50 to-white p-8">
+                <h3 className="text-xl font-bold text-gray-900">이런 분에게 딱 맞습니다</h3>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex items-start">
+                    <span className="mr-2 text-sky-600">✓</span>
+                    <span>매일 점심 메뉴 결정이 귀찮은 사람</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-sky-600">✓</span>
+                    <span>좋아하는 식당 목록을 깔끔하게 관리하고 싶은 사람</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-sky-600">✓</span>
+                    <span>반복되는 선택 스트레스를 덜고 싶은 사람</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-sky-600">✓</span>
+                    <span>직장·학교·일상 루틴 속에서 작은 자동화를 원했던 사람</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-white to-gray-50 p-8">
+                <h3 className="text-xl font-bold text-gray-900">앱이 주는 경험</h3>
+                <p className="text-gray-700">
+                  이 앱은 화려한 기능 대신 확실한 도움을 제공합니다. 메뉴 고민이라는 사소하지만 반복적인 결정을 대신해주고, 당신은 하루의 리듬을 조금 더 선명하게 가져갈 수 있어요.
+                </p>
+                <p className="mt-4 text-gray-700">
+                  마치 책상 위에 놓인 작은 타이머처럼. 아무 말 없이 켜져 있지만, 분명한 역할을 수행하는 도구. 그런 조용한 앱을 지향합니다.
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
+
         {app.messageExamples && (
           <section>
             <p className="text-sm font-semibold text-gray-500">메시지 예시</p>
