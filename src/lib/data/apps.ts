@@ -226,11 +226,7 @@ export const apps: AppContent[] = [
         '바쁜 일상 속에서 감정 정리와 가벼운 위로가 필요하지만 한 문장조차 찾기 어려웠습니다.',
       solution:
         '감각적인 애니메이션과 맞춤 메시지를 통해 스스로를 다독이는 짧은 루틴을 제공합니다.',
-      metrics: [
-        { label: '일일 열람 수', value: '58K' },
-        { label: '저장된 메시지', value: '120K+' },
-        { label: '재방문 비율', value: '71%' },
-      ],
+      metrics: [],
     },
   },
   {
