@@ -37,20 +37,6 @@ export default function Home() {
                 랜덤 식당 추천, 포춘 메시지, 스케줄 기반 점심 관리까지. 작은 문제를 날카롭게
                 정의하고 앱으로 해결하는 개인 개발자 모카데브의 작업실입니다.
               </p>
-              <div className="mt-8 flex flex-wrap gap-6 text-sm text-gray-600">
-                <div>
-                  <p className="text-2xl font-bold text-gray-900">3</p>
-                  <p>출시 앱</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-gray-900">1000+</p>
-                  <p>누적 다운로드</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-gray-900">10%</p>
-                  <p>재방문 비율</p>
-                </div>
-              </div>
             </div>
             <Card className="border-none bg-white/90 shadow-xl">
               <CardContent className="space-y-5 p-6">
