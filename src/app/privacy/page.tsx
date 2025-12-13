@@ -252,7 +252,6 @@ export default function PrivacyPage() {
               <ol className="mt-2 list-decimal space-y-1 pl-5">
                 <li>성명: 전민철</li>
                 <li>직책: 대표</li>
-                <li>전화번호: 01092770261</li>
                 <li>이메일: mocadev.tony@gmail.com</li>
               </ol>
             </div>
