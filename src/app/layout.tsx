@@ -5,6 +5,7 @@ import './globals.css';
 import { structuredDataTemplates } from '@/lib/seo/config';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SiteFooter } from '@/components/layout/SiteFooter';
+import { FirebaseAnalytics } from '@/components/analytics/FirebaseAnalytics';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -58,6 +59,7 @@ export default function RootLayout({
           <SiteFooter />
         </div>
         <Analytics />
+        <FirebaseAnalytics />
       </body>
     </html>
   );
