@@ -172,6 +172,16 @@ export function AppDetailPage({ app }: AppDetailPageProps) {
             <p className="text-sm font-semibold text-gray-500">앱 소개</p>
             <h2 className="mb-6 text-2xl font-bold text-gray-900">점심 뭐 먹지를 만나보세요</h2>
             <div className="space-y-6">
+              <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-4 shadow-lg">
+                <Image
+                  src="/images/apps/lunch-pick/chatgpt_image_2025.png"
+                  alt="점심 뭐 먹지 앱 소개 이미지"
+                  width={1200}
+                  height={800}
+                  className="h-auto w-full rounded-2xl object-contain"
+                  priority={false}
+                />
+              </div>
               <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-gray-50 to-white p-8">
                 <h3 className="text-xl font-bold text-gray-900">이런 분에게 딱 맞습니다</h3>
                 <ul className="space-y-3 text-gray-700">
