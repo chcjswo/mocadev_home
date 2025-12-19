@@ -1,10 +1,42 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
+import type { Metadata } from 'next';
 import { PageSEO } from '@/components/seo';
-import { pageDefaults, structuredDataTemplates } from '@/lib/seo/config';
+import { pageDefaults, seoConfig, structuredDataTemplates } from '@/lib/seo/config';
 import { getAllApps } from '@/lib/data/apps';
 import { AppCard } from '@/components/apps/AppCard';
 import { Card, CardContent } from '@/components/ui/card';
+
+export const metadata: Metadata = {
+  title: pageDefaults.home.title,
+  description: pageDefaults.home.description,
+  keywords: pageDefaults.home.keywords,
+  openGraph: {
+    title: pageDefaults.home.title,
+    description: pageDefaults.home.description,
+    url: seoConfig.siteUrl,
+    siteName: seoConfig.siteName,
+    images: [
+      {
+        url: `${seoConfig.siteUrl}${seoConfig.defaultImage}`,
+        width: 1200,
+        height: 630,
+        alt: '모카데브 홈',
+      },
+    ],
+    locale: seoConfig.locale,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pageDefaults.home.title,
+    description: pageDefaults.home.description,
+    images: [`${seoConfig.siteUrl}${seoConfig.defaultImage}`],
+  },
+  alternates: {
+    canonical: seoConfig.siteUrl,
+  },
+};
 
 export default function Home() {
   const featuredApps = getAllApps();

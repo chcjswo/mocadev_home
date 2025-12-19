@@ -1,8 +1,40 @@
 import Image from 'next/image';
+import type { Metadata } from 'next';
 import { PageSEO } from '@/components/seo';
-import { pageDefaults } from '@/lib/seo/config';
+import { pageDefaults, seoConfig } from '@/lib/seo/config';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+
+export const metadata: Metadata = {
+  title: pageDefaults.team.title,
+  description: pageDefaults.team.description,
+  keywords: pageDefaults.team.keywords,
+  openGraph: {
+    title: pageDefaults.team.title,
+    description: pageDefaults.team.description,
+    url: `${seoConfig.siteUrl}/team`,
+    siteName: seoConfig.siteName,
+    images: [
+      {
+        url: `${seoConfig.siteUrl}${seoConfig.defaultImage}`,
+        width: 1200,
+        height: 630,
+        alt: '모카데브 팀',
+      },
+    ],
+    locale: seoConfig.locale,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pageDefaults.team.title,
+    description: pageDefaults.team.description,
+    images: [`${seoConfig.siteUrl}${seoConfig.defaultImage}`],
+  },
+  alternates: {
+    canonical: `${seoConfig.siteUrl}/team`,
+  },
+};
 
 const teamMembers = [
   {

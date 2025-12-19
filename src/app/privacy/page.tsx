@@ -1,5 +1,40 @@
+import type { Metadata } from 'next';
 import { PageSEO } from '@/components/seo';
-import { pageDefaults } from '@/lib/seo/config';
+import { pageDefaults, seoConfig } from '@/lib/seo/config';
+
+export const metadata: Metadata = {
+  title: pageDefaults.privacy.title,
+  description: pageDefaults.privacy.description,
+  keywords: pageDefaults.privacy.keywords,
+  openGraph: {
+    title: pageDefaults.privacy.title,
+    description: pageDefaults.privacy.description,
+    url: `${seoConfig.siteUrl}/privacy`,
+    siteName: seoConfig.siteName,
+    images: [
+      {
+        url: `${seoConfig.siteUrl}${seoConfig.defaultImage}`,
+        width: 1200,
+        height: 630,
+        alt: '모카데브 개인정보 처리방침',
+      },
+    ],
+    locale: seoConfig.locale,
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: pageDefaults.privacy.title,
+    description: pageDefaults.privacy.description,
+  },
+  alternates: {
+    canonical: `${seoConfig.siteUrl}/privacy`,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 export default function PrivacyPage() {
   return (
