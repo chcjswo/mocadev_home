@@ -216,6 +216,55 @@ export function AppDetailPage({ app }: AppDetailPageProps) {
           </section>
         )}
 
+        {app.slug === 'baby-med-diary' && (
+          <section>
+            <p className="text-sm font-semibold text-gray-500">앱 소개</p>
+            <h2 className="mb-6 text-2xl font-bold text-gray-900">우리아기 투약일기를 만나보세요</h2>
+            <div className="space-y-6">
+              <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-4 shadow-lg">
+                <Image
+                  src="/images/apps/babycarediary/0008c61d.png"
+                  alt="우리아기 투약일기 앱 소개 이미지"
+                  width={1200}
+                  height={800}
+                  className="h-auto w-full rounded-2xl object-contain"
+                  priority={false}
+                />
+              </div>
+              <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-gray-50 to-white p-8">
+                <h3 className="text-xl font-bold text-gray-900">이런 분에게 딱 맞습니다</h3>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex items-start">
+                    <span className="mr-2 text-emerald-600">✓</span>
+                    <span>영유아 자녀를 둔 부모, 보호자, 조부모</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-emerald-600">✓</span>
+                    <span>어린이집/유치원에 보내기 전 집에서 투약 상태를 관리하고 싶은 보호자</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-emerald-600">✓</span>
+                    <span>병원 진료 시 "언제 어떤 약을 얼마나 먹였는지"를 쉽게 보여주고 싶은 보호자</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-emerald-600">✓</span>
+                    <span>형제/자매가 여러 명일 때 아기별로 분리된 타임라인 관리가 필요한 보호자</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-white to-gray-50 p-8">
+                <h3 className="text-xl font-bold text-gray-900">앱이 주는 경험</h3>
+                <p className="text-gray-700">
+                  "어제 저녁에 먹였나?" 같은 기억 의존을 줄이고, 기록 기반으로 투약을 관리할 수 있습니다. 투약 기록 추가는 10초 안에 완료할 수 있도록 단순화했고, 월/주/일 캘린더 뷰로 투약 현황을 한눈에 파악할 수 있습니다.
+                </p>
+                <p className="mt-4 text-gray-700">
+                  하루 최대 3번의 스마트 알림으로 투약 시간을 놓치지 않도록 도와주며, 병원 방문 시 의사에게 정확한 투약 기록을 보여줄 수 있습니다. 모든 데이터는 디바이스 로컬에 저장되어 개인정보가 안전하게 보호됩니다.
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
+
         {app.messageExamples && (
           <section>
             <p className="text-sm font-semibold text-gray-500">메시지 예시</p>

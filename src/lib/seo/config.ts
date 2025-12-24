@@ -51,6 +51,11 @@ export const pageDefaults = {
       description:
         '등록한 식당 목록을 기반으로 요일·시간대별 푸시 알림을 보내주는 스마트 점심 추천 탁상비서.',
     },
+    'baby-med-diary': {
+      title: '우리아기 투약일기 – 아기 투약 기록과 알림',
+      description:
+        '아기에게 약을 언제, 얼마나 먹였는지 정확하게 기록하고, 투약 시간을 놓치지 않도록 알림을 제공하는 모바일 앱.',
+    },
   },
 } as const;
 
