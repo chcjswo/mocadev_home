@@ -14,4 +14,3 @@ export function FirebaseAnalytics() {
 
   return null;
 }
-
