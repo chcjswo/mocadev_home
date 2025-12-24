@@ -26,7 +26,7 @@ export const apps: AppContent[] = [
       },
       {
         platform: 'android',
-        url: 'https://play.google.com/store/apps/details?id=com.mocadev.bapjeongne',
+        url: 'https://play.google.com/store/apps/details?id=com.mocadev.bobjeongneo',
         label: 'Google Play',
         badge: 'Android 다운로드',
       },
