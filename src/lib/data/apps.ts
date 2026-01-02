@@ -240,7 +240,7 @@ export const apps: AppContent[] = [
       },
       {
         platform: 'android',
-        url: 'https://play.google.com/store/apps/details?id=com.mocadev.lunchpicker',
+        url: 'https://play.google.com/store/apps/details?id=com.mocadev.lunchpick&pli=1',
         label: 'Google Play',
         badge: 'Android 다운로드',
       },
