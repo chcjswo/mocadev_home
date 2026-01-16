@@ -375,7 +375,7 @@ export const apps: AppContent[] = [
       },
       {
         platform: 'android',
-        url: '',
+        url: 'https://play.google.com/store/apps/details?id=com.mocadev.babymeddiary',
         label: 'Google Play',
         badge: 'Android 다운로드',
       },
