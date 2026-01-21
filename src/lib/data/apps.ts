@@ -369,7 +369,7 @@ export const apps: AppContent[] = [
     storeLinks: [
       {
         platform: 'ios',
-        url: '',
+        url: 'https://apps.apple.com/kr/app/%EC%9A%B0%EB%A6%AC%EC%95%84%EA%B8%B0-%ED%88%AC%EC%95%BD%EC%9D%BC%EA%B8%B0/id6756885629',
         label: 'App Store',
         badge: 'iOS 다운로드',
       },
