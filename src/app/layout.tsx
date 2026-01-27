@@ -1,11 +1,16 @@
 import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 import { structuredDataTemplates } from '@/lib/seo/config';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SiteFooter } from '@/components/layout/SiteFooter';
-import { FirebaseAnalytics } from '@/components/analytics/FirebaseAnalytics';
+
+const FirebaseAnalytics = dynamic(
+  () => import('@/components/analytics/FirebaseAnalytics').then((m) => ({ default: m.FirebaseAnalytics })),
+  { ssr: false }
+);
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
