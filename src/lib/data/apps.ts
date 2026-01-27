@@ -508,7 +508,7 @@ export const apps: AppContent[] = [
     tagline: '귀여운 고양이와 함께 날씨를 확인하세요!',
     description:
       '날씨마다 다른 모습으로 변신하는 귀여운 고양이가 오늘의 날씨를 알려드립니다. 맑은 날엔 선글라스를 끼고, 비오는 날엔 우산을 들고, 추운 날엔 목도리를 두른 고양이가 여러분을 맞이합니다!',
-    heroImage: '/images/apps/cat-weather/icons/icon.png',
+    heroImage: '/images/apps/catweather/icons/icon.jpg',
     theme: {
       accent: '#f59e0b',
       gradientFrom: '#fef3c7',
@@ -563,7 +563,28 @@ export const apps: AppContent[] = [
         description: '감기·세차·나들이 지수를 참고하고, 필요한 날씨 알림을 설정해 두세요.',
       },
     ],
-    screenshots: [],
+    screenshots: [
+      {
+        src: '/images/apps/catweather/screenshot/00dVEG3c.jpg',
+        alt: '날씨다냥 메인',
+        caption: '날씨에 따라 변신하는 귀여운 고양이와 오늘의 날씨',
+      },
+      {
+        src: '/images/apps/catweather/screenshot/6cznDbzH.jpg',
+        alt: '10일 예보',
+        caption: '향후 10일간 상세 날씨 예보와 친절한 메시지',
+      },
+      {
+        src: '/images/apps/catweather/screenshot/kC0bBbvP.jpg',
+        alt: '도시별 날씨',
+        caption: '전세계 도시 날씨와 즐겨찾기',
+      },
+      {
+        src: '/images/apps/catweather/screenshot/p4hJ3GBb.jpg',
+        alt: '상세 날씨 정보',
+        caption: '생활 기상 지수와 상세 날씨 정보',
+      },
+    ],
     qna: [
       {
         question: '과거 날씨도 볼 수 있나요?',
