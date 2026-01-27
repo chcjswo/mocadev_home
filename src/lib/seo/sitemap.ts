@@ -7,6 +7,8 @@ const staticPages = [
   { url: '/apps/bapjeongne', priority: 0.8, changeFrequency: 'monthly' as const },
   { url: '/apps/fortune-cookie', priority: 0.8, changeFrequency: 'monthly' as const },
   { url: '/apps/lunch-picker', priority: 0.8, changeFrequency: 'monthly' as const },
+  { url: '/apps/baby-med-diary', priority: 0.8, changeFrequency: 'monthly' as const },
+  { url: '/apps/cat-weather', priority: 0.8, changeFrequency: 'monthly' as const },
   { url: '/privacy', priority: 0.6, changeFrequency: 'yearly' as const },
 ];
 
