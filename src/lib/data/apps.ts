@@ -525,9 +525,9 @@ export const apps: AppContent[] = [
         icon: '🐱',
       },
       {
-        title: '10일 예보 & 시간별 예보',
+        title: '7일 예보 & 시간별 예보',
         description:
-          '향후 10일간 상세 예보와 24시간 시간별 날씨 변화를 한눈에. 최고/최저 온도, 강수 확률과 "우산 챙기세요!" 같은 친절한 메시지를 제공합니다.',
+          '향후 7일간 상세 예보와 24시간 시간별 날씨 변화를 한눈에. 최고/최저 온도, 강수 확률과 "우산 챙기세요!" 같은 친절한 메시지를 제공합니다.',
         icon: '📅',
       },
       {
@@ -556,7 +556,7 @@ export const apps: AppContent[] = [
       },
       {
         title: '2. 오늘의 날씨 고양이 확인',
-        description: '날씨에 따라 변신한 귀여운 고양이와 한마디를 보고, 10일 예보·시간별 예보를 확인합니다.',
+        description: '날씨에 따라 변신한 귀여운 고양이와 한마디를 보고, 7일 예보·시간별 예보를 확인합니다.',
       },
       {
         title: '3. 생활 지수 & 알림 활용',
@@ -571,8 +571,8 @@ export const apps: AppContent[] = [
       },
       {
         src: '/images/apps/catweather/screenshot/6cznDbzH.jpg',
-        alt: '10일 예보',
-        caption: '향후 10일간 상세 날씨 예보와 친절한 메시지',
+        alt: '7일 예보',
+        caption: '향후 7일간 상세 날씨 예보와 친절한 메시지',
       },
       {
         src: '/images/apps/catweather/screenshot/kC0bBbvP.jpg',
