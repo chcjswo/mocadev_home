@@ -71,6 +71,7 @@ export function ScreenshotCarousel({ screenshots, accentColor }: ScreenshotCarou
                     alt={screenshot.alt}
                     width={360}
                     height={240}
+                    sizes="(min-width: 768px) 360px, 100vw"
                     className="h-auto w-full rounded-2xl object-cover"
                     priority={isActive}
                   />

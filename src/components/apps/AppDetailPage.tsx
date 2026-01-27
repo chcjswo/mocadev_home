@@ -36,6 +36,7 @@ export function AppDetailPage({ app }: AppDetailPageProps) {
                 alt={`${app.name} 대표 이미지`}
                 width={900}
                 height={600}
+                sizes="(min-width: 768px) 50vw, 100vw"
                 className="h-auto w-full rounded-2xl object-cover"
                 priority
               />
@@ -126,6 +127,7 @@ export function AppDetailPage({ app }: AppDetailPageProps) {
                   alt="밥정너 앱 소개 이미지"
                   width={1200}
                   height={800}
+                  sizes="(min-width: 1280px) 1152px, 100vw"
                   className="h-auto w-full rounded-2xl object-contain"
                   priority={false}
                 />
@@ -178,6 +180,7 @@ export function AppDetailPage({ app }: AppDetailPageProps) {
                   alt="점심 뭐 먹지 앱 소개 이미지"
                   width={1200}
                   height={800}
+                  sizes="(min-width: 1280px) 1152px, 100vw"
                   className="h-auto w-full rounded-2xl object-contain"
                   priority={false}
                 />
@@ -227,6 +230,7 @@ export function AppDetailPage({ app }: AppDetailPageProps) {
                   alt="날씨다냥 앱 소개 이미지"
                   width={1200}
                   height={800}
+                  sizes="(min-width: 1280px) 1152px, 100vw"
                   className="h-auto w-full rounded-2xl object-contain"
                   priority={false}
                 />
@@ -305,6 +309,7 @@ export function AppDetailPage({ app }: AppDetailPageProps) {
                   alt="우리아기 투약일기 앱 소개 이미지"
                   width={1200}
                   height={800}
+                  sizes="(min-width: 1280px) 1152px, 100vw"
                   className="h-auto w-full rounded-2xl object-contain"
                   priority={false}
                 />
