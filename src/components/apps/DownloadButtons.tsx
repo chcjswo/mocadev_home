@@ -19,7 +19,7 @@ export function DownloadButtons({ links }: DownloadButtonsProps) {
           <Link
             href={link.url}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             aria-label={`${link.label} 바로가기`}
           >
             {link.badge}

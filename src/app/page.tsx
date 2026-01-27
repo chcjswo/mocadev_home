@@ -178,6 +178,7 @@ export default function Home() {
               <Link
                 href="https://github.com/mocadev"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="rounded-full border border-white/50 px-5 py-3"
               >
                 GitHub 살펴보기
