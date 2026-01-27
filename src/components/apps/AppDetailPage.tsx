@@ -216,6 +216,84 @@ export function AppDetailPage({ app }: AppDetailPageProps) {
           </section>
         )}
 
+        {app.slug === 'cat-weather' && (
+          <section>
+            <p className="text-sm font-semibold text-gray-500">앱 소개</p>
+            <h2 className="mb-6 text-2xl font-bold text-gray-900">날씨다냥을 만나보세요</h2>
+            <div className="space-y-6">
+              <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-4 shadow-lg">
+                <Image
+                  src="/images/apps/catweather/screenshot/00dVEG3c.jpg"
+                  alt="날씨다냥 앱 소개 이미지"
+                  width={1200}
+                  height={800}
+                  className="h-auto w-full rounded-2xl object-contain"
+                  priority={false}
+                />
+              </div>
+              <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-gray-50 to-white p-8">
+                <h3 className="text-xl font-bold text-gray-900">이런 분들께 추천합니다</h3>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex items-start">
+                    <span className="mr-2 text-amber-600">✓</span>
+                    <span>귀여운 캐릭터를 좋아하시는 분</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-amber-600">✓</span>
+                    <span>고양이를 사랑하는 집사님들</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-amber-600">✓</span>
+                    <span>날씨 확인을 즐겁게 하고 싶으신 분</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-amber-600">✓</span>
+                    <span>아이들과 함께 날씨를 배우고 싶으신 부모님</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-amber-600">✓</span>
+                    <span>감성적이고 따뜻한 앱을 선호하시는 분</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-white to-gray-50 p-8">
+                <h3 className="text-xl font-bold text-gray-900">주요 특징</h3>
+                <ul className="space-y-2 text-gray-700">
+                  <li className="flex items-start">
+                    <span className="mr-2 text-amber-600">·</span>
+                    <span>직관적이고 사용하기 쉬운 인터페이스</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-amber-600">·</span>
+                    <span>귀여운 일러스트와 부드러운 애니메이션</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-amber-600">·</span>
+                    <span>오프라인에서도 마지막 날씨 정보 확인 가능</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-amber-600">·</span>
+                    <span>가볍고 빠른 앱 실행 속도</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2 text-amber-600">·</span>
+                    <span>배터리 효율적인 설계</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-amber-50/50 to-white p-8">
+                <h3 className="text-xl font-bold text-gray-900">개발자 메시지</h3>
+                <p className="text-gray-700">
+                  고양이 날씨는 날씨 확인을 더 즐겁고 귀여운 경험으로 만들기 위해 탄생했습니다. 매일 확인하는 날씨 앱, 이왕이면 기분 좋게 확인하세요! 귀여운 고양이들이 여러분의 하루를 응원합니다.
+                </p>
+                <p className="text-gray-700">
+                  지속적인 업데이트로 더 많은 기능과 더 귀여운 고양이를 추가해나갈 예정입니다. 여러분의 피드백을 기다립니다!
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
+
         {app.slug === 'baby-med-diary' && (
           <section>
             <p className="text-sm font-semibold text-gray-500">앱 소개</p>
@@ -267,8 +345,12 @@ export function AppDetailPage({ app }: AppDetailPageProps) {
 
         {app.messageExamples && (
           <section>
-            <p className="text-sm font-semibold text-gray-500">메시지 예시</p>
-            <h2 className="mb-6 text-2xl font-bold text-gray-900">오늘 받을 수 있는 문장</h2>
+            <p className="text-sm font-semibold text-gray-500">
+              {app.slug === 'cat-weather' ? '고양이의 한마디' : '메시지 예시'}
+            </p>
+            <h2 className="mb-6 text-2xl font-bold text-gray-900">
+              {app.slug === 'cat-weather' ? '날씨마다 고양이가 건네는 귀여운 한마디' : '오늘 받을 수 있는 문장'}
+            </h2>
             <div className="grid gap-4 md:grid-cols-2">
               {app.messageExamples.map((message) => (
                 <Card
