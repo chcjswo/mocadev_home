@@ -47,7 +47,7 @@ export interface AppTestimonial {
 }
 
 export interface AppContent {
-  slug: 'bapjeongne' | 'fortune-cookie' | 'lunch-picker' | 'baby-med-diary';
+  slug: 'bapjeongne' | 'fortune-cookie' | 'lunch-picker' | 'baby-med-diary' | 'cat-weather';
   name: string;
   tagline: string;
   description: string;
