@@ -226,8 +226,8 @@ export function AppDetailPage({ app }: AppDetailPageProps) {
             <div className="space-y-6">
               <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-4 shadow-lg">
                 <Image
-                  src="/images/apps/catweather/screenshot/00dVEG3c.jpg"
-                  alt="날씨다냥 앱 소개 이미지"
+                  src="/images/apps/cat-weather/catweather.jpg"
+                  alt="고양이 날씨 앱 소개 배너 - 날씨별 귀여운 고양이 일러스트"
                   width={1200}
                   height={800}
                   sizes="(min-width: 1280px) 1152px, 100vw"

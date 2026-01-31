@@ -508,7 +508,7 @@ export const apps: AppContent[] = [
     tagline: '귀여운 고양이와 함께 날씨를 확인하세요!',
     description:
       '날씨마다 다른 모습으로 변신하는 귀여운 고양이가 오늘의 날씨를 알려드립니다. 맑은 날엔 선글라스를 끼고, 비오는 날엔 우산을 들고, 추운 날엔 목도리를 두른 고양이가 여러분을 맞이합니다!',
-    heroImage: '/images/apps/catweather/icons/icon.jpg',
+    heroImage: '/images/apps/cat-weather/catweather.jpg',
     theme: {
       accent: '#f59e0b',
       gradientFrom: '#fef3c7',
