@@ -516,7 +516,20 @@ export const apps: AppContent[] = [
     },
     icon: '🐱',
     tags: ['날씨', '고양이', '일기예보', 'iOS/Android'],
-    storeLinks: [],
+    storeLinks: [
+      {
+        platform: 'ios',
+        url: 'https://apps.apple.com/kr/app/%EB%82%A0%EC%94%A8%EB%8B%A4%EB%83%A5/id6758456802',
+        label: 'App Store',
+        badge: 'iOS 다운로드',
+      },
+      {
+        platform: 'android',
+        url: 'https://play.google.com/store/apps/details?id=com.mocadev.catweather',
+        label: 'Google Play',
+        badge: 'Android 다운로드',
+      },
+    ],
     features: [
       {
         title: '9가지 날씨 고양이',
