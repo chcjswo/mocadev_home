@@ -565,22 +565,22 @@ export const apps: AppContent[] = [
     ],
     screenshots: [
       {
-        src: '/images/apps/catweather/screenshot/00dVEG3c.jpg',
+        src: '/images/apps/cat-weather/screenshot/preview-1.png',
         alt: '날씨다냥 메인',
         caption: '날씨에 따라 변신하는 귀여운 고양이와 오늘의 날씨',
       },
       {
-        src: '/images/apps/catweather/screenshot/6cznDbzH.jpg',
+        src: '/images/apps/cat-weather/screenshot/preview-2.png',
         alt: '7일 예보',
         caption: '향후 7일간 상세 날씨 예보와 친절한 메시지',
       },
       {
-        src: '/images/apps/catweather/screenshot/kC0bBbvP.jpg',
+        src: '/images/apps/cat-weather/screenshot/preview-3.png',
         alt: '도시별 날씨',
         caption: '전세계 도시 날씨와 즐겨찾기',
       },
       {
-        src: '/images/apps/catweather/screenshot/p4hJ3GBb.jpg',
+        src: '/images/apps/cat-weather/screenshot/preview-4.png',
         alt: '상세 날씨 정보',
         caption: '생활 기상 지수와 상세 날씨 정보',
       },
