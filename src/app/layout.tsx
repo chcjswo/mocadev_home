@@ -1,16 +1,11 @@
 import type { Metadata } from 'next';
-import dynamic from 'next/dynamic';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 import { structuredDataTemplates } from '@/lib/seo/config';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SiteFooter } from '@/components/layout/SiteFooter';
-
-const FirebaseAnalytics = dynamic(
-  () => import('@/components/analytics/FirebaseAnalytics').then((m) => ({ default: m.FirebaseAnalytics })),
-  { ssr: false }
-);
+import { FirebaseAnalyticsClient } from '@/components/analytics/FirebaseAnalyticsClient';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -66,7 +61,7 @@ export default function RootLayout({
           <SiteFooter />
         </div>
         <Analytics />
-        <FirebaseAnalytics />
+        <FirebaseAnalyticsClient />
       </body>
     </html>
   );
