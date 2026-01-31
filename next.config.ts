@@ -1,8 +1,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  // Vercel 빌드 안정화: Next 16 기본 Turbopack 대신 package.json build 스크립트에서 --webpack 사용
-  eslint: { ignoreDuringBuilds: true },
+  // Next.js 16: eslint 옵션은 next.config에서 제거됨. 빌드 시 ESLint 스킵은 터미널에서 next build --no-lint 또는 환경변수 사용
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },
