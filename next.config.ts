@@ -1,7 +1,9 @@
 import type { NextConfig } from 'next';
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
-  // Next.js 16: eslint 옵션은 next.config에서 제거됨. 빌드 시 ESLint 스킵은 터미널에서 next build --no-lint 또는 환경변수 사용
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },
@@ -12,4 +14,4 @@ const nextConfig: NextConfig = {
   compress: true,
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);
