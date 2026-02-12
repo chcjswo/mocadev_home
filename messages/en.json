@@ -108,7 +108,8 @@
     "privacy": {
       "title": "MokaDev Privacy Policy",
       "description": "Privacy policy applicable to MokaDev's apps: Bapjeongne, Fortune Cookie, and Lunch Picker.",
-      "keywords": "MokaDev privacy policy, privacy protection, terms"
+      "keywords": "MokaDev privacy policy, privacy protection, terms",
+      "ogImageAlt": "MokaDev Privacy Policy"
     },
     "apps": {
       "bapjeongne": {
