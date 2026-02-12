@@ -1,399 +1,399 @@
 {
   "metadata": {
-    "siteTitle": "모카데브 – 개인 앱 개발자",
-    "siteDescription": "랜덤 식당 추천부터 포춘쿠키 메시지까지. 모카데브가 직접 설계하고 운영하는 생활형 앱 컬렉션을 만나보세요.",
-    "titleTemplate": "%s | 모카데브"
+    "siteTitle": "MokaDev – Indie App Developer",
+    "siteDescription": "From random restaurant picks to fortune cookie messages. Explore MokaDev's collection of lifestyle apps, designed and operated by a solo developer.",
+    "titleTemplate": "%s | MokaDev"
   },
   "nav": {
     "apps": "Apps",
-    "team": "만든 사람들",
-    "contact": "문의하기",
-    "contactShort": "문의",
-    "contactAriaLabel": "이메일로 문의하기"
+    "team": "Team",
+    "contact": "Contact",
+    "contactShort": "Contact",
+    "contactAriaLabel": "Contact via email"
   },
   "footer": {
-    "tagline": "생활을 바꾸는 작은 실험실"
+    "tagline": "A small lab that changes everyday life"
   },
   "home": {
     "hero": {
-      "title1": "개인이 만든",
-      "title2": "생활형 모바일 실험실",
-      "description": "랜덤 식당 추천, 포춘 메시지, 스케줄 기반 점심 관리까지. 작은 문제를 날카롭게 정의하고 앱으로 해결하는 개인 개발자 모카데브의 작업실입니다.",
-      "principlesTitle": "모카데브의 제작 원칙",
-      "principle1": "문제 정의와 데이터 수집을 먼저 끝낸다.",
-      "principle2": "사용성 테스트 결과를 주 1회 이상 반영한다.",
-      "principle3": "개인정보는 기능에 필요한 최소 범위만 수집한다.",
-      "browseApps": "앱 살펴보기"
+      "title1": "A Personal",
+      "title2": "Mobile App Laboratory",
+      "description": "From random restaurant picks to fortune messages and schedule-based lunch management. A solo developer's workshop where small problems are sharply defined and solved through apps.",
+      "principlesTitle": "MokaDev's Principles",
+      "principle1": "Define the problem and collect data first.",
+      "principle2": "Incorporate usability test results at least once a week.",
+      "principle3": "Collect only the minimum personal data required for features.",
+      "browseApps": "Browse Apps"
     },
     "appsSection": {
-      "title": "모카데브가 만든 앱들",
-      "description": "각 카드에서 상세 페이지로 이동해 스크린샷과 다운로드 링크를 확인하세요."
+      "title": "Apps by MokaDev",
+      "description": "Tap each card to view screenshots and download links on the detail page."
     },
     "about": {
-      "title": "작은 문제를 발견하는 능력",
-      "description": "사용자 인터뷰를 통해 점심 의사결정과 감정 케어라는 두 가지 문제를 발견했고, 이를 해결하기 위한 실험을 계속하고 있습니다. 앱 하나하나에는 모카데브의 디자인 시스템과 데이터 파이프라인이 녹아 있습니다.",
-      "workflowDescription": "아이디어 → 프로토타입 → 커뮤니티 피드백 → 데이터 계측 → 제품화 순으로 반복하며, 각 단계별로 Notion/Linear를 통해 기록을 남깁니다.",
+      "title": "The Ability to Spot Small Problems",
+      "description": "Through user interviews, we discovered two key problems—lunch decision-making and emotional care—and continue experimenting to solve them. Each app embodies MokaDev's design system and data pipeline.",
+      "workflowDescription": "We iterate through Idea → Prototype → Community Feedback → Data Instrumentation → Productization, documenting each stage via Notion/Linear.",
       "stackDescription": "Next.js, React Native, Expo, Firebase, Supabase, Vercel, Cloudflare, GA4, FCM, RevenueCat.",
-      "contactDescription": "사이드 프로젝트 협업 혹은 강연 요청은 <email>mocadev.tony@gmail.com</email>으로 편하게 보내주세요."
+      "contactDescription": "For side project collaboration or speaking requests, feel free to reach out at <email>mocadev.tony@gmail.com</email>."
     },
     "cta": {
-      "title": "다음 실험에 함께하고 싶다면",
-      "description": "새로운 아이디어 제안, 강연, 인터뷰 요청을 기다리고 있어요.",
-      "emailButton": "이메일 보내기",
-      "githubButton": "GitHub 살펴보기"
+      "title": "Want to Join the Next Experiment?",
+      "description": "We're looking forward to new ideas, speaking invitations, and interview requests.",
+      "emailButton": "Send Email",
+      "githubButton": "View GitHub"
     }
   },
   "appCard": {
-    "viewDetails": "자세히 보기"
+    "viewDetails": "View Details"
   },
   "appDetail": {
-    "problemTitle": "해결하고 싶은 문제",
-    "solutionTitle": "모카데브의 접근",
-    "featuresSubtitle": "핵심 기능",
-    "featuresTitle": "앱을 특별하게 만드는 요소",
-    "usageSubtitle": "사용 플로우",
-    "usageTitle": "등록부터 활용까지 3단계",
-    "screenshotsSubtitle": "스크린샷",
-    "screenshotsTitle": "앱 화면 미리보기",
-    "appIntroSubtitle": "앱 소개",
-    "messageExamplesSubtitle": "메시지 예시",
-    "messageExamplesTitle": "오늘 받을 수 있는 문장",
-    "catMessageSubtitle": "고양이의 한마디",
-    "catMessageTitle": "날씨마다 고양이가 건네는 귀여운 한마디",
-    "testimonialsSubtitle": "사용자 후기",
-    "testimonialsTitle": "팀과 개인이 이렇게 활용하고 있어요",
+    "problemTitle": "The Problem We Want to Solve",
+    "solutionTitle": "MokaDev's Approach",
+    "featuresSubtitle": "Key Features",
+    "featuresTitle": "What Makes This App Special",
+    "usageSubtitle": "Usage Flow",
+    "usageTitle": "3 Steps from Setup to Use",
+    "screenshotsSubtitle": "Screenshots",
+    "screenshotsTitle": "App Screen Preview",
+    "appIntroSubtitle": "App Introduction",
+    "messageExamplesSubtitle": "Message Examples",
+    "messageExamplesTitle": "Sentences You Could Receive Today",
+    "catMessageSubtitle": "Cat Says",
+    "catMessageTitle": "Cute Messages from the Cat for Every Weather",
+    "testimonialsSubtitle": "User Reviews",
+    "testimonialsTitle": "How Teams and Individuals Use It",
     "qnaSubtitle": "Q&A",
-    "qnaTitle": "자주 묻는 질문",
-    "updatesSubtitle": "업데이트 로그",
-    "updatesTitle": "꾸준히 진화하는 제품",
-    "updateBadge": "업데이트",
-    "heroImageAlt": "{appName} 대표 이미지",
-    "storeAriaLabel": "{label} 바로가기"
+    "qnaTitle": "Frequently Asked Questions",
+    "updatesSubtitle": "Update Log",
+    "updatesTitle": "A Product That Keeps Evolving",
+    "updateBadge": "Update",
+    "heroImageAlt": "{appName} hero image",
+    "storeAriaLabel": "Go to {label}"
   },
   "carousel": {
-    "prevAriaLabel": "이전 스크린샷",
-    "nextAriaLabel": "다음 스크린샷",
-    "dotAriaLabel": "{index}번째 스크린샷 보기"
+    "prevAriaLabel": "Previous screenshot",
+    "nextAriaLabel": "Next screenshot",
+    "dotAriaLabel": "View screenshot {index}"
   },
   "team": {
-    "title": "만든 사람들",
-    "subtitle": "작은 문제를 발견하고 앱으로 해결하는 모카데브 팀을 소개합니다.",
-    "profileAlt": "{name} 프로필",
-    "ogImageAlt": "모카데브 팀",
+    "title": "The Team",
+    "subtitle": "Meet the MokaDev team—discovering small problems and solving them with apps.",
+    "profileAlt": "{name} profile",
+    "ogImageAlt": "MokaDev Team",
     "members": {
       "0": {
-        "name": "동대문사단",
-        "roles": ["개발", "기획"],
-        "description": "앱의 핵심 기능을 개발하고 서비스 기획을 담당합니다."
+        "name": "Dongdaemun Squad",
+        "roles": ["Development", "Planning"],
+        "description": "Develops core app features and handles service planning."
       },
       "1": {
-        "name": "맹꽁이",
-        "roles": ["기획", "디자인", "홍보"],
-        "description": "사용자 경험을 고려한 기획과 디자인, 그리고 서비스 홍보를 맡고 있습니다."
+        "name": "Maengkkongi",
+        "roles": ["Planning", "Design", "Marketing"],
+        "description": "Handles UX-focused planning, design, and service marketing."
       }
     }
   },
   "seo": {
     "home": {
-      "title": "모카데브 – 생활을 바꾸는 3개의 실험적인 앱",
-      "description": "랜덤 식당 추천부터 포춘 메시지까지. 모카데브가 만든 모바일 앱과 제작 과정을 한 번에 살펴보세요.",
-      "keywords": "모카데브, 개인 개발자, 포트폴리오, 앱 다운로드, 모바일 서비스",
-      "ogImageAlt": "모카데브 홈"
+      "title": "MokaDev – 3 Experimental Apps That Change Everyday Life",
+      "description": "From random restaurant picks to fortune messages. Explore MokaDev's mobile apps and their creation process in one place.",
+      "keywords": "MokaDev, indie developer, portfolio, app download, mobile service",
+      "ogImageAlt": "MokaDev Home"
     },
     "team": {
-      "title": "만든 사람들",
-      "description": "모카데브 앱을 함께 만드는 팀원들을 소개합니다.",
-      "keywords": "모카데브 팀, 개발자, 기획자, 디자이너"
+      "title": "The Team",
+      "description": "Meet the team members who build MokaDev apps together.",
+      "keywords": "MokaDev team, developer, planner, designer"
     },
     "privacy": {
-      "title": "모카데브 개인정보 처리방침",
-      "description": "모카데브가 서비스하는 밥정너, 포춘쿠키, 점심 뭐 먹지 앱에 적용되는 개인정보 처리방침입니다.",
-      "keywords": "모카데브 개인정보 처리방침, 개인정보 보호, 약관"
+      "title": "MokaDev Privacy Policy",
+      "description": "Privacy policy applicable to MokaDev's apps: Bapjeongne, Fortune Cookie, and Lunch Picker.",
+      "keywords": "MokaDev privacy policy, privacy protection, terms"
     },
     "apps": {
       "bapjeongne": {
-        "title": "밥정너 – 주변 맛집 랜덤 추천",
-        "description": "주변 식당을 식사 취향에 맞춰 랜덤 추천해주는 모카데브의 대표 앱. 3분 안에 점심 고민 끝."
+        "title": "Bapjeongne – Random Nearby Restaurant Picks",
+        "description": "MokaDev's flagship app that randomly recommends nearby restaurants based on your dining preferences. Lunch decision done in 3 minutes."
       },
       "fortune-cookie": {
-        "title": "포춘쿠키 – 오늘의 메시지",
-        "description": "포춘쿠키를 클릭해 오늘의 운세와 메시지를 받아보세요. 하루를 가볍게 시작하는 감성 앱."
+        "title": "Fortune Cookie – Today's Message",
+        "description": "Tap a fortune cookie to receive today's fortune and message. A feel-good app to start your day lightly."
       },
       "lunch-picker": {
-        "title": "점심 뭐 먹지 – 스케줄 기반 랜덤 추천",
-        "description": "등록한 식당 목록을 기반으로 요일·시간대별 푸시 알림을 보내주는 스마트 점심 추천 탁상비서."
+        "title": "Lunch Picker – Schedule-Based Random Recommendations",
+        "description": "A smart lunch recommendation desk assistant that sends push notifications by day and time based on your saved restaurant list."
       },
       "baby-med-diary": {
-        "title": "우리아기 투약일기 – 아기 투약 기록과 알림",
-        "description": "아기에게 약을 언제, 얼마나 먹였는지 정확하게 기록하고, 투약 시간을 놓치지 않도록 알림을 제공하는 모바일 앱."
+        "title": "Baby Med Diary – Baby Medication Tracking & Reminders",
+        "description": "A mobile app that accurately records when, how much medication your baby took, and provides reminders to never miss a dose."
       },
       "cat-weather": {
-        "title": "날씨다냥 – 귀여운 고양이와 함께하는 날씨 앱",
-        "description": "날씨마다 변신하는 귀여운 고양이와 함께 오늘의 날씨를 확인하세요. 9가지 날씨 고양이, 7일 예보, 생활 기상 지수까지."
+        "title": "Cat Weather – A Cute Cat Weather App",
+        "description": "Check today's weather with adorable cats that transform for every weather condition. 9 weather cats, 7-day forecast, and lifestyle indices."
       }
     }
   },
   "apps": {
     "bapjeongne": {
-      "name": "밥정너",
-      "tagline": "당신의 점심 고민을 대신 해결하는 한 끼 큐레이터",
-      "description": "밥정너는 \"오늘 뭐 먹지?\" 하는 머릿속 회오리를 잠재우고, 가까운 식당 중 하나를 깔끔하게 추천해주는 점심 조력자다. 지도 위에 톡, 위치를 찍으면 반경 안의 모든 식당을 탐색하고, 짧은 카운트다운과 함께 하나의 선택지를 제시한다. 결정 과정은 가볍게, 한 끼는 풍성하게.",
-      "tags": ["랜덤 추천", "위치 기반", "iOS/Android"],
+      "name": "Bapjeongne",
+      "tagline": "Your personal lunch curator that solves the daily food dilemma",
+      "description": "Bapjeongne quiets the mental whirlwind of \"What should I eat today?\" and cleanly recommends one restaurant nearby. Tap your location on the map, and it scans all restaurants within your radius, presenting a single choice with a short countdown. The decision process stays light; the meal stays satisfying.",
+      "tags": ["Random Pick", "Location-Based", "iOS/Android"],
       "storeLinks": {
-        "0": { "label": "App Store", "badge": "iOS 다운로드" },
-        "1": { "label": "Google Play", "badge": "Android 다운로드" }
+        "0": { "label": "App Store", "badge": "Download on iOS" },
+        "1": { "label": "Google Play", "badge": "Download on Android" }
       },
       "features": {
-        "0": { "title": "위치 기반 스마트 식당 추천", "description": "지도에서 내 위치를 선택하면, 설정한 반경(500m–3000m) 안에서 식당을 빠르게 찾아준다. 카운트다운이 끝나는 순간, 오늘의 점심 후보가 화면에 등장한다." },
-        "1": { "title": "직관적인 지도 뷰", "description": "추천된 식당은 지도로 바로 확인할 수 있다. 현재 내 위치와 식당 위치가 함께 표시되어 길 찾기까지 한눈에 해결된다." },
-        "2": { "title": "오늘의 선택을 기록하는 방문 통계", "description": "한 달 동안 방문한 식당의 수, 재방문 비율 등을 자동으로 정리해 보여준다. 자주 가는 곳, 새로 찾은 곳들이 작고 단단한 데이터로 남아 당신의 식사 취향을 보여준다." }
+        "0": { "title": "Location-Based Smart Restaurant Picks", "description": "Select your location on the map, and it quickly finds restaurants within your set radius (500m–3000m). The moment the countdown ends, today's lunch candidate appears on screen." },
+        "1": { "title": "Intuitive Map View", "description": "Recommended restaurants can be verified on the map instantly. Your current location and the restaurant are displayed together, solving navigation at a glance." },
+        "2": { "title": "Visit Statistics That Record Your Choices", "description": "Automatically organizes the number of restaurants visited in a month, revisit rates, and more. Frequented spots and new discoveries become small, solid data points that reveal your dining preferences." }
       },
       "usage": {
-        "0": { "title": "1. 지도에서 위치 선택 & 검색 반경 설정", "description": "지도에서 내 위치를 선택하고, 원하는 반경(500m–3000m)을 설정한다." },
-        "1": { "title": "2. 3초 카운트다운 → 랜덤 추천", "description": "짧은 카운트다운과 함께 반경 안의 식당 중 하나를 깔끔하게 추천한다." },
-        "2": { "title": "3. 식당 정보 & 방문 통계 확인", "description": "추천된 식당의 정보를 확인하고, 지도로 위치를 바로 확인할 수 있다. 방문 통계도 함께 확인해보자." }
+        "0": { "title": "1. Select Location & Set Search Radius", "description": "Choose your location on the map and set your desired radius (500m–3000m)." },
+        "1": { "title": "2. 3-Second Countdown → Random Pick", "description": "With a short countdown, the app cleanly recommends one restaurant within your radius." },
+        "2": { "title": "3. View Restaurant Info & Visit Stats", "description": "Check the recommended restaurant's info and verify its location on the map. Review your visit statistics too." }
       },
       "screenshots": {
-        "0": { "alt": "식당 추천 화면", "caption": "조건에 맞는 식당을 3곳 제안합니다." },
-        "1": { "alt": "필터 설정 화면", "caption": "예산·분위기·거리 필터를 직관적으로 조절할 수 있어요." },
-        "2": { "alt": "공유 화면", "caption": "추천 결과를 링크로 공유해 투표를 받을 수 있습니다." },
-        "3": { "alt": "앱 화면", "caption": "밥정너 앱의 다양한 기능을 확인할 수 있습니다." }
+        "0": { "alt": "Restaurant recommendation screen", "caption": "Suggests 3 restaurants matching your criteria." },
+        "1": { "alt": "Filter settings screen", "caption": "Intuitively adjust budget, atmosphere, and distance filters." },
+        "2": { "alt": "Share screen", "caption": "Share recommendation results via link for group voting." },
+        "3": { "alt": "App screen", "caption": "Explore the various features of the Bapjeongne app." }
       },
       "qna": {
-        "0": { "question": "추천 식당 데이터는 어디에서 오나요?", "answer": "카카오/네이버 장소 데이터와 자체 큐레이션한 맛집 DB를 조합해 제공합니다." },
-        "1": { "question": "내가 추가한 식당만 볼 수 있나요?", "answer": "개인 찜 리스트를 만들 수 있으며, 랜덤 추천 시 내 리스트만 선택하는 옵션을 제공합니다." },
-        "2": { "question": "광고가 나오나요?", "answer": "앱 내부 광고는 최소화했으며 추천 리스트에 광고 상위 노출은 없습니다." }
+        "0": { "question": "Where does the restaurant data come from?", "answer": "We combine Kakao/Naver place data with our own curated restaurant database." },
+        "1": { "question": "Can I see only restaurants I've added?", "answer": "You can create a personal favorites list and choose to only randomize from your list." },
+        "2": { "question": "Are there ads?", "answer": "In-app ads are minimized, and there is no paid placement in the recommendation list." }
       },
       "summary": {
-        "problem": "점심 메뉴 결정 스트레스, 매번 같은 곳만 가는 단조로움, 새로운 식당을 찾아보기 귀찮은 순간, 식당 선택을 대신해줄 누군가가 필요한 시간.",
-        "solution": "무거운 기능보다 \"한 사람의 하루를 가볍게 해주는 즐거움\"을 목표로 설계되었다. 사용자가 지도를 탭하는 순간부터 추천이 도착하는 순간까지, 작은 리듬과 농담 같은 UI가 흐른다. 하루 한 번의 선택을 더 간편하고 더 유쾌하게 만드는 것."
+        "problem": "Lunch menu decision stress, the monotony of always going to the same place, moments when browsing for new restaurants feels tiresome, times when you need someone to choose for you.",
+        "solution": "Designed with the goal of \"making one person's day a little lighter\" rather than heavy features. From the moment you tap the map to the moment a recommendation arrives, a small rhythm and playful UI flows through. Making that one daily choice simpler and more enjoyable."
       },
       "intro": {
-        "title": "밥정너를 만나보세요",
-        "bannerAlt": "밥정너 앱 소개 이미지",
-        "flowTitle": "가볍지만 흐트러짐 없는 사용 흐름",
-        "flowDesc1": "앱은 네 가지 단순한 화면으로 돌아간다. 시작하기 화면, 지도에서 위치 선택 & 검색 반경 설정, 3초 카운트다운 → 랜덤 추천, 식당 정보 & 방문 통계. 필요한 것만 남긴 구성이라 누구나 처음 보는 순간부터 바로 사용할 수 있다.",
-        "flowDesc2": "똑똑한 기능이지만 다루기는 편한 앱, 그것이 밥정너의 핵심이다.",
-        "solveTitle": "밥정너가 해결하는 것",
-        "solve1": "점심 메뉴 결정 스트레스",
-        "solve2": "매번 같은 곳만 가는 단조로움",
-        "solve3": "새로운 식당을 찾아보기 귀찮은 순간",
-        "solve4": "식당 선택을 대신해줄 누군가가 필요한 시간",
-        "solveDesc": "당신이 해야 할 일은 단 한 가지다. 위치를 고르고, \"저 여기 있어요!\" 버튼을 누르는 것. 나머지는 밥정너가 알아서 움직인다."
+        "title": "Meet Bapjeongne",
+        "bannerAlt": "Bapjeongne app introduction image",
+        "flowTitle": "A Light but Seamless User Flow",
+        "flowDesc1": "The app runs on four simple screens: Getting Started, Location Selection & Radius Setting, 3-Second Countdown → Random Pick, and Restaurant Info & Visit Stats. With only the essentials, anyone can start using it right away.",
+        "flowDesc2": "A smart app that's easy to use—that's the core of Bapjeongne.",
+        "solveTitle": "What Bapjeongne Solves",
+        "solve1": "Lunch menu decision stress",
+        "solve2": "The monotony of always going to the same place",
+        "solve3": "Moments when browsing for new restaurants feels tiresome",
+        "solve4": "Times when you need someone to choose for you",
+        "solveDesc": "There's only one thing you need to do: pick a location and tap the \"I'm here!\" button. Bapjeongne handles the rest."
       }
     },
     "fortune-cookie": {
-      "name": "포춘쿠키",
-      "tagline": "쿠키를 톡! 오늘의 메시지가 도착합니다",
-      "description": "포춘쿠키를 클릭해 하루의 방향을 잡아보세요. 텍스트 애니메이션과 잔잔한 사운드로 감성적인 경험을 제공합니다.",
-      "tags": ["감성 메시지", "데일리 루틴", "오프라인 모드"],
+      "name": "Fortune Cookie",
+      "tagline": "Crack a cookie! Today's message has arrived",
+      "description": "Tap a fortune cookie to set the direction for your day. With text animations and soothing sounds, it delivers an emotional experience.",
+      "tags": ["Emotional Messages", "Daily Routine", "Offline Mode"],
       "storeLinks": {
-        "0": { "label": "App Store", "badge": "iOS 다운로드" },
-        "1": { "label": "Google Play", "badge": "Android 다운로드" }
+        "0": { "label": "App Store", "badge": "Download on iOS" },
+        "1": { "label": "Google Play", "badge": "Download on Android" }
       },
       "features": {
-        "0": { "title": "테마별 포춘 카드", "description": "마음, 커리어, 관계 세 가지 테마로 메시지를 선택할 수 있어요." },
-        "1": { "title": "오디오 포춘", "description": "짧은 ASMR 사운드와 함께 메시지가 재생됩니다." },
-        "2": { "title": "저장 & 공유", "description": "마음에 드는 문장을 라이브러리에 저장하거나 SNS 카드로 공유하세요." }
+        "0": { "title": "Themed Fortune Cards", "description": "Choose messages from three themes: Mind, Career, and Relationships." },
+        "1": { "title": "Audio Fortune", "description": "Messages play with short ASMR sounds." },
+        "2": { "title": "Save & Share", "description": "Save favorite phrases to your library or share them as SNS cards." }
       },
       "usage": {
-        "0": { "title": "1. 오늘의 테마 선택", "description": "마음 · 커리어 · 관계 중에서 집중하고 싶은 영역을 고릅니다." },
-        "1": { "title": "2. 쿠키 깨기", "description": "쿠키를 터치하면 애니메이션과 함께 메시지가 나타납니다." },
-        "2": { "title": "3. 저장하거나 공유", "description": "좋은 문장은 즐겨찾기로 저장, 혹은 인스타 스토리 카드로 공유하세요." }
+        "0": { "title": "1. Choose Today's Theme", "description": "Pick the area you want to focus on: Mind, Career, or Relationships." },
+        "1": { "title": "2. Crack the Cookie", "description": "Touch the cookie and a message appears with animation." },
+        "2": { "title": "3. Save or Share", "description": "Save great phrases to favorites or share as Instagram story cards." }
       },
       "screenshots": {
-        "0": { "alt": "포춘쿠키 메인", "caption": "테마별 포춘쿠키를 선택하는 메인 화면" },
-        "1": { "alt": "메시지 카드", "caption": "감성적인 일러스트와 함께 메시지를 제공합니다." },
-        "2": { "alt": "공유 기능", "caption": "SNS에 바로 공유할 수 있는 정사각형 카드" },
-        "3": { "alt": "앱 화면", "caption": "포춘쿠키 앱의 다양한 기능을 확인할 수 있습니다." }
+        "0": { "alt": "Fortune Cookie main", "caption": "Main screen for selecting themed fortune cookies" },
+        "1": { "alt": "Message card", "caption": "Messages delivered with emotional illustrations." },
+        "2": { "alt": "Share feature", "caption": "Square cards ready to share on social media" },
+        "3": { "alt": "App screen", "caption": "Explore the various features of the Fortune Cookie app." }
       },
       "qna": {
-        "0": { "question": "메시지는 어디에서 나오나요?", "answer": "모카데브가 직접 작성한 500+ 문장과 GPT 기반 문장을 검수 후 제공하고 있습니다." },
-        "1": { "question": "오프라인에서도 사용할 수 있나요?", "answer": "네, 최근 20개의 메시지는 오프라인 캐시로 제공되어 지하철에서도 사용할 수 있습니다." },
-        "2": { "question": "푸시 알림 빈도는 조절되나요?", "answer": "하루 1회 기본, 원하는 시간대를 직접 설정할 수 있습니다." }
+        "0": { "question": "Where do the messages come from?", "answer": "We provide 500+ sentences written by MokaDev and GPT-generated sentences after review." },
+        "1": { "question": "Can I use it offline?", "answer": "Yes, the 20 most recent messages are cached offline, so you can use it even on the subway." },
+        "2": { "question": "Can I adjust push notification frequency?", "answer": "Once a day by default; you can set your preferred time." }
       },
       "messageExamples": {
-        "0": "새로운 시작은 늘 작은 용기에서 태어납니다.",
-        "1": "오늘의 노력은 미래의 너에게 편지가 됩니다.",
-        "2": "혼자라는 느낌이 들 때일수록 마음을 가볍게 적어보세요.",
-        "3": "네가 상상한 장면은 이미 현실로 향하는 중입니다."
+        "0": "Every new beginning is born from a small act of courage.",
+        "1": "Today's effort becomes a letter to your future self.",
+        "2": "When you feel alone, try writing your thoughts down lightly.",
+        "3": "The scene you imagined is already on its way to becoming reality."
       },
       "summary": {
-        "problem": "바쁜 일상 속에서 감정 정리와 가벼운 위로가 필요하지만 한 문장조차 찾기 어려웠습니다.",
-        "solution": "감각적인 애니메이션과 맞춤 메시지를 통해 스스로를 다독이는 짧은 루틴을 제공합니다."
+        "problem": "In busy daily life, emotional care and light comfort are needed, but it was hard to find even one meaningful sentence.",
+        "solution": "Through sensory animations and personalized messages, it provides a short routine for self-care and encouragement."
       }
     },
     "lunch-picker": {
-      "name": "점심 뭐 먹지",
-      "tagline": "내가 고른 식당들로 완성되는, 나만의 점심 추천 앱",
-      "description": "하루에 한 번, 특정 시간이 되면 당신이 저장해 둔 식당들 중 하나가 포근한 알림처럼 도착합니다. \"오늘 뭐 먹지?\"라는 짧은 물음이 습관처럼 떠오르는 순간을 대신 챙겨주는 작은 도우미. 앱은 절대 과장하지 않고, 당신이 좋아하는 메뉴들의 정중한 하우스키퍼처럼 조용히 일합니다.",
-      "tags": ["푸시 알림", "개인 맞춤", "자동화"],
+      "name": "Lunch Picker",
+      "tagline": "Your personalized lunch recommendation app, built from your own restaurant list",
+      "description": "Once a day, at a set time, one of your saved restaurants arrives like a warm notification. A small helper that takes care of the moment when the short question \"What should I eat today?\" pops up like a habit. The app never overpromises—it quietly works like a polite housekeeper for your favorite menus.",
+      "tags": ["Push Notifications", "Personalized", "Automation"],
       "storeLinks": {
-        "0": { "label": "App Store", "badge": "iOS 다운로드" },
-        "1": { "label": "Google Play", "badge": "Android 다운로드" }
+        "0": { "label": "App Store", "badge": "Download on iOS" },
+        "1": { "label": "Google Play", "badge": "Download on Android" }
       },
       "features": {
-        "0": { "title": "나만의 식당 저장", "description": "당신만의 리스트를 만들어두면, 앱이 매일 그 목록 속에서 \"딱 하나\"를 골라줍니다. 체크리스트를 채우듯 간단한 등록 방식으로 누구나 바로 쓸 수 있어요." },
-        "1": { "title": "지정 시간 자동 추천 알림", "description": "매일 같은 시간, 혹은 당신이 정한 순간에 앱이 랜덤으로 식당을 선택해 푸시로 알려줍니다. 고민하던 점심시간에 살짝 스며드는 \"메뉴 제안\"의 느낌." },
-        "2": { "title": "언제든 편하게 수정 가능한 리스트", "description": "매일 다르게 먹고 싶은 날도, 며칠 동안 같은 집만 가고 싶은 날도 있죠. 원하는 대로 리스트를 추가·편집하며 나만의 패턴을 만들어갈 수 있어요." },
-        "3": { "title": "군더더기 없는 직관적 디자인", "description": "가벼운 묘사와 깔끔한 레이아웃으로 누구나 처음 보는 순간부터 편안하게 사용할 수 있도록 설계했습니다." }
+        "0": { "title": "Save Your Own Restaurants", "description": "Build your own list, and the app picks \"just one\" from it every day. With a simple registration like filling a checklist, anyone can start right away." },
+        "1": { "title": "Scheduled Auto-Recommendation Alerts", "description": "Every day at the same time—or whenever you set—the app randomly picks a restaurant and sends a push notification. A gentle \"menu suggestion\" that slips into your lunch hour." },
+        "2": { "title": "Easily Editable Lists Anytime", "description": "Some days you want variety, other days you want the same spot. Add and edit your list freely to create your own pattern." },
+        "3": { "title": "Clean, Intuitive Design", "description": "Light descriptions and clean layout designed so anyone can feel comfortable from the very first use." }
       },
       "usage": {
-        "0": { "title": "1. 나만의 식당 리스트 만들기", "description": "좋아하는 식당들을 체크리스트처럼 간단하게 등록합니다." },
-        "1": { "title": "2. 알림 시간 설정", "description": "매일 같은 시간, 혹은 원하는 순간에 알림을 받을 시간을 정합니다." },
-        "2": { "title": "3. 알림으로 받은 추천 확인", "description": "설정한 시간에 저장한 식당 중 하나가 랜덤으로 선택되어 알림으로 도착합니다." }
+        "0": { "title": "1. Create Your Restaurant List", "description": "Register your favorite restaurants as simply as filling a checklist." },
+        "1": { "title": "2. Set Notification Time", "description": "Choose when to receive notifications—same time every day or any time you want." },
+        "2": { "title": "3. Check the Recommendation via Notification", "description": "At the set time, one of your saved restaurants is randomly selected and delivered as a notification." }
       },
       "screenshots": {
-        "0": { "alt": "식당 리스트 화면", "caption": "나만의 식당 리스트를 간단하게 등록하고 관리할 수 있습니다." },
-        "1": { "alt": "푸시 알림", "caption": "설정한 시간에 저장한 식당 중 하나가 랜덤으로 선택되어 알림으로 도착합니다." },
-        "2": { "alt": "앱 화면", "caption": "군더더기 없는 직관적인 디자인으로 누구나 쉽게 사용할 수 있습니다." },
-        "3": { "alt": "앱 화면", "caption": "점심 뭐 먹지 앱의 다양한 기능을 확인할 수 있습니다." },
-        "4": { "alt": "앱 화면", "caption": "가벼운 묘사와 깔끔한 레이아웃으로 편안하게 사용할 수 있습니다." },
-        "5": { "alt": "앱 화면", "caption": "언제든 리스트를 추가·편집하며 나만의 패턴을 만들어갈 수 있어요." },
-        "6": { "alt": "앱 화면", "caption": "하루에 한 번, 포근한 알림처럼 도착하는 점심 추천." }
+        "0": { "alt": "Restaurant list screen", "caption": "Register and manage your own restaurant list easily." },
+        "1": { "alt": "Push notification", "caption": "At the set time, a randomly selected restaurant from your list arrives as a notification." },
+        "2": { "alt": "App screen", "caption": "Clean, intuitive design that anyone can use easily." },
+        "3": { "alt": "App screen", "caption": "Explore the various features of the Lunch Picker app." },
+        "4": { "alt": "App screen", "caption": "Light descriptions and clean layout for comfortable use." },
+        "5": { "alt": "App screen", "caption": "Add and edit your list freely to create your own pattern." },
+        "6": { "alt": "App screen", "caption": "Once a day, a lunch recommendation arrives like a warm notification." }
       },
       "qna": {
-        "0": { "question": "푸시 알림이 너무 자주 오진 않나요?", "answer": "하루에 한 번만 알림이 발송됩니다. 원하는 시간에 알림을 받을 수 있도록 설정할 수 있어요." },
-        "1": { "question": "식당 리스트는 몇 개까지 저장할 수 있나요?", "answer": "제한 없이 원하는 만큼 저장할 수 있습니다. 언제든 추가·삭제·수정이 가능해요." },
-        "2": { "question": "알림 시간을 변경할 수 있나요?", "answer": "네, 언제든지 설정에서 알림 시간을 변경할 수 있습니다. 매일 다른 시간으로 설정하는 것도 가능해요." }
+        "0": { "question": "Do push notifications come too frequently?", "answer": "Only one notification per day. You can set when to receive it." },
+        "1": { "question": "How many restaurants can I save?", "answer": "Unlimited. You can add, delete, and edit anytime." },
+        "2": { "question": "Can I change the notification time?", "answer": "Yes, you can change it anytime in settings. You can even set different times for different days." }
       },
       "testimonials": {
-        "0": { "name": "정유라", "role": "직장인", "quote": "매일 점심 고민이 사라졌어요. 저장해둔 식당 중 하나가 알림으로 오니까 선택이 쉬워졌습니다." },
-        "1": { "name": "김도현", "role": "학생", "quote": "좋아하는 식당만 모아두고 매일 하나씩 추천받는 게 편해요. 리스트 관리도 간단해서 좋습니다." }
+        "0": { "name": "Yura J.", "role": "Office Worker", "quote": "My daily lunch dilemma is gone. Since one of my saved restaurants comes as a notification, choosing became easy." },
+        "1": { "name": "Dohyun K.", "role": "Student", "quote": "It's convenient to save only my favorite restaurants and get one recommendation daily. The list management is simple too." }
       },
       "summary": {
-        "problem": "매일 점심 메뉴 결정이 귀찮고, 반복되는 선택 스트레스로 인해 작은 자동화가 필요했습니다.",
-        "solution": "화려한 기능 대신 확실한 도움을 제공합니다. 메뉴 고민이라는 사소하지만 반복적인 결정을 대신해주고, 당신은 하루의 리듬을 조금 더 선명하게 가져갈 수 있어요. 마치 책상 위에 놓인 작은 타이머처럼, 아무 말 없이 켜져 있지만 분명한 역할을 수행하는 도구. 그런 조용한 앱을 지향합니다."
+        "problem": "Daily lunch menu decisions are tiresome, and small automation was needed to reduce the stress of repetitive choices.",
+        "solution": "Instead of flashy features, it provides reliable help. It handles the small but repetitive decision of what to eat, so you can carry your day's rhythm more clearly. Like a small timer sitting on your desk—silent but fulfilling its role. That's the kind of quiet app we aim for."
       },
       "intro": {
-        "title": "점심 뭐 먹지를 만나보세요",
-        "bannerAlt": "점심 뭐 먹지 앱 소개 이미지",
-        "targetTitle": "이런 분에게 딱 맞습니다",
-        "target1": "매일 점심 메뉴 결정이 귀찮은 사람",
-        "target2": "좋아하는 식당 목록을 깔끔하게 관리하고 싶은 사람",
-        "target3": "반복되는 선택 스트레스를 덜고 싶은 사람",
-        "target4": "직장·학교·일상 루틴 속에서 작은 자동화를 원했던 사람",
-        "experienceTitle": "앱이 주는 경험",
-        "experienceDesc1": "이 앱은 화려한 기능 대신 확실한 도움을 제공합니다. 메뉴 고민이라는 사소하지만 반복적인 결정을 대신해주고, 당신은 하루의 리듬을 조금 더 선명하게 가져갈 수 있어요.",
-        "experienceDesc2": "마치 책상 위에 놓인 작은 타이머처럼. 아무 말 없이 켜져 있지만, 분명한 역할을 수행하는 도구. 그런 조용한 앱을 지향합니다."
+        "title": "Meet Lunch Picker",
+        "bannerAlt": "Lunch Picker app introduction image",
+        "targetTitle": "Perfect for People Who",
+        "target1": "Find daily lunch menu decisions tiresome",
+        "target2": "Want to manage their favorite restaurant list neatly",
+        "target3": "Want to reduce the stress of repetitive choices",
+        "target4": "Want a small automation in their work, school, or daily routine",
+        "experienceTitle": "The Experience",
+        "experienceDesc1": "This app provides reliable help instead of flashy features. It handles the small but repetitive decision of what to eat, so you can carry your day's rhythm more clearly.",
+        "experienceDesc2": "Like a small timer sitting on your desk. Silent, but fulfilling its role. That's the kind of quiet app we aim for."
       }
     },
     "baby-med-diary": {
-      "name": "우리아기 투약일기",
-      "tagline": "아기 투약 기록과 알림을 한눈에",
-      "description": "아기에게 약을 언제, 얼마나, 어떻게 먹였는지 정확하게 기록하고, 투약 시간을 놓치지 않도록 알림을 제공하며, 월/주/일 단위로 투약 현황을 한눈에 파악할 수 있게 해주는 모바일 앱입니다.",
-      "tags": ["투약 기록", "알림", "아기 관리", "iOS/Android"],
+      "name": "Baby Med Diary",
+      "tagline": "Baby medication tracking and reminders at a glance",
+      "description": "A mobile app that accurately records when, how much, and how medication was given to your baby, provides reminders to never miss a dose, and lets you overview medication status by month/week/day.",
+      "tags": ["Medication Tracking", "Reminders", "Baby Care", "iOS/Android"],
       "storeLinks": {
-        "0": { "label": "App Store", "badge": "iOS 다운로드" },
-        "1": { "label": "Google Play", "badge": "Android 다운로드" }
+        "0": { "label": "App Store", "badge": "Download on iOS" },
+        "1": { "label": "Google Play", "badge": "Download on Android" }
       },
       "features": {
-        "0": { "title": "정확한 투약 기록 관리", "description": "약 이름, 용량, 시간, 증상 등을 상세하게 기록하고, 아기별로 분리된 타임라인으로 관리할 수 있습니다." },
-        "1": { "title": "스마트 투약 알림", "description": "하루 최대 3번의 투약 시간을 설정하고, 요일별 반복 알림으로 투약 시간을 놓치지 않도록 도와줍니다." },
-        "2": { "title": "월/주/일 캘린더 뷰", "description": "캘린더로 투약 현황을 한눈에 파악하고, 병원 방문 시 의사에게 쉽게 보여줄 수 있습니다." },
-        "3": { "title": "아기별 맞춤 관리", "description": "여러 명의 아기를 등록하고, 각 아기별로 독립된 투약 기록과 알림을 관리할 수 있습니다." }
+        "0": { "title": "Accurate Medication Records", "description": "Record medication name, dosage, time, and symptoms in detail, and manage them on a per-baby timeline." },
+        "1": { "title": "Smart Medication Reminders", "description": "Set up to 3 medication times per day with day-of-week repeat reminders to never miss a dose." },
+        "2": { "title": "Month/Week/Day Calendar View", "description": "Overview medication status at a glance on the calendar, easy to show your doctor during hospital visits." },
+        "3": { "title": "Per-Baby Custom Management", "description": "Register multiple babies and manage independent medication records and reminders for each." }
       },
       "usage": {
-        "0": { "title": "1. 아기 프로필 등록", "description": "아기 이름, 생년월일, 프로필 사진을 등록하고 여러 명의 아기를 관리할 수 있습니다." },
-        "1": { "title": "2. 투약 기록 추가", "description": "약을 먹인 후 약 이름, 용량, 시간, 증상 등을 간단하게 기록합니다. 10초 안에 입력 완료." },
-        "2": { "title": "3. 알림 설정 및 확인", "description": "하루 최대 3번의 투약 시간을 설정하고, 알림을 받아 투약 시간을 놓치지 않도록 합니다." },
-        "3": { "title": "4. 캘린더로 현황 파악", "description": "월/주/일 뷰로 투약 현황을 확인하고, 병원 방문 시 의사에게 기록을 보여줄 수 있습니다." }
+        "0": { "title": "1. Register Baby Profile", "description": "Register baby name, birthday, profile photo, and manage multiple babies." },
+        "1": { "title": "2. Add Medication Record", "description": "After giving medicine, simply record the name, dosage, time, and symptoms. Done in 10 seconds." },
+        "2": { "title": "3. Set Up & Check Reminders", "description": "Set up to 3 medication reminders per day and never miss a dose." },
+        "3": { "title": "4. Check Status on Calendar", "description": "View medication status in month/week/day view and show records to your doctor during visits." }
       },
       "screenshots": {
-        "0": { "alt": "홈 화면", "caption": "오늘의 투약 기록을 한눈에 확인할 수 있는 홈 화면" },
-        "1": { "alt": "투약 기록 추가", "caption": "간단하게 투약 기록을 추가할 수 있는 화면" },
-        "2": { "alt": "캘린더 뷰", "caption": "월별 캘린더로 투약 현황을 확인할 수 있습니다" },
-        "3": { "alt": "일별 상세 뷰", "caption": "선택한 날짜의 투약 기록을 시간 순으로 확인" },
-        "4": { "alt": "알림 설정", "caption": "하루 최대 3번의 투약 시간을 설정할 수 있습니다" },
-        "5": { "alt": "아기 프로필 관리", "caption": "여러 명의 아기를 등록하고 관리할 수 있습니다" },
-        "6": { "alt": "투약 기록 상세", "caption": "기록한 투약 정보를 상세하게 확인하고 수정할 수 있습니다" },
-        "7": { "alt": "주별 뷰", "caption": "한 주 단위로 투약 현황을 확인할 수 있습니다" },
-        "8": { "alt": "앱 화면", "caption": "우리아기 투약일기 앱의 다양한 기능을 확인할 수 있습니다" },
-        "9": { "alt": "앱 화면", "caption": "직관적인 디자인으로 누구나 쉽게 사용할 수 있습니다" }
+        "0": { "alt": "Home screen", "caption": "Home screen to check today's medication records at a glance" },
+        "1": { "alt": "Add medication record", "caption": "Screen to easily add medication records" },
+        "2": { "alt": "Calendar view", "caption": "Check medication status on the monthly calendar" },
+        "3": { "alt": "Daily detail view", "caption": "View medication records in chronological order for a selected date" },
+        "4": { "alt": "Reminder settings", "caption": "Set up to 3 medication times per day" },
+        "5": { "alt": "Baby profile management", "caption": "Register and manage multiple babies" },
+        "6": { "alt": "Medication record detail", "caption": "View and edit recorded medication information in detail" },
+        "7": { "alt": "Weekly view", "caption": "Check medication status on a weekly basis" },
+        "8": { "alt": "App screen", "caption": "Explore the various features of the Baby Med Diary app" },
+        "9": { "alt": "App screen", "caption": "Intuitive design that anyone can use easily" }
       },
       "qna": {
-        "0": { "question": "여러 명의 아기를 관리할 수 있나요?", "answer": "네, 여러 명의 아기를 등록하고 각 아기별로 독립된 투약 기록과 알림을 관리할 수 있습니다." },
-        "1": { "question": "알림은 몇 개까지 설정할 수 있나요?", "answer": "아기별로 하루 최대 3개의 투약 시간 알림을 설정할 수 있으며, 요일별 반복 설정도 가능합니다." },
-        "2": { "question": "데이터는 어디에 저장되나요?", "answer": "모든 데이터는 디바이스 로컬에 저장되며, 외부 서버로 전송되지 않습니다. 추후 클라우드 백업 기능은 확장 예정입니다." },
-        "3": { "question": "과거 투약 기록도 추가할 수 있나요?", "answer": "네, 투약 일시를 과거 날짜로 설정하여 지난 기록을 보정할 수 있습니다." },
-        "4": { "question": "앱이 종료되어 있어도 알림이 오나요?", "answer": "네, 로컬 푸시 알림을 사용하므로 앱이 종료되어 있어도 설정한 시간에 알림이 발송됩니다." }
+        "0": { "question": "Can I manage multiple babies?", "answer": "Yes, you can register multiple babies and manage independent medication records and reminders for each." },
+        "1": { "question": "How many reminders can I set?", "answer": "You can set up to 3 medication time reminders per baby per day, with day-of-week repeat options." },
+        "2": { "question": "Where is the data stored?", "answer": "All data is stored locally on the device and is not transmitted to external servers. Cloud backup is planned for future updates." },
+        "3": { "question": "Can I add past medication records?", "answer": "Yes, you can set the date and time to a past date to correct previous records." },
+        "4": { "question": "Do reminders work when the app is closed?", "answer": "Yes, local push notifications are used, so reminders are sent at the set time even when the app is closed." }
       },
       "summary": {
-        "problem": "아기에게 약을 먹일 때 \"어제 저녁에 먹였나?\" 같은 기억에 의존하게 되고, 중복 투약이나 투약 누락을 방지하기 어려웠습니다. 또한 병원 방문 시 \"언제 어떤 약을 얼마나 먹였는지\"를 정확하게 전달하기 어려웠습니다.",
-        "solution": "기억 의존을 최소화하고 기록 기반으로 투약을 관리할 수 있도록 설계했습니다. 투약 기록 추가는 10초 안에 완료할 수 있도록 단순화했고, 월/주/일 캘린더 뷰로 투약 현황을 한눈에 파악할 수 있습니다. 하루 최대 3번의 스마트 알림으로 투약 시간을 놓치지 않도록 도와줍니다."
+        "problem": "When giving medicine to babies, parents rely on memory like \"Did I give it last night?\" making it difficult to prevent duplicate doses or missed doses. Also, it was hard to accurately communicate \"when, what, and how much\" during hospital visits.",
+        "solution": "Designed to minimize memory dependence and enable record-based medication management. Adding a record is simplified to complete in 10 seconds, and month/week/day calendar views let you overview medication status at a glance. Up to 3 smart reminders per day help ensure no dose is missed."
       },
       "intro": {
-        "title": "우리아기 투약일기를 만나보세요",
-        "bannerAlt": "우리아기 투약일기 앱 소개 이미지",
-        "targetTitle": "이런 분에게 딱 맞습니다",
-        "target1": "영유아 자녀를 둔 부모, 보호자, 조부모",
-        "target2": "어린이집/유치원에 보내기 전 집에서 투약 상태를 관리하고 싶은 보호자",
-        "target3": "병원 진료 시 \"언제 어떤 약을 얼마나 먹였는지\"를 쉽게 보여주고 싶은 보호자",
-        "target4": "형제/자매가 여러 명일 때 아기별로 분리된 타임라인 관리가 필요한 보호자",
-        "experienceTitle": "앱이 주는 경험",
-        "experienceDesc1": "\"어제 저녁에 먹였나?\" 같은 기억 의존을 줄이고, 기록 기반으로 투약을 관리할 수 있습니다. 투약 기록 추가는 10초 안에 완료할 수 있도록 단순화했고, 월/주/일 캘린더 뷰로 투약 현황을 한눈에 파악할 수 있습니다.",
-        "experienceDesc2": "하루 최대 3번의 스마트 알림으로 투약 시간을 놓치지 않도록 도와주며, 병원 방문 시 의사에게 정확한 투약 기록을 보여줄 수 있습니다. 모든 데이터는 디바이스 로컬에 저장되어 개인정보가 안전하게 보호됩니다."
+        "title": "Meet Baby Med Diary",
+        "bannerAlt": "Baby Med Diary app introduction image",
+        "targetTitle": "Perfect for People Who",
+        "target1": "Parents, guardians, and grandparents of infants and toddlers",
+        "target2": "Caregivers who want to manage medication status at home before sending kids to daycare/preschool",
+        "target3": "Caregivers who want to easily show doctors \"when, what, and how much\" during visits",
+        "target4": "Caregivers who need per-baby timelines when there are multiple siblings",
+        "experienceTitle": "The Experience",
+        "experienceDesc1": "Reduce memory dependence like \"Did I give it last night?\" and manage medication based on records. Adding a record is simplified to complete in 10 seconds, and month/week/day calendar views let you overview medication status at a glance.",
+        "experienceDesc2": "Up to 3 smart reminders per day help ensure no dose is missed, and you can show accurate medication records to doctors during hospital visits. All data is stored locally on your device, keeping personal information safe."
       }
     },
     "cat-weather": {
-      "name": "날씨다냥",
-      "tagline": "귀여운 고양이와 함께 날씨를 확인하세요!",
-      "description": "날씨마다 다른 모습으로 변신하는 귀여운 고양이가 오늘의 날씨를 알려드립니다. 맑은 날엔 선글라스를 끼고, 비오는 날엔 우산을 들고, 추운 날엔 목도리를 두른 고양이가 여러분을 맞이합니다!",
-      "tags": ["날씨", "고양이", "일기예보", "iOS/Android"],
+      "name": "Cat Weather",
+      "tagline": "Check the weather with adorable cats!",
+      "description": "Adorable cats that transform differently for each weather condition will tell you today's weather. On sunny days they wear sunglasses, on rainy days they carry an umbrella, and on cold days they wrap up in a scarf to greet you!",
+      "tags": ["Weather", "Cats", "Forecast", "iOS/Android"],
       "storeLinks": {
-        "0": { "label": "App Store", "badge": "iOS 다운로드" },
-        "1": { "label": "Google Play", "badge": "Android 다운로드" }
+        "0": { "label": "App Store", "badge": "Download on iOS" },
+        "1": { "label": "Google Play", "badge": "Download on Android" }
       },
       "features": {
-        "0": { "title": "9가지 날씨 고양이", "description": "맑음, 비, 눈, 흐림, 폭염, 추위, 바람, 안개, 천둥번개까지. 날씨 상태에 따라 자동으로 변하는 귀여운 고양이 캐릭터를 만나보세요." },
-        "1": { "title": "7일 예보 & 시간별 예보", "description": "향후 7일간 상세 예보와 24시간 시간별 날씨 변화를 한눈에. 최고/최저 온도, 강수 확률과 \"우산 챙기세요!\" 같은 친절한 메시지를 제공합니다." },
-        "2": { "title": "전세계 도시 & 즐겨찾기", "description": "서울, 도쿄, 뉴욕, 런던 등 전세계 주요 도시 날씨와 현지 시간. 자주 보는 도시를 즐겨찾기해 한눈에 비교해보세요." },
-        "3": { "title": "상세 날씨 & 생활 기상 지수", "description": "체감온도, 습도, 풍속, 자외선, 미세먼지, 일출/일몰까지. 감기 가능성, 세차·빨래·나들이 지수 등 일상에 유용한 지수를 제공합니다." },
-        "4": { "title": "날씨 알림 & 커스터마이징", "description": "비 예보, 온도 급변, 미세먼지 나쁨 등 알림을 출근 전 시간에 맞춰 받을 수 있고, 고양이 스킨과 다크 모드로 앱을 꾸밀 수 있습니다." }
+        "0": { "title": "9 Weather Cats", "description": "Sunny, rainy, snowy, cloudy, heatwave, cold, windy, foggy, and thunderstorm. Meet adorable cat characters that automatically change with the weather." },
+        "1": { "title": "7-Day & Hourly Forecast", "description": "Detailed 7-day forecast and 24-hour hourly weather changes at a glance. High/low temperatures, precipitation probability, and friendly messages like \"Don't forget your umbrella!\"" },
+        "2": { "title": "Worldwide Cities & Favorites", "description": "Weather and local time for major cities worldwide including Seoul, Tokyo, New York, and London. Bookmark frequently checked cities for quick comparison." },
+        "3": { "title": "Detailed Weather & Lifestyle Indices", "description": "Feels-like temperature, humidity, wind speed, UV, fine dust, sunrise/sunset. Provides useful daily indices like cold risk, car wash, laundry, and outing suitability." },
+        "4": { "title": "Weather Alerts & Customization", "description": "Receive alerts for rain forecasts, sudden temperature changes, poor air quality before commute time. Customize with cat skins and dark mode." }
       },
       "usage": {
-        "0": { "title": "1. 도시 선택 또는 즐겨찾기 추가", "description": "현재 위치 또는 전세계 도시를 선택하고, 자주 보는 곳은 즐겨찾기에 등록합니다." },
-        "1": { "title": "2. 오늘의 날씨 고양이 확인", "description": "날씨에 따라 변신한 귀여운 고양이와 한마디를 보고, 7일 예보·시간별 예보를 확인합니다." },
-        "2": { "title": "3. 생활 지수 & 알림 활용", "description": "감기·세차·나들이 지수를 참고하고, 필요한 날씨 알림을 설정해 두세요." }
+        "0": { "title": "1. Select City or Add Favorites", "description": "Choose your current location or a city worldwide, and bookmark frequently viewed cities." },
+        "1": { "title": "2. Check Today's Weather Cat", "description": "See the cute cat transformed for today's weather with a message, and check the 7-day and hourly forecast." },
+        "2": { "title": "3. Use Lifestyle Indices & Alerts", "description": "Refer to cold risk, car wash, and outing indices, and set up weather alerts as needed." }
       },
       "screenshots": {
-        "0": { "alt": "날씨다냥 메인", "caption": "날씨에 따라 변신하는 귀여운 고양이와 오늘의 날씨" },
-        "1": { "alt": "7일 예보", "caption": "향후 7일간 상세 날씨 예보와 친절한 메시지" },
-        "2": { "alt": "도시별 날씨", "caption": "전세계 도시 날씨와 즐겨찾기" },
-        "3": { "alt": "상세 날씨 정보", "caption": "생활 기상 지수와 상세 날씨 정보" }
+        "0": { "alt": "Cat Weather main", "caption": "Cute cats that transform for the weather and today's forecast" },
+        "1": { "alt": "7-day forecast", "caption": "Detailed 7-day weather forecast with friendly messages" },
+        "2": { "alt": "City weather", "caption": "Worldwide city weather and favorites" },
+        "3": { "alt": "Detailed weather info", "caption": "Lifestyle weather indices and detailed weather information" }
       },
       "qna": {
-        "0": { "question": "생활 기상 지수는 어떤 것이 있나요?", "answer": "감기 가능성, 피부 건조 지수, 운동 적합도, 세차·빨래·나들이 지수 등 일상생활에 유용한 기상 지수를 제공합니다." },
-        "1": { "question": "오프라인에서도 사용할 수 있나요?", "answer": "마지막으로 확인한 날씨 정보는 오프라인에서도 볼 수 있도록 저장됩니다." },
-        "2": { "question": "고양이 스킨은 어떻게 바꾸나요?", "answer": "설정에서 코숏, 러시안블루, 페르시안 등 다양한 고양이 스킨과 다크 모드를 선택할 수 있습니다." }
+        "0": { "question": "What lifestyle weather indices are available?", "answer": "We provide useful daily indices including cold risk, skin dryness, exercise suitability, car wash, laundry, and outing indices." },
+        "1": { "question": "Can I use it offline?", "answer": "The last checked weather information is saved for offline viewing." },
+        "2": { "question": "How do I change the cat skin?", "answer": "In settings, you can choose from various cat skins like Domestic Shorthair, Russian Blue, Persian, and toggle dark mode." }
       },
       "messageExamples": {
-        "0": "오늘은 선글라스가 필수냥! 햇빛이 눈부셔~",
-        "1": "우산 챙겼냥? 비가 온대냥!",
-        "2": "목도리 없으면 감기 걸린다냥..."
+        "0": "Sunglasses are a must today, meow! The sun is so bright~",
+        "1": "Did you grab your umbrella, meow? It's gonna rain, meow!",
+        "2": "You'll catch a cold without a scarf, meow..."
       },
       "summary": {
-        "problem": "매일 확인하는 날씨가 단조롭고, 날씨 정보만으로는 나들이·세차·옷차림 같은 일상 결정이 쉽지 않았습니다.",
-        "solution": "날씨 확인을 더 즐겁고 귀여운 경험으로 만들기 위해 탄생했습니다. 9가지 날씨 고양이와 생활 기상 지수로, 이왕이면 기분 좋게 하루를 준비하세요. 귀여운 고양이들이 여러분의 하루를 응원합니다."
+        "problem": "Daily weather checks were monotonous, and weather information alone wasn't enough to make everyday decisions about outings, car washes, or what to wear.",
+        "solution": "Born to make weather checking a more fun and adorable experience. With 9 weather cats and lifestyle indices, start your day feeling good. The cute cats are cheering you on!"
       },
       "intro": {
-        "title": "날씨다냥을 만나보세요",
-        "bannerAlt": "고양이 날씨 앱 소개 배너 - 날씨별 귀여운 고양이 일러스트",
-        "recommendTitle": "이런 분들께 추천합니다",
-        "recommend1": "귀여운 캐릭터를 좋아하시는 분",
-        "recommend2": "고양이를 사랑하는 집사님들",
-        "recommend3": "날씨 확인을 즐겁게 하고 싶으신 분",
-        "recommend4": "아이들과 함께 날씨를 배우고 싶으신 부모님",
-        "recommend5": "감성적이고 따뜻한 앱을 선호하시는 분",
-        "highlightTitle": "주요 특징",
-        "highlight1": "직관적이고 사용하기 쉬운 인터페이스",
-        "highlight2": "귀여운 일러스트와 부드러운 애니메이션",
-        "highlight3": "오프라인에서도 마지막 날씨 정보 확인 가능",
-        "highlight4": "가볍고 빠른 앱 실행 속도",
-        "highlight5": "배터리 효율적인 설계",
-        "devMessageTitle": "개발자 메시지",
-        "devMessageDesc1": "고양이 날씨는 날씨 확인을 더 즐겁고 귀여운 경험으로 만들기 위해 탄생했습니다. 매일 확인하는 날씨 앱, 이왕이면 기분 좋게 확인하세요! 귀여운 고양이들이 여러분의 하루를 응원합니다.",
-        "devMessageDesc2": "지속적인 업데이트로 더 많은 기능과 더 귀여운 고양이를 추가해나갈 예정입니다. 여러분의 피드백을 기다립니다!"
+        "title": "Meet Cat Weather",
+        "bannerAlt": "Cat Weather app banner – Cute cat illustrations for different weather",
+        "recommendTitle": "Recommended For",
+        "recommend1": "People who love cute characters",
+        "recommend2": "Cat lovers and cat parents",
+        "recommend3": "People who want to make weather checking fun",
+        "recommend4": "Parents who want to learn about weather with their kids",
+        "recommend5": "People who prefer emotional and warm apps",
+        "highlightTitle": "Key Highlights",
+        "highlight1": "Intuitive and easy-to-use interface",
+        "highlight2": "Cute illustrations and smooth animations",
+        "highlight3": "Last weather info available offline",
+        "highlight4": "Lightweight and fast app launch",
+        "highlight5": "Battery-efficient design",
+        "devMessageTitle": "Developer's Message",
+        "devMessageDesc1": "Cat Weather was born to make weather checking a more fun and adorable experience. Since you check the weather every day anyway, why not make it a pleasant experience! The cute cats are cheering you on.",
+        "devMessageDesc2": "We plan to continuously add more features and even cuter cats through updates. We look forward to your feedback!"
       }
     }
   }
