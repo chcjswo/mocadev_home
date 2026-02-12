@@ -12,7 +12,7 @@ export function PrivacyContentEn() {
         <section>
           <h2 className="text-xl font-bold text-gray-900">Article 1 (Purpose)</h2>
           <p className="mt-4 leading-relaxed">
-            MokaDev (hereinafter referred to as the &lsquo;Company&rsquo;) establishes this Privacy
+            MocaDev (hereinafter referred to as the &lsquo;Company&rsquo;) establishes this Privacy
             Policy (hereinafter referred to as the &lsquo;Policy&rsquo;) to protect the personal
             information (hereinafter referred to as &lsquo;Personal Information&rsquo;) of
             individuals (hereinafter referred to as &lsquo;Users&rsquo; or

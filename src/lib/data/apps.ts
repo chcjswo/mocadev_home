@@ -187,7 +187,7 @@ export const getAppStructuredData = (
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
       url: `${seoConfig.siteUrl}/apps/${slug}`,
       aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', reviewCount: '120' },
-      creator: { '@type': 'Person', name: 'MokaDev' },
+      creator: { '@type': 'Person', name: 'MocaDev' },
     },
   },
 ];

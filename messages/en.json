@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "siteTitle": "MokaDev – Indie App Developer",
-    "siteDescription": "From random restaurant picks to fortune cookie messages. Explore MokaDev's collection of lifestyle apps, designed and operated by a solo developer.",
-    "titleTemplate": "%s | MokaDev"
+    "siteTitle": "MocaDev – Indie App Developer",
+    "siteDescription": "From random restaurant picks to fortune cookie messages. Explore MocaDev's collection of lifestyle apps, designed and operated by a solo developer.",
+    "titleTemplate": "%s | MocaDev"
   },
   "nav": {
     "apps": "Apps",
@@ -19,19 +19,19 @@
       "title1": "A Personal",
       "title2": "Mobile App Laboratory",
       "description": "From random restaurant picks to fortune messages and schedule-based lunch management. A solo developer's workshop where small problems are sharply defined and solved through apps.",
-      "principlesTitle": "MokaDev's Principles",
+      "principlesTitle": "MocaDev's Principles",
       "principle1": "Define the problem and collect data first.",
       "principle2": "Incorporate usability test results at least once a week.",
       "principle3": "Collect only the minimum personal data required for features.",
       "browseApps": "Browse Apps"
     },
     "appsSection": {
-      "title": "Apps by MokaDev",
+      "title": "Apps by MocaDev",
       "description": "Tap each card to view screenshots and download links on the detail page."
     },
     "about": {
       "title": "The Ability to Spot Small Problems",
-      "description": "Through user interviews, we discovered two key problems—lunch decision-making and emotional care—and continue experimenting to solve them. Each app embodies MokaDev's design system and data pipeline.",
+      "description": "Through user interviews, we discovered two key problems—lunch decision-making and emotional care—and continue experimenting to solve them. Each app embodies MocaDev's design system and data pipeline.",
       "workflowDescription": "We iterate through Idea → Prototype → Community Feedback → Data Instrumentation → Productization, documenting each stage via Notion/Linear.",
       "stackDescription": "Next.js, React Native, Expo, Firebase, Supabase, Vercel, Cloudflare, GA4, FCM, RevenueCat.",
       "contactDescription": "For side project collaboration or speaking requests, feel free to reach out at <email>mocadev.tony@gmail.com</email>."
@@ -48,7 +48,7 @@
   },
   "appDetail": {
     "problemTitle": "The Problem We Want to Solve",
-    "solutionTitle": "MokaDev's Approach",
+    "solutionTitle": "MocaDev's Approach",
     "featuresSubtitle": "Key Features",
     "featuresTitle": "What Makes This App Special",
     "usageSubtitle": "Usage Flow",
@@ -77,9 +77,9 @@
   },
   "team": {
     "title": "The Team",
-    "subtitle": "Meet the MokaDev team—discovering small problems and solving them with apps.",
+    "subtitle": "Meet the MocaDev team—discovering small problems and solving them with apps.",
     "profileAlt": "{name} profile",
-    "ogImageAlt": "MokaDev Team",
+    "ogImageAlt": "MocaDev Team",
     "members": {
       "0": {
         "name": "Dongdaemun Squad",
@@ -95,26 +95,26 @@
   },
   "seo": {
     "home": {
-      "title": "MokaDev – 3 Experimental Apps That Change Everyday Life",
-      "description": "From random restaurant picks to fortune messages. Explore MokaDev's mobile apps and their creation process in one place.",
-      "keywords": "MokaDev, indie developer, portfolio, app download, mobile service",
-      "ogImageAlt": "MokaDev Home"
+      "title": "MocaDev – 3 Experimental Apps That Change Everyday Life",
+      "description": "From random restaurant picks to fortune messages. Explore MocaDev's mobile apps and their creation process in one place.",
+      "keywords": "MocaDev, indie developer, portfolio, app download, mobile service",
+      "ogImageAlt": "MocaDev Home"
     },
     "team": {
       "title": "The Team",
-      "description": "Meet the team members who build MokaDev apps together.",
-      "keywords": "MokaDev team, developer, planner, designer"
+      "description": "Meet the team members who build MocaDev apps together.",
+      "keywords": "MocaDev team, developer, planner, designer"
     },
     "privacy": {
-      "title": "MokaDev Privacy Policy",
-      "description": "Privacy policy applicable to MokaDev's apps: Bapjeongne, Fortune Cookie, and Lunch Picker.",
-      "keywords": "MokaDev privacy policy, privacy protection, terms",
-      "ogImageAlt": "MokaDev Privacy Policy"
+      "title": "MocaDev Privacy Policy",
+      "description": "Privacy policy applicable to MocaDev's apps: Bapjeongne, Fortune Cookie, and Lunch Picker.",
+      "keywords": "MocaDev privacy policy, privacy protection, terms",
+      "ogImageAlt": "MocaDev Privacy Policy"
     },
     "apps": {
       "bapjeongne": {
         "title": "Bapjeongne – Random Nearby Restaurant Picks",
-        "description": "MokaDev's flagship app that randomly recommends nearby restaurants based on your dining preferences. Lunch decision done in 3 minutes."
+        "description": "MocaDev's flagship app that randomly recommends nearby restaurants based on your dining preferences. Lunch decision done in 3 minutes."
       },
       "fortune-cookie": {
         "title": "Fortune Cookie – Today's Message",
@@ -209,7 +209,7 @@
         "3": { "alt": "App screen", "caption": "Explore the various features of the Fortune Cookie app." }
       },
       "qna": {
-        "0": { "question": "Where do the messages come from?", "answer": "We provide 500+ sentences written by MokaDev and GPT-generated sentences after review." },
+        "0": { "question": "Where do the messages come from?", "answer": "We provide 500+ sentences written by MocaDev and GPT-generated sentences after review." },
         "1": { "question": "Can I use it offline?", "answer": "Yes, the 20 most recent messages are cached offline, so you can use it even on the subway." },
         "2": { "question": "Can I adjust push notification frequency?", "answer": "Once a day by default; you can set your preferred time." }
       },

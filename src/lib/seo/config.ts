@@ -3,13 +3,13 @@ import { SeoConfigProps } from '@/types/seo';
 // 사이트 기본 SEO 설정
 export const seoConfig: SeoConfigProps = {
   defaultTitle: '모카데브 – 개인 앱 개발자',
-  titleTemplate: '%s | MokaDev',
+  titleTemplate: '%s | MocaDev',
   defaultDescription:
     '모카데브가 직접 설계하고 운영하는 생활형 모바일 앱 컬렉션. 랜덤 식당 추천, 포춘 메시지, 푸시 기반 점심 관리까지 한 곳에서 만나보세요.',
   defaultKeywords:
-    '모카데브, MokaDev, 개인 개발자, 식당 추천 앱, 포춘쿠키 앱, 점심 추천, 포트폴리오',
+    '모카데브, MocaDev, 개인 개발자, 식당 추천 앱, 포춘쿠키 앱, 점심 추천, 포트폴리오',
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://mocadev-home.vercel.app',
-  siteName: 'MokaDev',
+  siteName: 'MocaDev',
   defaultImage: '/images/og/home.svg',
   twitterUsername: '@mocadev',
   language: 'ko',
@@ -114,7 +114,7 @@ export const structuredDataTemplates = {
     },
     author: {
       '@type': 'Person',
-      name: 'MokaDev',
+      name: 'MocaDev',
     },
   },
 };

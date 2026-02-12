@@ -30,7 +30,7 @@ export function SiteHeader() {
             M
           </span>
           <div className="flex flex-col leading-tight">
-            <span>MokaDev</span>
+            <span>MocaDev</span>
             <span className="text-xs font-normal text-gray-500">Personal App Lab</span>
           </div>
         </Link>

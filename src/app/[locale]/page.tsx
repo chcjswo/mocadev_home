@@ -75,7 +75,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-[1.2fr,0.8fr] md:items-center">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">
-                MokaDev
+                MocaDev
               </p>
               <h1 className="mt-4 text-4xl font-bold leading-tight text-gray-900 md:text-5xl">
                 {t('hero.title1')}
@@ -109,7 +109,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <section id="apps" className="mx-auto max-w-6xl px-4 py-16">
           <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="text-sm font-semibold text-gray-500">MokaDev Apps</p>
+              <p className="text-sm font-semibold text-gray-500">MocaDev Apps</p>
               <h2 className="text-3xl font-bold text-gray-900">{t('appsSection.title')}</h2>
               <p className="text-sm text-gray-600">
                 {t('appsSection.description')}
@@ -138,7 +138,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <section className="border-t border-black/5 bg-white">
           <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-2">
             <div>
-              <p className="text-sm font-semibold text-gray-500">About MokaDev</p>
+              <p className="text-sm font-semibold text-gray-500">About MocaDev</p>
               <h2 className="text-3xl font-bold text-gray-900">{t('about.title')}</h2>
               <p className="mt-4 text-sm text-gray-600">
                 {t('about.description')}

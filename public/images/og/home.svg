@@ -10,7 +10,7 @@
   <circle cx="260" cy="180" r="140" fill="#c7d2fe"/>
   <circle cx="980" cy="420" r="180" fill="#fed7aa"/>
   <text x="120" y="320" fill="#111827" font-size="72" font-family="Inter, 'Pretendard', sans-serif" font-weight="700">
-    MokaDev
+    MocaDev
   </text>
   <text x="120" y="400" fill="#4338ca" font-size="40" font-family="Inter, 'Pretendard', sans-serif" font-weight="600">
     개인 개발자가 만드는 생활형 앱 실험실
