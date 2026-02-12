@@ -4,6 +4,7 @@ import { Link, usePathname } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -49,7 +50,8 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden items-center gap-3 md:flex">
+          <LanguageSwitcher />
           <Button asChild variant="default">
             <a href="mailto:mocadev.tony@gmail.com" aria-label={t('contactAriaLabel')}>
               {t('contact')}
@@ -71,6 +73,7 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
+          <LanguageSwitcher />
           <a
             href="mailto:mocadev.tony@gmail.com"
             className="rounded-full bg-gray-900 px-3 py-1 text-white"
