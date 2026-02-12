@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
-import { getMessages, setRequestLocale } from 'next-intl/server';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Analytics } from '@vercel/analytics/react';
 import { routing } from '@/i18n/routing';
-import { structuredDataTemplates } from '@/lib/seo/config';
+import { structuredDataTemplates, seoConfig } from '@/lib/seo/config';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { FirebaseAnalyticsClient } from '@/components/analytics/FirebaseAnalyticsClient';
@@ -22,18 +22,32 @@ const geistMono = Geist_Mono({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  metadataBase:
-    typeof process.env.NEXT_PUBLIC_SITE_URL === 'string'
-      ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
-      : undefined,
-  title: {
-    default: '모카데브 – 개인 앱 개발자',
-    template: '%s | 모카데브',
-  },
-  description:
-    '랜덤 식당 추천부터 포춘쿠키 메시지까지. 모카데브가 직접 설계하고 운영하는 생활형 앱 컬렉션을 만나보세요.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'metadata' });
+
+  return {
+    metadataBase:
+      typeof process.env.NEXT_PUBLIC_SITE_URL === 'string'
+        ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
+        : undefined,
+    title: {
+      default: t('siteTitle'),
+      template: t('titleTemplate'),
+    },
+    description: t('siteDescription'),
+    alternates: {
+      languages: {
+        ko: `${seoConfig.siteUrl}/ko`,
+        en: `${seoConfig.siteUrl}/en`,
+      },
+    },
+  };
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

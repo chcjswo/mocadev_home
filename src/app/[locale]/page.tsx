@@ -2,42 +2,54 @@ import { ArrowRight } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import type { Metadata } from 'next';
-import { pageDefaults, seoConfig, structuredDataTemplates } from '@/lib/seo/config';
-import { PageSEO } from '@/components/seo';
+import { seoConfig, structuredDataTemplates } from '@/lib/seo/config';
 import { getAllAppsBase } from '@/lib/data/apps';
 import { AppCard } from '@/components/apps/AppCard';
 import { Card, CardContent } from '@/components/ui/card';
 
-export const metadata: Metadata = {
-  title: pageDefaults.home.title,
-  description: pageDefaults.home.description,
-  keywords: pageDefaults.home.keywords,
-  openGraph: {
-    title: pageDefaults.home.title,
-    description: pageDefaults.home.description,
-    url: seoConfig.siteUrl,
-    siteName: seoConfig.siteName,
-    images: [
-      {
-        url: `${seoConfig.siteUrl}${seoConfig.defaultImage}`,
-        width: 1200,
-        height: 630,
-        alt: 'MokaDev',
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'seo.home' });
+
+  return {
+    title: t('title'),
+    description: t('description'),
+    keywords: t('keywords'),
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+      url: seoConfig.siteUrl,
+      siteName: seoConfig.siteName,
+      images: [
+        {
+          url: `${seoConfig.siteUrl}${seoConfig.defaultImage}`,
+          width: 1200,
+          height: 630,
+          alt: t('ogImageAlt'),
+        },
+      ],
+      locale,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('title'),
+      description: t('description'),
+      images: [`${seoConfig.siteUrl}${seoConfig.defaultImage}`],
+    },
+    alternates: {
+      canonical: `${seoConfig.siteUrl}/${locale}`,
+      languages: {
+        ko: `${seoConfig.siteUrl}/ko`,
+        en: `${seoConfig.siteUrl}/en`,
       },
-    ],
-    locale: seoConfig.locale,
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: pageDefaults.home.title,
-    description: pageDefaults.home.description,
-    images: [`${seoConfig.siteUrl}${seoConfig.defaultImage}`],
-  },
-  alternates: {
-    canonical: seoConfig.siteUrl,
-  },
-};
+    },
+  };
+}
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -51,14 +63,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
   return (
     <>
-      <PageSEO
-        title={pageDefaults.home.title}
-        description={pageDefaults.home.description}
-        keywords={pageDefaults.home.keywords}
-        ogImage="/images/og/home.svg"
-        structuredData={[
-          { type: 'SoftwareApplication', data: structuredDataTemplates.softwareApplication },
-        ]}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredDataTemplates.softwareApplication),
+        }}
       />
 
       <div className="bg-gradient-to-br from-[#f5f3ff] via-white to-[#e0f2fe]">
