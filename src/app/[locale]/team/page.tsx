@@ -1,9 +1,12 @@
 import Image from 'next/image';
 import type { Metadata } from 'next';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { PageSEO } from '@/components/seo';
 import { pageDefaults, seoConfig } from '@/lib/seo/config';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+
+const memberImages = ['/images/profile/myimage.jpg', '/images/profile/maengkkongi.svg'];
 
 export const metadata: Metadata = {
   title: pageDefaults.team.title,
@@ -19,7 +22,7 @@ export const metadata: Metadata = {
         url: `${seoConfig.siteUrl}${seoConfig.defaultImage}`,
         width: 1200,
         height: 630,
-        alt: '모카데브 팀',
+        alt: 'MokaDev Team',
       },
     ],
     locale: seoConfig.locale,
@@ -36,22 +39,12 @@ export const metadata: Metadata = {
   },
 };
 
-const teamMembers = [
-  {
-    name: '동대문사단',
-    roles: ['개발', '기획'],
-    image: '/images/profile/myimage.jpg',
-    description: '앱의 핵심 기능을 개발하고 서비스 기획을 담당합니다.',
-  },
-  {
-    name: '맹꽁이',
-    roles: ['기획', '디자인', '홍보'],
-    image: '/images/profile/maengkkongi.svg',
-    description: '사용자 경험을 고려한 기획과 디자인, 그리고 서비스 홍보를 맡고 있습니다.',
-  },
-];
+export default async function TeamPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
 
-export default function TeamPage() {
+  const t = await getTranslations('team');
+
   return (
     <>
       <PageSEO
@@ -68,53 +61,48 @@ export default function TeamPage() {
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">
                 MokaDev Team
               </p>
-              <h1 className="mt-4 text-4xl font-bold text-gray-900 md:text-5xl">만든 사람들</h1>
+              <h1 className="mt-4 text-4xl font-bold text-gray-900 md:text-5xl">{t('title')}</h1>
               <p className="mt-6 text-lg text-gray-700">
-                작은 문제를 발견하고 앱으로 해결하는 모카데브 팀을 소개합니다.
+                {t('subtitle')}
               </p>
             </div>
 
             <div className="grid gap-8 md:grid-cols-2">
-              {teamMembers.map((member) => (
-                <Card key={member.name} className="border-black/5 bg-white shadow-lg">
-                  <CardContent className="p-8">
-                    <div className="flex flex-col items-center text-center">
-                      <div className="relative mb-6 h-32 w-32 overflow-hidden rounded-full border-4 border-gray-100 shadow-md">
-                        {member.image.endsWith('.svg') ? (
+              {memberImages.map((image, i) => {
+                const name = t(`members.${i}.name`);
+                const description = t(`members.${i}.description`);
+                const roles = t.raw(`members.${i}.roles`) as string[];
+                return (
+                  <Card key={i} className="border-black/5 bg-white shadow-lg">
+                    <CardContent className="p-8">
+                      <div className="flex flex-col items-center text-center">
+                        <div className="relative mb-6 h-32 w-32 overflow-hidden rounded-full border-4 border-gray-100 shadow-md">
                           <Image
-                            src={member.image}
-                            alt={`${member.name} 프로필`}
+                            src={image}
+                            alt={t('profileAlt', { name })}
                             width={128}
                             height={128}
                             className="h-full w-full object-cover"
                           />
-                        ) : (
-                          <Image
-                            src={member.image}
-                            alt={`${member.name} 프로필`}
-                            width={128}
-                            height={128}
-                            className="h-full w-full object-cover"
-                          />
-                        )}
+                        </div>
+                        <h2 className="text-2xl font-bold text-gray-900">{name}</h2>
+                        <div className="mt-3 flex flex-wrap justify-center gap-2">
+                          {roles.map((role) => (
+                            <Badge
+                              key={role}
+                              variant="secondary"
+                              className="bg-indigo-100 text-indigo-700 hover:bg-indigo-200"
+                            >
+                              {role}
+                            </Badge>
+                          ))}
+                        </div>
+                        <p className="mt-4 text-sm text-gray-600">{description}</p>
                       </div>
-                      <h2 className="text-2xl font-bold text-gray-900">{member.name}</h2>
-                      <div className="mt-3 flex flex-wrap justify-center gap-2">
-                        {member.roles.map((role) => (
-                          <Badge
-                            key={role}
-                            variant="secondary"
-                            className="bg-indigo-100 text-indigo-700 hover:bg-indigo-200"
-                          >
-                            {role}
-                          </Badge>
-                        ))}
-                      </div>
-                      <p className="mt-4 text-sm text-gray-600">{member.description}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </div>
         </section>

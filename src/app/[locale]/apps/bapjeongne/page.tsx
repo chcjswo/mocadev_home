@@ -1,28 +1,28 @@
 import type { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
 import { AppDetailPage } from '@/components/apps/AppDetailPage';
 import { PageSEO } from '@/components/seo';
-import { getAppBySlug, getAppStructuredData } from '@/lib/data/apps';
+import { getAppBase, getAppStructuredData } from '@/lib/data/apps';
 import { pageDefaults, seoConfig } from '@/lib/seo/config';
 
-const app = getAppBySlug('bapjeongne');
+const base = getAppBase('bapjeongne')!;
 
 export const metadata: Metadata = {
   title: pageDefaults.apps.bapjeongne.title,
   description: pageDefaults.apps.bapjeongne.description,
-  keywords: app.tags.join(', '),
   openGraph: {
     title: pageDefaults.apps.bapjeongne.title,
     description: pageDefaults.apps.bapjeongne.description,
-    url: `${seoConfig.siteUrl}/apps/${app.slug}`,
+    url: `${seoConfig.siteUrl}/apps/bapjeongne`,
     siteName: seoConfig.siteName,
     images: [
       {
-        url: app.heroImage.startsWith('http')
-          ? app.heroImage
-          : `${seoConfig.siteUrl}${app.heroImage}`,
+        url: base.heroImage.startsWith('http')
+          ? base.heroImage
+          : `${seoConfig.siteUrl}${base.heroImage}`,
         width: 1200,
         height: 630,
-        alt: `${app.name} 앱 아이콘`,
+        alt: 'bapjeongne',
       },
     ],
     locale: seoConfig.locale,
@@ -33,40 +33,35 @@ export const metadata: Metadata = {
     title: pageDefaults.apps.bapjeongne.title,
     description: pageDefaults.apps.bapjeongne.description,
     images: [
-      app.heroImage.startsWith('http')
-        ? app.heroImage
-        : `${seoConfig.siteUrl}${app.heroImage}`,
+      base.heroImage.startsWith('http')
+        ? base.heroImage
+        : `${seoConfig.siteUrl}${base.heroImage}`,
     ],
   },
   alternates: {
-    canonical: `${seoConfig.siteUrl}/apps/${app.slug}`,
-  },
-  other: {
-    ...(app.storeLinks.find((link) => link.platform === 'ios') && {
-      'apple-itunes-app': app.storeLinks
-        .find((link) => link.platform === 'ios')!
-        .url.replace('https://apps.apple.com', ''),
-    }),
-    ...(app.storeLinks.find((link) => link.platform === 'android') && {
-      'google-play-app': app.storeLinks
-        .find((link) => link.platform === 'android')!
-        .url.replace('https://play.google.com/store/apps/details?id=', ''),
-    }),
+    canonical: `${seoConfig.siteUrl}/apps/bapjeongne`,
   },
 };
 
-export default function BapjeongnePage() {
+export default async function BapjeongnePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <>
       <PageSEO
         title={pageDefaults.apps.bapjeongne.title}
         description={pageDefaults.apps.bapjeongne.description}
-        keywords={app.tags.join(', ')}
-        canonical={`/apps/${app.slug}`}
-        ogImage={app.heroImage}
-        structuredData={getAppStructuredData(app)}
+        canonical="/apps/bapjeongne"
+        ogImage={base.heroImage}
+        structuredData={getAppStructuredData(
+          'bapjeongne',
+          pageDefaults.apps.bapjeongne.title,
+          pageDefaults.apps.bapjeongne.description,
+          base.heroImage,
+        )}
       />
-      <AppDetailPage app={app} />
+      <AppDetailPage slug="bapjeongne" />
     </>
   );
 }

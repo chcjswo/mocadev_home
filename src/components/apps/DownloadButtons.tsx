@@ -1,12 +1,18 @@
-import Link from 'next/link';
-import { AppPlatformLink } from '@/types/app';
 import { Button } from '@/components/ui/button';
 
-interface DownloadButtonsProps {
-  links: AppPlatformLink[];
+interface DownloadLink {
+  platform: string;
+  url: string;
+  label: string;
+  badge: string;
 }
 
-export function DownloadButtons({ links }: DownloadButtonsProps) {
+interface DownloadButtonsProps {
+  links: DownloadLink[];
+  ariaLabelTemplate: string;
+}
+
+export function DownloadButtons({ links, ariaLabelTemplate }: DownloadButtonsProps) {
   return (
     <div className="flex flex-wrap gap-3">
       {links.map((link) => (
@@ -16,14 +22,14 @@ export function DownloadButtons({ links }: DownloadButtonsProps) {
           size="lg"
           className="rounded-2xl bg-gray-900 text-white hover:bg-black"
         >
-          <Link
+          <a
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`${link.label} 바로가기`}
+            aria-label={ariaLabelTemplate.replace('{label}', link.label)}
           >
             {link.badge}
-          </Link>
+          </a>
         </Button>
       ))}
     </div>

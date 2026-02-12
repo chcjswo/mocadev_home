@@ -3,17 +3,18 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { AppScreenshot } from '@/types/app';
+import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 
 interface ScreenshotCarouselProps {
-  screenshots: AppScreenshot[];
+  screenshots: { src: string; alt: string; caption: string }[];
   accentColor: string;
 }
 
 export function ScreenshotCarousel({ screenshots, accentColor }: ScreenshotCarouselProps) {
-  const [slideIndex, setSlideIndex] = useState(0); // 슬라이드 위치
-  const [activeIndex, setActiveIndex] = useState(0); // 활성화된 이미지 인덱스
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const t = useTranslations('carousel');
 
   const goTo = (index: number) => {
     const normalized = (index + screenshots.length) % screenshots.length;
@@ -23,15 +24,12 @@ export function ScreenshotCarousel({ screenshots, accentColor }: ScreenshotCarou
 
   const handleImageClick = (index: number) => {
     setActiveIndex(index);
-    // 슬라이드는 이동하지 않음
   };
 
   if (screenshots.length === 0) return null;
 
-  // 슬라이드 이동 거리 계산
-  // 모바일: 100%씩 이동, 데스크톱: 33.333%씩 이동 (3개씩 보이므로)
-  const slideOffset = slideIndex * -100; // 모바일 기준
-  const slideOffsetMd = slideIndex * -(100 / 3); // 데스크톱 기준
+  const slideOffset = slideIndex * -100;
+  const slideOffsetMd = slideIndex * -(100 / 3);
 
   return (
     <div className="space-y-4">
@@ -84,7 +82,7 @@ export function ScreenshotCarousel({ screenshots, accentColor }: ScreenshotCarou
 
         <button
           type="button"
-          aria-label="이전 스크린샷"
+          aria-label={t('prevAriaLabel')}
           onClick={() => goTo(slideIndex - 1)}
           className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 text-gray-700 shadow-sm transition hover:bg-white"
         >
@@ -92,7 +90,7 @@ export function ScreenshotCarousel({ screenshots, accentColor }: ScreenshotCarou
         </button>
         <button
           type="button"
-          aria-label="다음 스크린샷"
+          aria-label={t('nextAriaLabel')}
           onClick={() => goTo(slideIndex + 1)}
           className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/90 p-2 text-gray-700 shadow-sm transition hover:bg-white"
         >
@@ -106,7 +104,7 @@ export function ScreenshotCarousel({ screenshots, accentColor }: ScreenshotCarou
             key={shot.src}
             type="button"
             onClick={() => goTo(index)}
-            aria-label={`${index + 1}번째 스크린샷 보기`}
+            aria-label={t('dotAriaLabel', { index: index + 1 })}
             className={cn(
               'h-2 w-6 rounded-full transition-all',
               activeIndex === index ? 'w-10' : 'opacity-50',

@@ -1,671 +1,193 @@
-import { AppContent } from '@/types/app';
 import { StructuredDataProps } from '@/types/seo';
 import { seoConfig } from '@/lib/seo/config';
 
-export const apps: AppContent[] = [
+export interface AppBaseData {
+  slug: 'bapjeongne' | 'fortune-cookie' | 'lunch-picker' | 'baby-med-diary' | 'cat-weather';
+  heroImage: string;
+  theme: { accent: string; gradientFrom: string; gradientTo: string };
+  icon: string;
+  storeLinks: { platform: 'ios' | 'android'; url: string }[];
+  screenshotSrcs: string[];
+  featureIcons: string[];
+  featureCount: number;
+  usageCount: number;
+  screenshotCount: number;
+  qnaCount: number;
+  hasMessageExamples: boolean;
+  messageExampleCount: number;
+  hasTestimonials: boolean;
+  testimonialCount: number;
+  introBannerSrc?: string;
+}
+
+export const appsBaseData: AppBaseData[] = [
   {
     slug: 'bapjeongne',
-    name: '밥정너',
-    tagline: '당신의 점심 고민을 대신 해결하는 한 끼 큐레이터',
-    description:
-      '밥정너는 "오늘 뭐 먹지?" 하는 머릿속 회오리를 잠재우고, 가까운 식당 중 하나를 깔끔하게 추천해주는 점심 조력자다. 지도 위에 톡, 위치를 찍으면 반경 안의 모든 식당을 탐색하고, 짧은 카운트다운과 함께 하나의 선택지를 제시한다. 결정 과정은 가볍게, 한 끼는 풍성하게.',
     heroImage: '/images/apps/bobjeongneo/icons/icon.png',
-    theme: {
-      accent: '#7C3AED',
-      gradientFrom: '#ede9fe',
-      gradientTo: '#c7d2fe',
-    },
+    theme: { accent: '#7C3AED', gradientFrom: '#ede9fe', gradientTo: '#c7d2fe' },
     icon: '🍱',
-    tags: ['랜덤 추천', '위치 기반', 'iOS/Android'],
     storeLinks: [
-      {
-        platform: 'ios',
-        url: 'https://apps.apple.com/kr/app/%EB%B0%A5%EC%A0%95%EB%84%88/id6755356516',
-        label: 'App Store',
-        badge: 'iOS 다운로드',
-      },
-      {
-        platform: 'android',
-        url: 'https://play.google.com/store/apps/details?id=com.mocadev.bobjeongneo',
-        label: 'Google Play',
-        badge: 'Android 다운로드',
-      },
+      { platform: 'ios', url: 'https://apps.apple.com/kr/app/%EB%B0%A5%EC%A0%95%EB%84%88/id6755356516' },
+      { platform: 'android', url: 'https://play.google.com/store/apps/details?id=com.mocadev.bobjeongneo' },
     ],
-    features: [
-      {
-        title: '위치 기반 스마트 식당 추천',
-        description: '지도에서 내 위치를 선택하면, 설정한 반경(500m–3000m) 안에서 식당을 빠르게 찾아준다. 카운트다운이 끝나는 순간, 오늘의 점심 후보가 화면에 등장한다.',
-        icon: '📍',
-      },
-      {
-        title: '직관적인 지도 뷰',
-        description: '추천된 식당은 지도로 바로 확인할 수 있다. 현재 내 위치와 식당 위치가 함께 표시되어 길 찾기까지 한눈에 해결된다.',
-        icon: '🗺️',
-      },
-      {
-        title: '오늘의 선택을 기록하는 방문 통계',
-        description: '한 달 동안 방문한 식당의 수, 재방문 비율 등을 자동으로 정리해 보여준다. 자주 가는 곳, 새로 찾은 곳들이 작고 단단한 데이터로 남아 당신의 식사 취향을 보여준다.',
-        icon: '📊',
-      },
+    screenshotSrcs: [
+      '/images/apps/bobjeongneo/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2025-11-10 at 20.50.33.png',
+      '/images/apps/bobjeongneo/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2025-11-10 at 20.50.51.png',
+      '/images/apps/bobjeongneo/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2025-11-10 at 20.50.59.png',
+      '/images/apps/bobjeongneo/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2025-11-10 at 20.51.07.png',
     ],
-    usage: [
-      {
-        title: '1. 지도에서 위치 선택 & 검색 반경 설정',
-        description: '지도에서 내 위치를 선택하고, 원하는 반경(500m–3000m)을 설정한다.',
-      },
-      {
-        title: '2. 3초 카운트다운 → 랜덤 추천',
-        description: '짧은 카운트다운과 함께 반경 안의 식당 중 하나를 깔끔하게 추천한다.',
-      },
-      {
-        title: '3. 식당 정보 & 방문 통계 확인',
-        description: '추천된 식당의 정보를 확인하고, 지도로 위치를 바로 확인할 수 있다. 방문 통계도 함께 확인해보자.',
-      },
-    ],
-    screenshots: [
-      {
-        src: '/images/apps/bobjeongneo/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2025-11-10 at 20.50.33.png',
-        alt: '식당 추천 화면',
-        caption: '조건에 맞는 식당을 3곳 제안합니다.',
-      },
-      {
-        src: '/images/apps/bobjeongneo/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2025-11-10 at 20.50.51.png',
-        alt: '필터 설정 화면',
-        caption: '예산·분위기·거리 필터를 직관적으로 조절할 수 있어요.',
-      },
-      {
-        src: '/images/apps/bobjeongneo/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2025-11-10 at 20.50.59.png',
-        alt: '공유 화면',
-        caption: '추천 결과를 링크로 공유해 투표를 받을 수 있습니다.',
-      },
-      {
-        src: '/images/apps/bobjeongneo/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2025-11-10 at 20.51.07.png',
-        alt: '앱 화면',
-        caption: '밥정너 앱의 다양한 기능을 확인할 수 있습니다.',
-      },
-    ],
-    qna: [
-      {
-        question: '추천 식당 데이터는 어디에서 오나요?',
-        answer: '카카오/네이버 장소 데이터와 자체 큐레이션한 맛집 DB를 조합해 제공합니다.',
-      },
-      {
-        question: '내가 추가한 식당만 볼 수 있나요?',
-        answer:
-          '개인 찜 리스트를 만들 수 있으며, 랜덤 추천 시 내 리스트만 선택하는 옵션을 제공합니다.',
-      },
-      {
-        question: '광고가 나오나요?',
-        answer: '앱 내부 광고는 최소화했으며 추천 리스트에 광고 상위 노출은 없습니다.',
-      },
-    ],
-    summary: {
-      problem:
-        '점심 메뉴 결정 스트레스, 매번 같은 곳만 가는 단조로움, 새로운 식당을 찾아보기 귀찮은 순간, 식당 선택을 대신해줄 누군가가 필요한 시간.',
-      solution:
-        '무거운 기능보다 "한 사람의 하루를 가볍게 해주는 즐거움"을 목표로 설계되었다. 사용자가 지도를 탭하는 순간부터 추천이 도착하는 순간까지, 작은 리듬과 농담 같은 UI가 흐른다. 하루 한 번의 선택을 더 간편하고 더 유쾌하게 만드는 것.',
-      metrics: [],
-    },
+    featureIcons: ['📍', '🗺️', '📊'],
+    featureCount: 3,
+    usageCount: 3,
+    screenshotCount: 4,
+    qnaCount: 3,
+    hasMessageExamples: false,
+    messageExampleCount: 0,
+    hasTestimonials: false,
+    testimonialCount: 0,
+    introBannerSrc: '/images/apps/bobjeongneo/ChatGPT Image 2025년 11월 25일 오전 01_17_08.png',
   },
   {
     slug: 'fortune-cookie',
-    name: '포춘쿠키',
-    tagline: '쿠키를 톡! 오늘의 메시지가 도착합니다',
-    description:
-      '포춘쿠키를 클릭해 하루의 방향을 잡아보세요. 텍스트 애니메이션과 잔잔한 사운드로 감성적인 경험을 제공합니다.',
     heroImage: '/images/apps/fortune-cookie/icons/icon.png',
-    theme: {
-      accent: '#ec4899',
-      gradientFrom: '#ffe4e6',
-      gradientTo: '#fde68a',
-    },
+    theme: { accent: '#ec4899', gradientFrom: '#ffe4e6', gradientTo: '#fde68a' },
     icon: '🥠',
-    tags: ['감성 메시지', '데일리 루틴', '오프라인 모드'],
     storeLinks: [
-      {
-        platform: 'ios',
-        url: 'https://apps.apple.com/kr/app/fortune-cookie/id6755540351',
-        label: 'App Store',
-        badge: 'iOS 다운로드',
-      },
-      {
-        platform: 'android',
-        url: 'https://play.google.com/store/apps/details?id=com.mocadev.fortunecookie',
-        label: 'Google Play',
-        badge: 'Android 다운로드',
-      },
+      { platform: 'ios', url: 'https://apps.apple.com/kr/app/fortune-cookie/id6755540351' },
+      { platform: 'android', url: 'https://play.google.com/store/apps/details?id=com.mocadev.fortunecookie' },
     ],
-    features: [
-      {
-        title: '테마별 포춘 카드',
-        description: '마음, 커리어, 관계 세 가지 테마로 메시지를 선택할 수 있어요.',
-        icon: '🌈',
-      },
-      {
-        title: '오디오 포춘',
-        description: '짧은 ASMR 사운드와 함께 메시지가 재생됩니다.',
-        icon: '🎧',
-      },
-      {
-        title: '저장 & 공유',
-        description: '마음에 드는 문장을 라이브러리에 저장하거나 SNS 카드로 공유하세요.',
-        icon: '✨',
-      },
+    screenshotSrcs: [
+      '/images/apps/fortune-cookie/screenshot/preview-1.png',
+      '/images/apps/fortune-cookie/screenshot/preview-2.png',
+      '/images/apps/fortune-cookie/screenshot/preview-3.png',
+      '/images/apps/fortune-cookie/screenshot/preview-4.png',
     ],
-    usage: [
-      {
-        title: '1. 오늘의 테마 선택',
-        description: '마음 · 커리어 · 관계 중에서 집중하고 싶은 영역을 고릅니다.',
-      },
-      {
-        title: '2. 쿠키 깨기',
-        description: '쿠키를 터치하면 애니메이션과 함께 메시지가 나타납니다.',
-      },
-      {
-        title: '3. 저장하거나 공유',
-        description: '좋은 문장은 즐겨찾기로 저장, 혹은 인스타 스토리 카드로 공유하세요.',
-      },
-    ],
-    screenshots: [
-      {
-        src: '/images/apps/fortune-cookie/screenshot/preview-1.png',
-        alt: '포춘쿠키 메인',
-        caption: '테마별 포춘쿠키를 선택하는 메인 화면',
-      },
-      {
-        src: '/images/apps/fortune-cookie/screenshot/preview-2.png',
-        alt: '메시지 카드',
-        caption: '감성적인 일러스트와 함께 메시지를 제공합니다.',
-      },
-      {
-        src: '/images/apps/fortune-cookie/screenshot/preview-3.png',
-        alt: '공유 기능',
-        caption: 'SNS에 바로 공유할 수 있는 정사각형 카드',
-      },
-      {
-        src: '/images/apps/fortune-cookie/screenshot/preview-4.png',
-        alt: '앱 화면',
-        caption: '포춘쿠키 앱의 다양한 기능을 확인할 수 있습니다.',
-      },
-    ],
-    qna: [
-      {
-        question: '메시지는 어디에서 나오나요?',
-        answer: '모카데브가 직접 작성한 500+ 문장과 GPT 기반 문장을 검수 후 제공하고 있습니다.',
-      },
-      {
-        question: '오프라인에서도 사용할 수 있나요?',
-        answer:
-          '네, 최근 20개의 메시지는 오프라인 캐시로 제공되어 지하철에서도 사용할 수 있습니다.',
-      },
-      {
-        question: '푸시 알림 빈도는 조절되나요?',
-        answer: '하루 1회 기본, 원하는 시간대를 직접 설정할 수 있습니다.',
-      },
-    ],
-    messageExamples: [
-      '새로운 시작은 늘 작은 용기에서 태어납니다.',
-      '오늘의 노력은 미래의 너에게 편지가 됩니다.',
-      '혼자라는 느낌이 들 때일수록 마음을 가볍게 적어보세요.',
-      '네가 상상한 장면은 이미 현실로 향하는 중입니다.',
-    ],
-    summary: {
-      problem:
-        '바쁜 일상 속에서 감정 정리와 가벼운 위로가 필요하지만 한 문장조차 찾기 어려웠습니다.',
-      solution:
-        '감각적인 애니메이션과 맞춤 메시지를 통해 스스로를 다독이는 짧은 루틴을 제공합니다.',
-      metrics: [],
-    },
+    featureIcons: ['🌈', '🎧', '✨'],
+    featureCount: 3,
+    usageCount: 3,
+    screenshotCount: 4,
+    qnaCount: 3,
+    hasMessageExamples: true,
+    messageExampleCount: 4,
+    hasTestimonials: false,
+    testimonialCount: 0,
   },
   {
     slug: 'lunch-picker',
-    name: '점심 뭐 먹지',
-    tagline: '내가 고른 식당들로 완성되는, 나만의 점심 추천 앱',
-    description:
-      '하루에 한 번, 특정 시간이 되면 당신이 저장해 둔 식당들 중 하나가 포근한 알림처럼 도착합니다. "오늘 뭐 먹지?"라는 짧은 물음이 습관처럼 떠오르는 순간을 대신 챙겨주는 작은 도우미. 앱은 절대 과장하지 않고, 당신이 좋아하는 메뉴들의 정중한 하우스키퍼처럼 조용히 일합니다.',
     heroImage: '/images/apps/lunch-pick/icons/icon.png',
-    theme: {
-      accent: '#0ea5e9',
-      gradientFrom: '#cffafe',
-      gradientTo: '#dbeafe',
-    },
+    theme: { accent: '#0ea5e9', gradientFrom: '#cffafe', gradientTo: '#dbeafe' },
     icon: '🍽️',
-    tags: ['푸시 알림', '개인 맞춤', '자동화'],
     storeLinks: [
-      {
-        platform: 'ios',
-        url: 'https://apps.apple.com/kr/app/%EC%A0%90%EC%8B%AC%EC%9A%94%EC%A0%95/id6755688150',
-        label: 'App Store',
-        badge: 'iOS 다운로드',
-      },
-      {
-        platform: 'android',
-        url: 'https://play.google.com/store/apps/details?id=com.mocadev.lunchpick&pli=1',
-        label: 'Google Play',
-        badge: 'Android 다운로드',
-      },
+      { platform: 'ios', url: 'https://apps.apple.com/kr/app/%EC%A0%90%EC%8B%AC%EC%9A%94%EC%A0%95/id6755688150' },
+      { platform: 'android', url: 'https://play.google.com/store/apps/details?id=com.mocadev.lunchpick&pli=1' },
     ],
-    features: [
-      {
-        title: '나만의 식당 저장',
-        description: '당신만의 리스트를 만들어두면, 앱이 매일 그 목록 속에서 "딱 하나"를 골라줍니다. 체크리스트를 채우듯 간단한 등록 방식으로 누구나 바로 쓸 수 있어요.',
-        icon: '📝',
-      },
-      {
-        title: '지정 시간 자동 추천 알림',
-        description: '매일 같은 시간, 혹은 당신이 정한 순간에 앱이 랜덤으로 식당을 선택해 푸시로 알려줍니다. 고민하던 점심시간에 살짝 스며드는 "메뉴 제안"의 느낌.',
-        icon: '🔔',
-      },
-      {
-        title: '언제든 편하게 수정 가능한 리스트',
-        description: '매일 다르게 먹고 싶은 날도, 며칠 동안 같은 집만 가고 싶은 날도 있죠. 원하는 대로 리스트를 추가·편집하며 나만의 패턴을 만들어갈 수 있어요.',
-        icon: '✏️',
-      },
-      {
-        title: '군더더기 없는 직관적 디자인',
-        description: '가벼운 묘사와 깔끔한 레이아웃으로 누구나 처음 보는 순간부터 편안하게 사용할 수 있도록 설계했습니다.',
-        icon: '🎨',
-      },
+    screenshotSrcs: [
+      '/images/apps/lunch-pick/screenshot/preview-1.png',
+      '/images/apps/lunch-pick/screenshot/preview-2.png',
+      '/images/apps/lunch-pick/screenshot/preview-3.png',
+      '/images/apps/lunch-pick/screenshot/preview-4.png',
+      '/images/apps/lunch-pick/screenshot/preview-5.png',
+      '/images/apps/lunch-pick/screenshot/preview-6.png',
+      '/images/apps/lunch-pick/screenshot/preview-8.png',
     ],
-    usage: [
-      {
-        title: '1. 나만의 식당 리스트 만들기',
-        description: '좋아하는 식당들을 체크리스트처럼 간단하게 등록합니다.',
-      },
-      {
-        title: '2. 알림 시간 설정',
-        description: '매일 같은 시간, 혹은 원하는 순간에 알림을 받을 시간을 정합니다.',
-      },
-      {
-        title: '3. 알림으로 받은 추천 확인',
-        description: '설정한 시간에 저장한 식당 중 하나가 랜덤으로 선택되어 알림으로 도착합니다.',
-      },
-    ],
-    screenshots: [
-      {
-        src: '/images/apps/lunch-pick/screenshot/preview-1.png',
-        alt: '식당 리스트 화면',
-        caption: '나만의 식당 리스트를 간단하게 등록하고 관리할 수 있습니다.',
-      },
-      {
-        src: '/images/apps/lunch-pick/screenshot/preview-2.png',
-        alt: '푸시 알림',
-        caption: '설정한 시간에 저장한 식당 중 하나가 랜덤으로 선택되어 알림으로 도착합니다.',
-      },
-      {
-        src: '/images/apps/lunch-pick/screenshot/preview-3.png',
-        alt: '앱 화면',
-        caption: '군더더기 없는 직관적인 디자인으로 누구나 쉽게 사용할 수 있습니다.',
-      },
-      {
-        src: '/images/apps/lunch-pick/screenshot/preview-4.png',
-        alt: '앱 화면',
-        caption: '점심 뭐 먹지 앱의 다양한 기능을 확인할 수 있습니다.',
-      },
-      {
-        src: '/images/apps/lunch-pick/screenshot/preview-5.png',
-        alt: '앱 화면',
-        caption: '가벼운 묘사와 깔끔한 레이아웃으로 편안하게 사용할 수 있습니다.',
-      },
-      {
-        src: '/images/apps/lunch-pick/screenshot/preview-6.png',
-        alt: '앱 화면',
-        caption: '언제든 리스트를 추가·편집하며 나만의 패턴을 만들어갈 수 있어요.',
-      },
-      {
-        src: '/images/apps/lunch-pick/screenshot/preview-8.png',
-        alt: '앱 화면',
-        caption: '하루에 한 번, 포근한 알림처럼 도착하는 점심 추천.',
-      },
-    ],
-    qna: [
-      {
-        question: '푸시 알림이 너무 자주 오진 않나요?',
-        answer:
-          '하루에 한 번만 알림이 발송됩니다. 원하는 시간에 알림을 받을 수 있도록 설정할 수 있어요.',
-      },
-      {
-        question: '식당 리스트는 몇 개까지 저장할 수 있나요?',
-        answer: '제한 없이 원하는 만큼 저장할 수 있습니다. 언제든 추가·삭제·수정이 가능해요.',
-      },
-      {
-        question: '알림 시간을 변경할 수 있나요?',
-        answer: '네, 언제든지 설정에서 알림 시간을 변경할 수 있습니다. 매일 다른 시간으로 설정하는 것도 가능해요.',
-      },
-    ],
-    testimonials: [
-      {
-        name: '정유라',
-        role: '직장인',
-        quote: '매일 점심 고민이 사라졌어요. 저장해둔 식당 중 하나가 알림으로 오니까 선택이 쉬워졌습니다.',
-      },
-      {
-        name: '김도현',
-        role: '학생',
-        quote: '좋아하는 식당만 모아두고 매일 하나씩 추천받는 게 편해요. 리스트 관리도 간단해서 좋습니다.',
-      },
-    ],
-    summary: {
-      problem: '매일 점심 메뉴 결정이 귀찮고, 반복되는 선택 스트레스로 인해 작은 자동화가 필요했습니다.',
-      solution:
-        '화려한 기능 대신 확실한 도움을 제공합니다. 메뉴 고민이라는 사소하지만 반복적인 결정을 대신해주고, 당신은 하루의 리듬을 조금 더 선명하게 가져갈 수 있어요. 마치 책상 위에 놓인 작은 타이머처럼, 아무 말 없이 켜져 있지만 분명한 역할을 수행하는 도구. 그런 조용한 앱을 지향합니다.',
-      metrics: [],
-    },
+    featureIcons: ['📝', '🔔', '✏️', '🎨'],
+    featureCount: 4,
+    usageCount: 3,
+    screenshotCount: 7,
+    qnaCount: 3,
+    hasMessageExamples: false,
+    messageExampleCount: 0,
+    hasTestimonials: true,
+    testimonialCount: 2,
+    introBannerSrc: '/images/apps/lunch-pick/chatgpt_image_2025.png',
   },
   {
     slug: 'baby-med-diary',
-    name: '우리아기 투약일기',
-    tagline: '아기 투약 기록과 알림을 한눈에',
-    description:
-      '아기에게 약을 언제, 얼마나, 어떻게 먹였는지 정확하게 기록하고, 투약 시간을 놓치지 않도록 알림을 제공하며, 월/주/일 단위로 투약 현황을 한눈에 파악할 수 있게 해주는 모바일 앱입니다.',
     heroImage: '/images/apps/babycarediary/icons/icon.png',
-    theme: {
-      accent: '#10b981',
-      gradientFrom: '#d1fae5',
-      gradientTo: '#a7f3d0',
-    },
+    theme: { accent: '#10b981', gradientFrom: '#d1fae5', gradientTo: '#a7f3d0' },
     icon: '💊',
-    tags: ['투약 기록', '알림', '아기 관리', 'iOS/Android'],
     storeLinks: [
-      {
-        platform: 'ios',
-        url: 'https://apps.apple.com/kr/app/%EC%9A%B0%EB%A6%AC%EC%95%84%EA%B8%B0-%ED%88%AC%EC%95%BD%EC%9D%BC%EA%B8%B0/id6756885629',
-        label: 'App Store',
-        badge: 'iOS 다운로드',
-      },
-      {
-        platform: 'android',
-        url: 'https://play.google.com/store/apps/details?id=com.mocadev.babymeddiary',
-        label: 'Google Play',
-        badge: 'Android 다운로드',
-      },
+      { platform: 'ios', url: 'https://apps.apple.com/kr/app/%EC%9A%B0%EB%A6%AC%EC%95%84%EA%B8%B0-%ED%88%AC%EC%95%BD%EC%9D%BC%EA%B8%B0/id6756885629' },
+      { platform: 'android', url: 'https://play.google.com/store/apps/details?id=com.mocadev.babymeddiary' },
     ],
-    features: [
-      {
-        title: '정확한 투약 기록 관리',
-        description: '약 이름, 용량, 시간, 증상 등을 상세하게 기록하고, 아기별로 분리된 타임라인으로 관리할 수 있습니다.',
-        icon: '📝',
-      },
-      {
-        title: '스마트 투약 알림',
-        description: '하루 최대 3번의 투약 시간을 설정하고, 요일별 반복 알림으로 투약 시간을 놓치지 않도록 도와줍니다.',
-        icon: '🔔',
-      },
-      {
-        title: '월/주/일 캘린더 뷰',
-        description: '캘린더로 투약 현황을 한눈에 파악하고, 병원 방문 시 의사에게 쉽게 보여줄 수 있습니다.',
-        icon: '📅',
-      },
-      {
-        title: '아기별 맞춤 관리',
-        description: '여러 명의 아기를 등록하고, 각 아기별로 독립된 투약 기록과 알림을 관리할 수 있습니다.',
-        icon: '👶',
-      },
+    screenshotSrcs: [
+      '/images/apps/babycarediary/screenshot/preview-1.png',
+      '/images/apps/babycarediary/screenshot/preview-2.png',
+      '/images/apps/babycarediary/screenshot/preview-3.png',
+      '/images/apps/babycarediary/screenshot/preview-4.png',
+      '/images/apps/babycarediary/screenshot/preview-5.png',
+      '/images/apps/babycarediary/screenshot/preview-6.png',
+      '/images/apps/babycarediary/screenshot/preview-7.png',
+      '/images/apps/babycarediary/screenshot/preview-8.png',
+      '/images/apps/babycarediary/screenshot/preview-9.png',
+      '/images/apps/babycarediary/screenshot/preview-10.png',
     ],
-    usage: [
-      {
-        title: '1. 아기 프로필 등록',
-        description: '아기 이름, 생년월일, 프로필 사진을 등록하고 여러 명의 아기를 관리할 수 있습니다.',
-      },
-      {
-        title: '2. 투약 기록 추가',
-        description: '약을 먹인 후 약 이름, 용량, 시간, 증상 등을 간단하게 기록합니다. 10초 안에 입력 완료.',
-      },
-      {
-        title: '3. 알림 설정 및 확인',
-        description: '하루 최대 3번의 투약 시간을 설정하고, 알림을 받아 투약 시간을 놓치지 않도록 합니다.',
-      },
-      {
-        title: '4. 캘린더로 현황 파악',
-        description: '월/주/일 뷰로 투약 현황을 확인하고, 병원 방문 시 의사에게 기록을 보여줄 수 있습니다.',
-      },
-    ],
-    screenshots: [
-      {
-        src: '/images/apps/babycarediary/screenshot/preview-1.png',
-        alt: '홈 화면',
-        caption: '오늘의 투약 기록을 한눈에 확인할 수 있는 홈 화면',
-      },
-      {
-        src: '/images/apps/babycarediary/screenshot/preview-2.png',
-        alt: '투약 기록 추가',
-        caption: '간단하게 투약 기록을 추가할 수 있는 화면',
-      },
-      {
-        src: '/images/apps/babycarediary/screenshot/preview-3.png',
-        alt: '캘린더 뷰',
-        caption: '월별 캘린더로 투약 현황을 확인할 수 있습니다',
-      },
-      {
-        src: '/images/apps/babycarediary/screenshot/preview-4.png',
-        alt: '일별 상세 뷰',
-        caption: '선택한 날짜의 투약 기록을 시간 순으로 확인',
-      },
-      {
-        src: '/images/apps/babycarediary/screenshot/preview-5.png',
-        alt: '알림 설정',
-        caption: '하루 최대 3번의 투약 시간을 설정할 수 있습니다',
-      },
-      {
-        src: '/images/apps/babycarediary/screenshot/preview-6.png',
-        alt: '아기 프로필 관리',
-        caption: '여러 명의 아기를 등록하고 관리할 수 있습니다',
-      },
-      {
-        src: '/images/apps/babycarediary/screenshot/preview-7.png',
-        alt: '투약 기록 상세',
-        caption: '기록한 투약 정보를 상세하게 확인하고 수정할 수 있습니다',
-      },
-      {
-        src: '/images/apps/babycarediary/screenshot/preview-8.png',
-        alt: '주별 뷰',
-        caption: '한 주 단위로 투약 현황을 확인할 수 있습니다',
-      },
-      {
-        src: '/images/apps/babycarediary/screenshot/preview-9.png',
-        alt: '앱 화면',
-        caption: '우리아기 투약일기 앱의 다양한 기능을 확인할 수 있습니다',
-      },
-      {
-        src: '/images/apps/babycarediary/screenshot/preview-10.png',
-        alt: '앱 화면',
-        caption: '직관적인 디자인으로 누구나 쉽게 사용할 수 있습니다',
-      },
-    ],
-    qna: [
-      {
-        question: '여러 명의 아기를 관리할 수 있나요?',
-        answer: '네, 여러 명의 아기를 등록하고 각 아기별로 독립된 투약 기록과 알림을 관리할 수 있습니다.',
-      },
-      {
-        question: '알림은 몇 개까지 설정할 수 있나요?',
-        answer: '아기별로 하루 최대 3개의 투약 시간 알림을 설정할 수 있으며, 요일별 반복 설정도 가능합니다.',
-      },
-      {
-        question: '데이터는 어디에 저장되나요?',
-        answer: '모든 데이터는 디바이스 로컬에 저장되며, 외부 서버로 전송되지 않습니다. 추후 클라우드 백업 기능은 확장 예정입니다.',
-      },
-      {
-        question: '과거 투약 기록도 추가할 수 있나요?',
-        answer: '네, 투약 일시를 과거 날짜로 설정하여 지난 기록을 보정할 수 있습니다.',
-      },
-      {
-        question: '앱이 종료되어 있어도 알림이 오나요?',
-        answer: '네, 로컬 푸시 알림을 사용하므로 앱이 종료되어 있어도 설정한 시간에 알림이 발송됩니다.',
-      },
-    ],
-    summary: {
-      problem:
-        '아기에게 약을 먹일 때 "어제 저녁에 먹였나?" 같은 기억에 의존하게 되고, 중복 투약이나 투약 누락을 방지하기 어려웠습니다. 또한 병원 방문 시 "언제 어떤 약을 얼마나 먹였는지"를 정확하게 전달하기 어려웠습니다.',
-      solution:
-        '기억 의존을 최소화하고 기록 기반으로 투약을 관리할 수 있도록 설계했습니다. 투약 기록 추가는 10초 안에 완료할 수 있도록 단순화했고, 월/주/일 캘린더 뷰로 투약 현황을 한눈에 파악할 수 있습니다. 하루 최대 3번의 스마트 알림으로 투약 시간을 놓치지 않도록 도와줍니다.',
-      metrics: [],
-    },
+    featureIcons: ['📝', '🔔', '📅', '👶'],
+    featureCount: 4,
+    usageCount: 4,
+    screenshotCount: 10,
+    qnaCount: 5,
+    hasMessageExamples: false,
+    messageExampleCount: 0,
+    hasTestimonials: false,
+    testimonialCount: 0,
+    introBannerSrc: '/images/apps/babycarediary/0008c61d.png',
   },
   {
     slug: 'cat-weather',
-    name: '날씨다냥',
-    tagline: '귀여운 고양이와 함께 날씨를 확인하세요!',
-    description:
-      '날씨마다 다른 모습으로 변신하는 귀여운 고양이가 오늘의 날씨를 알려드립니다. 맑은 날엔 선글라스를 끼고, 비오는 날엔 우산을 들고, 추운 날엔 목도리를 두른 고양이가 여러분을 맞이합니다!',
     heroImage: '/images/apps/cat-weather/catweather.jpg',
-    theme: {
-      accent: '#f59e0b',
-      gradientFrom: '#fef3c7',
-      gradientTo: '#bfdbfe',
-    },
+    theme: { accent: '#f59e0b', gradientFrom: '#fef3c7', gradientTo: '#bfdbfe' },
     icon: '🐱',
-    tags: ['날씨', '고양이', '일기예보', 'iOS/Android'],
     storeLinks: [
-      {
-        platform: 'ios',
-        url: 'https://apps.apple.com/kr/app/%EB%82%A0%EC%94%A8%EB%8B%A4%EB%83%A5/id6758456802',
-        label: 'App Store',
-        badge: 'iOS 다운로드',
-      },
-      {
-        platform: 'android',
-        url: 'https://play.google.com/store/apps/details?id=com.mocadev.catweather',
-        label: 'Google Play',
-        badge: 'Android 다운로드',
-      },
+      { platform: 'ios', url: 'https://apps.apple.com/kr/app/%EB%82%A0%EC%94%A8%EB%8B%A4%EB%83%A5/id6758456802' },
+      { platform: 'android', url: 'https://play.google.com/store/apps/details?id=com.mocadev.catweather' },
     ],
-    features: [
-      {
-        title: '9가지 날씨 고양이',
-        description:
-          '맑음, 비, 눈, 흐림, 폭염, 추위, 바람, 안개, 천둥번개까지. 날씨 상태에 따라 자동으로 변하는 귀여운 고양이 캐릭터를 만나보세요.',
-        icon: '🐱',
-      },
-      {
-        title: '7일 예보 & 시간별 예보',
-        description:
-          '향후 7일간 상세 예보와 24시간 시간별 날씨 변화를 한눈에. 최고/최저 온도, 강수 확률과 "우산 챙기세요!" 같은 친절한 메시지를 제공합니다.',
-        icon: '📅',
-      },
-      {
-        title: '전세계 도시 & 즐겨찾기',
-        description:
-          '서울, 도쿄, 뉴욕, 런던 등 전세계 주요 도시 날씨와 현지 시간. 자주 보는 도시를 즐겨찾기해 한눈에 비교해보세요.',
-        icon: '🌍',
-      },
-      {
-        title: '상세 날씨 & 생활 기상 지수',
-        description:
-          '체감온도, 습도, 풍속, 자외선, 미세먼지, 일출/일몰까지. 감기 가능성, 세차·빨래·나들이 지수 등 일상에 유용한 지수를 제공합니다.',
-        icon: '📊',
-      },
-      {
-        title: '날씨 알림 & 커스터마이징',
-        description:
-          '비 예보, 온도 급변, 미세먼지 나쁨 등 알림을 출근 전 시간에 맞춰 받을 수 있고, 고양이 스킨과 다크 모드로 앱을 꾸밀 수 있습니다.',
-        icon: '🔔',
-      },
+    screenshotSrcs: [
+      '/images/apps/cat-weather/screenshot/preview-1.png',
+      '/images/apps/cat-weather/screenshot/preview-2.png',
+      '/images/apps/cat-weather/screenshot/preview-3.png',
+      '/images/apps/cat-weather/screenshot/preview-4.png',
     ],
-    usage: [
-      {
-        title: '1. 도시 선택 또는 즐겨찾기 추가',
-        description: '현재 위치 또는 전세계 도시를 선택하고, 자주 보는 곳은 즐겨찾기에 등록합니다.',
-      },
-      {
-        title: '2. 오늘의 날씨 고양이 확인',
-        description: '날씨에 따라 변신한 귀여운 고양이와 한마디를 보고, 7일 예보·시간별 예보를 확인합니다.',
-      },
-      {
-        title: '3. 생활 지수 & 알림 활용',
-        description: '감기·세차·나들이 지수를 참고하고, 필요한 날씨 알림을 설정해 두세요.',
-      },
-    ],
-    screenshots: [
-      {
-        src: '/images/apps/cat-weather/screenshot/preview-1.png',
-        alt: '날씨다냥 메인',
-        caption: '날씨에 따라 변신하는 귀여운 고양이와 오늘의 날씨',
-      },
-      {
-        src: '/images/apps/cat-weather/screenshot/preview-2.png',
-        alt: '7일 예보',
-        caption: '향후 7일간 상세 날씨 예보와 친절한 메시지',
-      },
-      {
-        src: '/images/apps/cat-weather/screenshot/preview-3.png',
-        alt: '도시별 날씨',
-        caption: '전세계 도시 날씨와 즐겨찾기',
-      },
-      {
-        src: '/images/apps/cat-weather/screenshot/preview-4.png',
-        alt: '상세 날씨 정보',
-        caption: '생활 기상 지수와 상세 날씨 정보',
-      },
-    ],
-    qna: [
-      {
-        question: '생활 기상 지수는 어떤 것이 있나요?',
-        answer:
-          '감기 가능성, 피부 건조 지수, 운동 적합도, 세차·빨래·나들이 지수 등 일상생활에 유용한 기상 지수를 제공합니다.',
-      },
-      {
-        question: '오프라인에서도 사용할 수 있나요?',
-        answer: '마지막으로 확인한 날씨 정보는 오프라인에서도 볼 수 있도록 저장됩니다.',
-      },
-      {
-        question: '고양이 스킨은 어떻게 바꾸나요?',
-        answer: '설정에서 코숏, 러시안블루, 페르시안 등 다양한 고양이 스킨과 다크 모드를 선택할 수 있습니다.',
-      },
-    ],
-    messageExamples: [
-      '오늘은 선글라스가 필수냥! 햇빛이 눈부셔~',
-      '우산 챙겼냥? 비가 온대냥!',
-      '목도리 없으면 감기 걸린다냥...',
-    ],
-    summary: {
-      problem:
-        '매일 확인하는 날씨가 단조롭고, 날씨 정보만으로는 나들이·세차·옷차림 같은 일상 결정이 쉽지 않았습니다.',
-      solution:
-        '날씨 확인을 더 즐겁고 귀여운 경험으로 만들기 위해 탄생했습니다. 9가지 날씨 고양이와 생활 기상 지수로, 이왕이면 기분 좋게 하루를 준비하세요. 귀여운 고양이들이 여러분의 하루를 응원합니다.',
-      metrics: [],
-    },
+    featureIcons: ['🐱', '📅', '🌍', '📊', '🔔'],
+    featureCount: 5,
+    usageCount: 3,
+    screenshotCount: 4,
+    qnaCount: 3,
+    hasMessageExamples: true,
+    messageExampleCount: 3,
+    hasTestimonials: false,
+    testimonialCount: 0,
+    introBannerSrc: '/images/apps/cat-weather/catweather.jpg',
   },
 ];
 
-export const getAppBySlug = (slug: AppContent['slug']): AppContent => {
-  const app = apps.find((item) => item.slug === slug);
-  if (!app) {
-    throw new Error(`App not found: ${slug}`);
-  }
-  return app;
-};
+export const getAppBase = (slug: string): AppBaseData | undefined =>
+  appsBaseData.find((a) => a.slug === slug);
 
-export const getAllApps = () => apps;
+export const getAllAppSlugs = () => appsBaseData.map((a) => a.slug);
 
-export const getAppStructuredData = (app: AppContent): StructuredDataProps[] => [
+export const getAllAppsBase = () => appsBaseData;
+
+export const getAppStructuredData = (
+  slug: string,
+  name: string,
+  description: string,
+  heroImage: string,
+): StructuredDataProps[] => [
   {
     type: 'SoftwareApplication',
     data: {
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
-      name: app.name,
-      description: app.description,
-      image: app.heroImage.startsWith('http')
-        ? app.heroImage
-        : `${seoConfig.siteUrl}${app.heroImage}`,
+      name,
+      description,
+      image: heroImage.startsWith('http') ? heroImage : `${seoConfig.siteUrl}${heroImage}`,
       operatingSystem: 'iOS, Android',
       applicationCategory: 'LifestyleApplication',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'KRW',
-      },
-      url: `${seoConfig.siteUrl}/apps/${app.slug}`,
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '4.8',
-        reviewCount: '120',
-      },
-      creator: {
-        '@type': 'Person',
-        name: 'MokaDev',
-      },
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
+      url: `${seoConfig.siteUrl}/apps/${slug}`,
+      aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', reviewCount: '120' },
+      creator: { '@type': 'Person', name: 'MokaDev' },
     },
   },
 ];

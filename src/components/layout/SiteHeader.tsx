@@ -1,17 +1,18 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, usePathname } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-const navigation = [
-  { label: 'Apps', href: '/#apps' },
-  { label: '만든 사람들', href: '/team' },
-];
-
 export function SiteHeader() {
   const pathname = usePathname();
+  const t = useTranslations('nav');
+
+  const navigation = [
+    { label: 'Apps', href: '/#apps' },
+    { label: t('team'), href: '/team' },
+  ];
 
   const isActive = (href: string) => {
     if (href.startsWith('/#')) {
@@ -50,8 +51,8 @@ export function SiteHeader() {
 
         <div className="hidden md:block">
           <Button asChild variant="default">
-            <a href="mailto:mocadev.tony@gmail.com" aria-label="이메일로 문의하기">
-              문의하기
+            <a href="mailto:mocadev.tony@gmail.com" aria-label={t('contactAriaLabel')}>
+              {t('contact')}
             </a>
           </Button>
         </div>
@@ -73,9 +74,9 @@ export function SiteHeader() {
           <a
             href="mailto:mocadev.tony@gmail.com"
             className="rounded-full bg-gray-900 px-3 py-1 text-white"
-            aria-label="이메일로 문의하기"
+            aria-label={t('contactAriaLabel')}
           >
-            문의
+            {t('contactShort')}
           </a>
         </div>
       </div>
