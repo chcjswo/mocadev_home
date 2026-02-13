@@ -114,27 +114,33 @@
     "apps": {
       "bapjeongne": {
         "title": "Bapjeongne – Random Nearby Restaurant Picks",
-        "description": "MocaDev's flagship app that randomly recommends nearby restaurants based on your dining preferences. Lunch decision done in 3 minutes."
+        "description": "MocaDev's flagship app that randomly recommends nearby restaurants based on your dining preferences. Lunch decision done in 3 minutes.",
+        "keywords": "Bapjeongne, restaurant picker, lunch recommendation, random pick, location-based, food app, iOS, Android"
       },
       "fortune-cookie": {
         "title": "Fortune Cookie – Today's Message",
-        "description": "Tap a fortune cookie to receive today's fortune and message. A feel-good app to start your day lightly."
+        "description": "Tap a fortune cookie to receive today's fortune and message. A feel-good app to start your day lightly.",
+        "keywords": "Fortune Cookie, daily fortune, daily message, mood app, iOS, Android"
       },
       "lunch-picker": {
         "title": "Lunch Picker – Schedule-Based Random Recommendations",
-        "description": "A smart lunch recommendation desk assistant that sends push notifications by day and time based on your saved restaurant list."
+        "description": "A smart lunch recommendation desk assistant that sends push notifications by day and time based on your saved restaurant list.",
+        "keywords": "Lunch Picker, lunch recommendation, restaurant list, push notification, iOS, Android"
       },
       "baby-med-diary": {
         "title": "Baby Med Diary – Baby Medication Tracking & Reminders",
-        "description": "A mobile app that accurately records when, how much medication your baby took, and provides reminders to never miss a dose."
+        "description": "A mobile app that accurately records when, how much medication your baby took, and provides reminders to never miss a dose.",
+        "keywords": "Baby Med Diary, infant medication, medication reminder, baby care app, iOS, Android"
       },
       "cat-weather": {
         "title": "Cat Weather – A Cute Cat Weather App",
-        "description": "Check today's weather with adorable cats that transform for every weather condition. 9 weather cats, 7-day forecast, and lifestyle indices."
+        "description": "Check today's weather with adorable cats that transform for every weather condition. 9 weather cats, 7-day forecast, and lifestyle indices.",
+        "keywords": "Cat Weather, weather app, cat weather, forecast, lifestyle weather, iOS, Android"
       },
       "senior-care-diary": {
         "title": "Senior Med Diary – Senior Medication Tracking & Reminders",
-        "description": "Register medications for seniors and check daily compliance with a simple tap. Schedules are shown automatically for the medication period."
+        "description": "Register medications for seniors and check daily compliance with a simple tap. Schedules are shown automatically for the medication period.",
+        "keywords": "Senior Med Diary, elderly medication, medication tracker, caregiver app, medication reminder, iOS, Android"
       }
     }
   },

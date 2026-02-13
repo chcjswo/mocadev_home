@@ -40,6 +40,7 @@ export async function generateMetadata({
       template: t('titleTemplate'),
     },
     description: t('siteDescription'),
+    robots: { index: true, follow: true },
     alternates: {
       languages: {
         ko: `${seoConfig.siteUrl}/ko`,

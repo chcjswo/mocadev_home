@@ -200,6 +200,7 @@ export const getAppStructuredData = (
   name: string,
   description: string,
   heroImage: string,
+  locale: string = 'ko',
 ): StructuredDataProps[] => [
   {
     type: 'SoftwareApplication',
@@ -211,10 +212,38 @@ export const getAppStructuredData = (
       image: heroImage.startsWith('http') ? heroImage : `${seoConfig.siteUrl}${heroImage}`,
       operatingSystem: 'iOS, Android',
       applicationCategory: 'LifestyleApplication',
+      inLanguage: locale === 'en' ? 'en' : 'ko',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
-      url: `${seoConfig.siteUrl}/apps/${slug}`,
+      url: `${seoConfig.siteUrl}/${locale}/apps/${slug}`,
       aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', reviewCount: '120' },
       creator: { '@type': 'Person', name: 'MocaDev' },
     },
   },
 ];
+
+/** 앱 상세 페이지용 BreadcrumbList JSON-LD (검색 결과 breadcrumb 노출) */
+export const getBreadcrumbStructuredData = (
+  locale: string,
+  appName: string,
+  slug: string,
+): StructuredDataProps => ({
+  type: 'BreadcrumbList',
+  data: {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: locale === 'ko' ? '홈' : 'Home',
+        item: `${seoConfig.siteUrl}/${locale}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: appName,
+        item: `${seoConfig.siteUrl}/${locale}/apps/${slug}`,
+      },
+    ],
+  },
+});
