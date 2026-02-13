@@ -1,7 +1,8 @@
 import { SitemapUrl, RobotsRule } from '@/types/seo';
+import { routing } from '@/i18n/routing';
 import { seoConfig } from './config';
 
-// 정적 페이지 URL들 (실제 프로젝트에 맞게 수정)
+// 정적 페이지 URL들 (locale prefix 없음, generateSitemap에서 각 locale별로 확장)
 const staticPages = [
   { url: '/', priority: 1.0, changeFrequency: 'weekly' as const },
   { url: '/apps/bapjeongne', priority: 0.8, changeFrequency: 'monthly' as const },
@@ -34,14 +35,19 @@ export const getDynamicPages = async (): Promise<SitemapUrl[]> => {
   return dynamicPages;
 };
 
-// 사이트맵 XML 생성
+// 사이트맵 XML 생성 (다국어: 각 페이지를 locale별 URL로 노출)
 export const generateSitemap = async (): Promise<string> => {
-  const staticUrls: SitemapUrl[] = staticPages.map((page) => ({
-    url: page.url,
-    lastModified: new Date(),
-    priority: page.priority,
-    changeFrequency: page.changeFrequency,
-  }));
+  const staticUrls: SitemapUrl[] = [];
+  for (const locale of routing.locales) {
+    for (const page of staticPages) {
+      staticUrls.push({
+        url: `/${locale}${page.url}`,
+        lastModified: new Date(),
+        priority: page.priority,
+        changeFrequency: page.changeFrequency,
+      });
+    }
+  }
 
   const dynamicUrls = await getDynamicPages();
   const allUrls = [...staticUrls, ...dynamicUrls];
