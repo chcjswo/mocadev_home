@@ -50,6 +50,7 @@ export async function generateMetadata({
       languages: {
         ko: `${seoConfig.siteUrl}/ko/apps/senior-care-diary`,
         en: `${seoConfig.siteUrl}/en/apps/senior-care-diary`,
+        'x-default': `${seoConfig.siteUrl}/ko/apps/senior-care-diary`,
       },
     },
   };
