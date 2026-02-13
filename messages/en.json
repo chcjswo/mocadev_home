@@ -131,6 +131,10 @@
       "cat-weather": {
         "title": "Cat Weather – A Cute Cat Weather App",
         "description": "Check today's weather with adorable cats that transform for every weather condition. 9 weather cats, 7-day forecast, and lifestyle indices."
+      },
+      "senior-care-diary": {
+        "title": "Senior Med Diary – Senior Medication Tracking & Reminders",
+        "description": "Register medications for seniors and check daily compliance with a simple tap. Schedules are shown automatically for the medication period."
       }
     }
   },
@@ -334,6 +338,57 @@
         "experienceTitle": "The Experience",
         "experienceDesc1": "Reduce memory dependence like \"Did I give it last night?\" and manage medication based on records. Adding a record is simplified to complete in 10 seconds, and month/week/day calendar views let you overview medication status at a glance.",
         "experienceDesc2": "Up to 3 smart reminders per day help ensure no dose is missed, and you can show accurate medication records to doctors during hospital visits. All data is stored locally on your device, keeping personal information safe."
+      }
+    },
+    "senior-care-diary": {
+      "name": "Senior Med Diary",
+      "tagline": "Register once, auto-manage for the period",
+      "description": "A mobile app that helps you register medications for seniors in advance and easily check daily compliance. Set a medication period and the schedule is shown automatically for that period—caregivers only need to check off each dose.",
+      "tags": ["Medication Tracking", "Reminders", "Senior Care", "iOS/Android"],
+      "storeLinks": {
+        "0": { "label": "App Store", "badge": "Download on iOS" },
+        "1": { "label": "Google Play", "badge": "Download on Android" }
+      },
+      "features": {
+        "0": { "title": "Register Once, Auto-Manage for the Period", "description": "Register medication once and it appears automatically every day for the medication period. No need to enter daily—just check off." },
+        "1": { "title": "Simple Compliance Check", "description": "Record with checkboxes by time (morning, lunch, evening). See at a glance whether each dose was taken." },
+        "2": { "title": "Month/Week/Day Medication Log", "description": "View compliance at a glance on the calendar. Tap a date to see that day's detailed medication history." },
+        "3": { "title": "Manage Multiple Seniors", "description": "Manage both parents or in-laws in one app. Each senior has a separate list of current medications." }
+      },
+      "usage": {
+        "0": { "title": "1. Register Senior Profile", "description": "Enter name, gender, and optional notes (chronic meds, allergies). Manage multiple seniors." },
+        "1": { "title": "2. Register Medication", "description": "Set medication name, period (start–end), and up to 5 daily times. The app shows it automatically every day for that period." },
+        "2": { "title": "3. Check Off on Today Screen", "description": "Today's medication list is shown in time order. One tap on the checkbox records completion." },
+        "3": { "title": "4. Log & Reminders to Prevent Misses", "description": "Review compliance on the calendar and get push reminders at medication times so you never miss a dose." }
+      },
+      "screenshots": {
+        "0": { "alt": "Today screen", "caption": "Today's medication list and checkboxes" },
+        "1": { "alt": "Add medication", "caption": "Set medication info, period, and daily times" },
+        "2": { "alt": "Calendar view", "caption": "Check compliance on the monthly calendar" },
+        "3": { "alt": "Daily detail", "caption": "Detailed medication list for the selected date" },
+        "4": { "alt": "App screen", "caption": "Various features of the Senior Med Diary app" }
+      },
+      "qna": {
+        "0": { "question": "Can I manage multiple seniors?", "answer": "Yes, you can register multiple seniors and manage separate medication lists and history for each." },
+        "1": { "question": "How many reminders can I set?", "answer": "Up to 5 medication time reminders per senior per day. They are created automatically when you register a medication." },
+        "2": { "question": "Where is the data stored?", "answer": "All data is stored only on your device. The first version does not send data to any external server." },
+        "3": { "question": "Can I check off past dates?", "answer": "Yes. If you forgot to check, you can open the calendar, select a past date, and record the dose later." }
+      },
+      "summary": {
+        "problem": "When seniors take multiple medications, caregivers rely on memory like \"Did they take the morning pill?\" and it's hard to manage who took what when caring for several people.",
+        "solution": "Designed so that once you register a medication, it appears automatically every day for the period. Caregivers only record compliance with a single checkbox, and the calendar and reminders help prevent missed doses."
+      },
+      "intro": {
+        "title": "Meet Senior Med Diary",
+        "bannerAlt": "Senior Med Diary app introduction image",
+        "targetTitle": "Perfect for People Who",
+        "target1": "Care for elderly parents (adult children, care workers, caregivers)",
+        "target2": "Care for seniors living alone or multiple seniors at once",
+        "target3": "Want to show medication history to doctors during visits",
+        "target4": "Only want to check \"taken or not\" each day",
+        "experienceTitle": "The Experience",
+        "experienceDesc1": "Once you register a medication, it appears automatically every day for the period. Record completion with one checkbox on the Today screen and overview compliance on the calendar.",
+        "experienceDesc2": "Push notifications at medication times help prevent missed doses. All data is stored only locally, keeping personal information safe."
       }
     },
     "cat-weather": {

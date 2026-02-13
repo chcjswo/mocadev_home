@@ -2,7 +2,7 @@ import { StructuredDataProps } from '@/types/seo';
 import { seoConfig } from '@/lib/seo/config';
 
 export interface AppBaseData {
-  slug: 'bapjeongne' | 'fortune-cookie' | 'lunch-picker' | 'baby-med-diary' | 'cat-weather';
+  slug: 'bapjeongne' | 'fortune-cookie' | 'lunch-picker' | 'baby-med-diary' | 'cat-weather' | 'senior-care-diary';
   heroImage: string;
   theme: { accent: string; gradientFrom: string; gradientTo: string };
   icon: string;
@@ -158,6 +158,33 @@ export const appsBaseData: AppBaseData[] = [
     hasTestimonials: false,
     testimonialCount: 0,
     introBannerSrc: '/images/apps/cat-weather/catweather.jpg',
+  },
+  {
+    slug: 'senior-care-diary',
+    heroImage: '/images/apps/seniorcarediary/seniorcarediary.jpg',
+    theme: { accent: '#0d9488', gradientFrom: '#ccfbf1', gradientTo: '#99f6e4' },
+    icon: '💊',
+    storeLinks: [
+      { platform: 'ios', url: 'https://apps.apple.com/kr/app/id0000000000' },
+      { platform: 'android', url: 'https://play.google.com/store/apps/details?id=com.mocadev.seniorcarediary' },
+    ],
+    screenshotSrcs: [
+      '/images/apps/seniorcarediary/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2026-02-14 at 00.27.28.png',
+      '/images/apps/seniorcarediary/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2026-02-14 at 00.28.28.png',
+      '/images/apps/seniorcarediary/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2026-02-14 at 00.28.35.png',
+      '/images/apps/seniorcarediary/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2026-02-14 at 00.28.38.png',
+      '/images/apps/seniorcarediary/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2026-02-14 at 00.28.45.png',
+    ],
+    featureIcons: ['📋', '🔔', '📅', '👴'],
+    featureCount: 4,
+    usageCount: 4,
+    screenshotCount: 5,
+    qnaCount: 4,
+    hasMessageExamples: false,
+    messageExampleCount: 0,
+    hasTestimonials: false,
+    testimonialCount: 0,
+    introBannerSrc: '/images/apps/seniorcarediary/seniorcarediary.jpg',
   },
 ];
 
