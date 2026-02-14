@@ -12,7 +12,7 @@ const staticPages = [
   { url: '/apps/cat-weather', priority: 0.8, changeFrequency: 'monthly' as const },
   { url: '/apps/senior-care-diary', priority: 0.8, changeFrequency: 'monthly' as const },
   { url: '/team', priority: 0.7, changeFrequency: 'monthly' as const },
-  { url: '/privacy', priority: 0.6, changeFrequency: 'yearly' as const },
+  // /privacy는 검색엔진 노출 제외 (noindex)
 ];
 
 // 동적 페이지 URL 생성 함수

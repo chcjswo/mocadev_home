@@ -46,8 +46,8 @@ export async function generateMetadata({
       },
     },
     robots: {
-      index: true,
-      follow: true,
+      index: false,
+      follow: false,
     },
   };
 }
@@ -68,6 +68,7 @@ export default async function PrivacyPage({
         description={t('description')}
         keywords={t('keywords')}
         canonical={`/${locale}/privacy`}
+        noindex
       />
       <div className="bg-white">
         {locale === 'ko' ? <PrivacyContentKo /> : <PrivacyContentEn />}
