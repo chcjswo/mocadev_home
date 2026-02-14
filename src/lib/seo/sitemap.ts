@@ -11,6 +11,7 @@ const staticPages = [
   { url: '/apps/baby-med-diary', priority: 0.8, changeFrequency: 'monthly' as const },
   { url: '/apps/cat-weather', priority: 0.8, changeFrequency: 'monthly' as const },
   { url: '/apps/senior-care-diary', priority: 0.8, changeFrequency: 'monthly' as const },
+  { url: '/team', priority: 0.7, changeFrequency: 'monthly' as const },
   { url: '/privacy', priority: 0.6, changeFrequency: 'yearly' as const },
 ];
 
@@ -74,7 +75,7 @@ ${allUrls
   return sitemap;
 };
 
-// robots.txt 생성
+// robots.txt 생성 (구글·네이버 검색엔진 수집 허용)
 export const generateRobotsTxt = (): string => {
   const rules: RobotsRule[] = [
     {
@@ -86,7 +87,11 @@ export const generateRobotsTxt = (): string => {
       userAgent: 'Googlebot',
       allow: ['/'],
       disallow: ['/api/', '/admin/'],
-      crawlDelay: 1,
+    },
+    {
+      userAgent: 'Yeti',
+      allow: ['/'],
+      disallow: ['/api/', '/admin/'],
     },
   ];
 
