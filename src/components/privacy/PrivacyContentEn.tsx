@@ -236,27 +236,6 @@ export function PrivacyContentEn() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-gray-900">Article 13 (Method of Specifying Cookie Installation Permission)</h2>
-          <p className="mt-4 leading-relaxed">
-            You can set cookie permissions, cookie blocking, etc. through web browser option settings.
-          </p>
-          <ol className="mt-4 list-decimal space-y-2 pl-5 leading-relaxed">
-            <li>
-              Edge: Settings menu in the upper right corner of the web browser &gt; Cookies and site
-              permissions &gt; Manage and delete cookies and site data
-            </li>
-            <li>
-              Chrome: Settings menu in the upper right corner of the web browser &gt; Privacy and
-              security &gt; Cookies and other site data
-            </li>
-            <li>
-              Whale: Settings menu in the upper right corner of the web browser &gt; Privacy &gt;
-              Cookies and other site data
-            </li>
-          </ol>
-        </section>
-
-        <section>
           <h2 className="text-xl font-bold text-gray-900">
             Article 14 (Designation of Company&rsquo;s Personal Information Protection Officer)
           </h2>

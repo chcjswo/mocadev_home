@@ -209,27 +209,6 @@ export function PrivacyContentKo() {
         </section>
 
         <section>
-          <h2 className="text-xl font-bold text-gray-900">제13조(쿠키 설치 허용 지정 방법)</h2>
-          <p className="mt-4 leading-relaxed">
-            웹브라우저 옵션 설정을 통해 쿠키 허용, 쿠키 차단 등의 설정을 할 수 있습니다.
-          </p>
-          <ol className="mt-4 list-decimal space-y-2 pl-5 leading-relaxed">
-            <li>
-              Edge : 웹브라우저 우측 상단의 설정 메뉴 &gt; 쿠키 및 사이트 권한 &gt; 쿠키 및 사이트
-              데이터 관리 및 삭제
-            </li>
-            <li>
-              Chrome : 웹브라우저 우측 상단의 설정 메뉴 &gt; 개인정보 및 보안 &gt; 쿠키 및 기타
-              사이트 데이터
-            </li>
-            <li>
-              Whale : 웹브라우저 우측 상단의 설정 메뉴 &gt; 개인정보 보호 &gt; 쿠키 및 기타 사이트
-              데이터
-            </li>
-          </ol>
-        </section>
-
-        <section>
           <h2 className="text-xl font-bold text-gray-900">
             제14조(회사의 개인정보 보호 책임자 지정)
           </h2>
