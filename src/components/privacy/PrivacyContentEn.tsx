@@ -237,7 +237,7 @@ export function PrivacyContentEn() {
 
         <section>
           <h2 className="text-xl font-bold text-gray-900">
-            Article 14 (Designation of Company&rsquo;s Personal Information Protection Officer)
+            Article 13 (Designation of Company&rsquo;s Personal Information Protection Officer)
           </h2>
           <p className="mt-4 leading-relaxed">
             The Company designates the relevant department and personal information protection officer

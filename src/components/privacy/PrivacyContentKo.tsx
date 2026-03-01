@@ -210,7 +210,7 @@ export function PrivacyContentKo() {
 
         <section>
           <h2 className="text-xl font-bold text-gray-900">
-            제14조(회사의 개인정보 보호 책임자 지정)
+            제13조(회사의 개인정보 보호 책임자 지정)
           </h2>
           <p className="mt-4 leading-relaxed">
             회사는 이용자의 개인정보를 보호하고 개인정보와 관련한 불만을 처리하기 위하여 아래와
