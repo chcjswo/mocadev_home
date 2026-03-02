@@ -40,11 +40,13 @@ export async function generateMetadata({
       template: t('titleTemplate'),
     },
     description: t('siteDescription'),
+    keywords: seoConfig.defaultKeywords,
     robots: { index: true, follow: true },
     alternates: {
       languages: {
         ko: `${seoConfig.siteUrl}/ko`,
         en: `${seoConfig.siteUrl}/en`,
+        'x-default': `${seoConfig.siteUrl}/ko`,
       },
     },
   };
