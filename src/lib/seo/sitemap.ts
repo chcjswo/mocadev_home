@@ -36,22 +36,50 @@ export const getDynamicPages = async (): Promise<SitemapUrl[]> => {
   return dynamicPages;
 };
 
-// 사이트맵 XML 생성 (다국어: 각 페이지를 locale별 URL로 노출)
+// 사이트맵 XML 생성 (다국어: 각 페이지를 locale별 URL로 노출, hreflang 링크 포함)
 export const generateSitemap = async (): Promise<string> => {
   const staticUrls: SitemapUrl[] = [];
   for (const locale of routing.locales) {
     for (const page of staticPages) {
+      const alternates: Record<string, string> = {};
+      for (const loc of routing.locales) {
+        alternates[loc] = `${seoConfig.siteUrl}/${loc}${page.url}`;
+      }
+      alternates['x-default'] = `${seoConfig.siteUrl}/ko${page.url}`;
       staticUrls.push({
         url: `/${locale}${page.url}`,
         lastModified: new Date(),
         priority: page.priority,
         changeFrequency: page.changeFrequency,
+        alternates,
       });
     }
   }
 
   const dynamicUrls = await getDynamicPages();
   const allUrls = [...staticUrls, ...dynamicUrls];
+
+  const urlEntry = (url: SitemapUrl) => {
+    const loc = `${seoConfig.siteUrl}${url.url}`;
+    const lastmod = url.lastModified?.toISOString() || new Date().toISOString();
+    const changefreq = url.changeFrequency || 'monthly';
+    const priority = url.priority ?? 0.5;
+    const xhtmlLinks =
+      url.alternates &&
+      Object.entries(url.alternates)
+        .map(
+          ([hreflang, href]) =>
+            `    <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}"/>`,
+        )
+        .join('\n');
+    const xhtmlBlock = xhtmlLinks ? `\n${xhtmlLinks}\n    ` : '';
+    return `  <url>
+    <loc>${loc}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>${xhtmlBlock}
+  </url>`;
+  };
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -60,16 +88,7 @@ export const generateSitemap = async (): Promise<string> => {
         xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-${allUrls
-  .map(
-    (url) => `  <url>
-    <loc>${seoConfig.siteUrl}${url.url}</loc>
-    <lastmod>${url.lastModified?.toISOString() || new Date().toISOString()}</lastmod>
-    <changefreq>${url.changeFrequency || 'monthly'}</changefreq>
-    <priority>${url.priority || 0.5}</priority>
-  </url>`,
-  )
-  .join('\n')}
+${allUrls.map(urlEntry).join('\n')}
 </urlset>`;
 
   return sitemap;

@@ -79,6 +79,8 @@ export interface SitemapUrl {
   lastModified?: Date;
   changeFrequency?: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
   priority?: number;
+  /** 다국어 대체 URL (locale -> 절대 URL). 사이트맵 hreflang 출력용 */
+  alternates?: Record<string, string>;
 }
 
 // Robots.txt 규칙 타입
