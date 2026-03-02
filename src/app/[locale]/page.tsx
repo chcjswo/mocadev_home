@@ -22,7 +22,7 @@ export async function generateMetadata({
     openGraph: {
       title: t('title'),
       description: t('description'),
-      url: seoConfig.siteUrl,
+      url: `${seoConfig.siteUrl}/${locale}`,
       siteName: seoConfig.siteName,
       images: [
         {
@@ -46,6 +46,7 @@ export async function generateMetadata({
       languages: {
         ko: `${seoConfig.siteUrl}/ko`,
         en: `${seoConfig.siteUrl}/en`,
+        'x-default': `${seoConfig.siteUrl}/ko`,
       },
     },
   };

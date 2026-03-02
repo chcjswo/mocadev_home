@@ -51,6 +51,7 @@ export async function generateMetadata({
       languages: {
         ko: `${seoConfig.siteUrl}/ko/apps/bapjeongne`,
         en: `${seoConfig.siteUrl}/en/apps/bapjeongne`,
+        'x-default': `${seoConfig.siteUrl}/ko/apps/bapjeongne`,
       },
     },
   };

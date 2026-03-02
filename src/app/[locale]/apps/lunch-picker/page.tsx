@@ -51,6 +51,7 @@ export async function generateMetadata({
       languages: {
         ko: `${seoConfig.siteUrl}/ko/apps/lunch-picker`,
         en: `${seoConfig.siteUrl}/en/apps/lunch-picker`,
+        'x-default': `${seoConfig.siteUrl}/ko/apps/lunch-picker`,
       },
     },
   };

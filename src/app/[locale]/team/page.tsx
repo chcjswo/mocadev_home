@@ -46,6 +46,7 @@ export async function generateMetadata({
       languages: {
         ko: `${seoConfig.siteUrl}/ko/team`,
         en: `${seoConfig.siteUrl}/en/team`,
+        'x-default': `${seoConfig.siteUrl}/ko/team`,
       },
     },
   };

@@ -51,6 +51,7 @@ export async function generateMetadata({
       languages: {
         ko: `${seoConfig.siteUrl}/ko/apps/baby-med-diary`,
         en: `${seoConfig.siteUrl}/en/apps/baby-med-diary`,
+        'x-default': `${seoConfig.siteUrl}/ko/apps/baby-med-diary`,
       },
     },
   };

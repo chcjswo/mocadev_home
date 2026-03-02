@@ -51,6 +51,7 @@ export async function generateMetadata({
       languages: {
         ko: `${seoConfig.siteUrl}/ko/apps/fortune-cookie`,
         en: `${seoConfig.siteUrl}/en/apps/fortune-cookie`,
+        'x-default': `${seoConfig.siteUrl}/ko/apps/fortune-cookie`,
       },
     },
   };

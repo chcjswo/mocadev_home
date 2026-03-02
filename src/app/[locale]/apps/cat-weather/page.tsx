@@ -51,6 +51,7 @@ export async function generateMetadata({
       languages: {
         ko: `${seoConfig.siteUrl}/ko/apps/cat-weather`,
         en: `${seoConfig.siteUrl}/en/apps/cat-weather`,
+        'x-default': `${seoConfig.siteUrl}/ko/apps/cat-weather`,
       },
     },
   };
