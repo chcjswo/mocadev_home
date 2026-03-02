@@ -215,7 +215,7 @@ export const getAppStructuredData = (
       inLanguage: locale === 'en' ? 'en' : 'ko',
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
       url: `${seoConfig.siteUrl}/${locale}/apps/${slug}`,
-      creator: { '@type': 'Person', name: 'MocaDev' },
+      creator: { '@type': 'Person', name: 'Mocadev' },
     },
   },
 ];

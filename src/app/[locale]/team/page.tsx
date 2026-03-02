@@ -29,7 +29,7 @@ export async function generateMetadata({
           url: `${seoConfig.siteUrl}${seoConfig.defaultImage}`,
           width: 1200,
           height: 630,
-          alt: 'MocaDev Team',
+          alt: 'Mocadev Team',
         },
       ],
       locale,
@@ -64,7 +64,7 @@ export default async function TeamPage({ params }: { params: Promise<{ locale: s
         <div className="mx-auto max-w-6xl px-4 py-16">
           <div className="mb-12 text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">
-              MocaDev Team
+              Mocadev Team
             </p>
             <h1 className="mt-4 text-4xl font-bold text-gray-900 md:text-5xl">{t('title')}</h1>
             <p className="mt-6 text-lg text-gray-700">
