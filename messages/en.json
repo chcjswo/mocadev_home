@@ -95,9 +95,9 @@
   },
   "seo": {
     "home": {
-      "title": "Mocadev – 3 Experimental Apps That Change Everyday Life",
-      "description": "From random restaurant picks to fortune messages. Explore Mocadev's mobile apps and their creation process in one place.",
-      "keywords": "Mocadev, indie developer, portfolio, app download, mobile service",
+      "title": "Mocadev – Experimental Mobile Apps for Everyday Life",
+      "description": "Bapjeongne, Fortune Cookie, Lunch Picker, Baby Med Diary, Cat Weather, Senior Med Diary, Recipe Vault. Explore Mocadev's mobile apps and their creation process in one place.",
+      "keywords": "Mocadev, indie developer, portfolio, app download, mobile service, Bapjeongne, Fortune Cookie, Recipe Vault",
       "ogImageAlt": "Mocadev Home"
     },
     "team": {
@@ -107,7 +107,7 @@
     },
     "privacy": {
       "title": "Mocadev Privacy Policy",
-      "description": "Privacy policy applicable to Mocadev's apps: Bapjeongne, Fortune Cookie, and Lunch Picker.",
+      "description": "Privacy policy applicable to Mocadev services including Bapjeongne, Fortune Cookie, Lunch Picker, Baby Med Diary, Cat Weather, Senior Med Diary, and Recipe Vault.",
       "keywords": "Mocadev privacy policy, privacy protection, terms",
       "ogImageAlt": "Mocadev Privacy Policy"
     },
