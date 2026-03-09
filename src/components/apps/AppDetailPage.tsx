@@ -46,7 +46,7 @@ export async function AppDetailPage({ slug }: AppDetailPageProps) {
             </div>
             <h1 className="mb-4 text-4xl font-bold text-gray-900">{t('name')}</h1>
             <p className="mb-6 text-lg text-gray-700">{t('description')}</p>
-            <DownloadButtons links={storeLinks} ariaLabelTemplate={ui('storeAriaLabel')} />
+            <DownloadButtons links={storeLinks} ariaLabelTemplate={ui('storeAriaLabel', { label: '{label}' })} />
           </div>
 
           <div className="relative">
