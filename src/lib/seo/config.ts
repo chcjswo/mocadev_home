@@ -66,6 +66,11 @@ export const pageDefaults = {
       description:
         '어르신이 복용해야 할 약을 등록하고 매일 복용 여부를 간단히 체크하며, 투약 기간 동안 자동으로 일정이 표시되는 모바일 앱.',
     },
+    recipehouse: {
+      title: '레시피창고 – 나만의 레시피',
+      description:
+        '텍스트, 사진, 동영상 URL로 나만의 레시피를 로컬에 저장하고 검색하는 Flutter 기반 모바일 앱. 오프라인에서도 사용 가능합니다.',
+    },
   },
 } as const;
 

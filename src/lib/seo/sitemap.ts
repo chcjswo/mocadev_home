@@ -11,6 +11,7 @@ const staticPages = [
   { url: '/apps/baby-med-diary', priority: 0.8, changeFrequency: 'monthly' as const },
   { url: '/apps/cat-weather', priority: 0.8, changeFrequency: 'monthly' as const },
   { url: '/apps/senior-care-diary', priority: 0.8, changeFrequency: 'monthly' as const },
+  { url: '/apps/recipehouse', priority: 0.8, changeFrequency: 'monthly' as const },
   { url: '/team', priority: 0.7, changeFrequency: 'monthly' as const },
   // /privacy는 검색엔진 노출 제외 (noindex)
 ];
