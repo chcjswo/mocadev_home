@@ -61,6 +61,18 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const tApps = await getTranslations('apps');
 
   const appsBase = getAllAppsBase();
+  const itemListStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: locale === 'ko' ? '모카데브 앱 목록' : 'Mocadev Apps',
+    numberOfItems: appsBase.length,
+    itemListElement: appsBase.map((app, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: tApps(`${app.slug}.name`),
+      url: `${seoConfig.siteUrl}/${locale}/apps/${app.slug}`,
+    })),
+  };
 
   return (
     <>
@@ -68,6 +80,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredDataTemplates.softwareApplication),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(itemListStructuredData),
         }}
       />
 
