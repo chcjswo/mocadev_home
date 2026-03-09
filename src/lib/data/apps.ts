@@ -2,7 +2,7 @@ import { StructuredDataProps } from '@/types/seo';
 import { seoConfig } from '@/lib/seo/config';
 
 export interface AppBaseData {
-  slug: 'bapjeongne' | 'fortune-cookie' | 'lunch-picker' | 'baby-med-diary' | 'cat-weather' | 'senior-care-diary';
+  slug: 'bapjeongne' | 'fortune-cookie' | 'lunch-picker' | 'baby-med-diary' | 'cat-weather' | 'senior-care-diary' | 'recipehouse';
   heroImage: string;
   theme: { accent: string; gradientFrom: string; gradientTo: string };
   icon: string;
