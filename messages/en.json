@@ -6,6 +6,7 @@
   },
   "nav": {
     "apps": "Apps",
+    "brandSubline": "Personal App Lab",
     "team": "Team",
     "contact": "Contact",
     "contactShort": "Contact",
@@ -16,6 +17,7 @@
   },
   "home": {
     "hero": {
+      "brandLabel": "Mocadev",
       "title1": "A Personal",
       "title2": "Mobile App Laboratory",
       "description": "From random restaurant picks to fortune messages and schedule-based lunch management. A solo developer's workshop where small problems are sharply defined and solved through apps.",
@@ -26,14 +28,19 @@
       "browseApps": "Browse Apps"
     },
     "appsSection": {
+      "sectionLabel": "Mocadev Apps",
       "title": "Apps by Mocadev",
       "description": "Tap each card to view screenshots and download links on the detail page."
     },
     "about": {
+      "sectionLabel": "About Mocadev",
       "title": "The Ability to Spot Small Problems",
       "description": "Through user interviews, we discovered two key problems—lunch decision-making and emotional care—and continue experimenting to solve them. Each app embodies Mocadev's design system and data pipeline.",
+      "workflowLabel": "Workflow",
       "workflowDescription": "We iterate through Idea → Prototype → Community Feedback → Data Instrumentation → Productization, documenting each stage via Notion/Linear.",
+      "stackLabel": "Stack",
       "stackDescription": "Next.js, React Native, Expo, Firebase, Supabase, Vercel, Cloudflare, GA4, FCM, RevenueCat.",
+      "contactLabel": "Contact",
       "contactDescription": "For side project collaboration or speaking requests, feel free to reach out at <email>mocadev.tony@gmail.com</email>."
     },
     "cta": {
@@ -77,6 +84,7 @@
   },
   "team": {
     "title": "The Team",
+    "sectionLabel": "Mocadev Team",
     "subtitle": "Meet the Mocadev team—discovering small problems and solving them with apps.",
     "profileAlt": "{name} profile",
     "ogImageAlt": "Mocadev Team",

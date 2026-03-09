@@ -5,7 +5,8 @@
     "titleTemplate": "%s | 모카데브"
   },
   "nav": {
-    "apps": "Apps",
+    "apps": "앱",
+    "brandSubline": "개인 앱 연구실",
     "team": "만든 사람들",
     "contact": "문의하기",
     "contactShort": "문의",
@@ -16,6 +17,7 @@
   },
   "home": {
     "hero": {
+      "brandLabel": "모카데브",
       "title1": "개인이 만든",
       "title2": "생활형 모바일 실험실",
       "description": "랜덤 식당 추천, 포춘 메시지, 스케줄 기반 점심 관리까지. 작은 문제를 날카롭게 정의하고 앱으로 해결하는 개인 개발자 모카데브의 작업실입니다.",
@@ -26,14 +28,19 @@
       "browseApps": "앱 살펴보기"
     },
     "appsSection": {
+      "sectionLabel": "모카데브 앱",
       "title": "모카데브가 만든 앱들",
       "description": "각 카드에서 상세 페이지로 이동해 스크린샷과 다운로드 링크를 확인하세요."
     },
     "about": {
+      "sectionLabel": "모카데브 소개",
       "title": "작은 문제를 발견하는 능력",
       "description": "사용자 인터뷰를 통해 점심 의사결정과 감정 케어라는 두 가지 문제를 발견했고, 이를 해결하기 위한 실험을 계속하고 있습니다. 앱 하나하나에는 모카데브의 디자인 시스템과 데이터 파이프라인이 녹아 있습니다.",
+      "workflowLabel": "워크플로우",
       "workflowDescription": "아이디어 → 프로토타입 → 커뮤니티 피드백 → 데이터 계측 → 제품화 순으로 반복하며, 각 단계별로 Notion/Linear를 통해 기록을 남깁니다.",
+      "stackLabel": "스택",
       "stackDescription": "Next.js, React Native, Expo, Firebase, Supabase, Vercel, Cloudflare, GA4, FCM, RevenueCat.",
+      "contactLabel": "문의",
       "contactDescription": "사이드 프로젝트 협업 혹은 강연 요청은 <email>mocadev.tony@gmail.com</email>으로 편하게 보내주세요."
     },
     "cta": {
@@ -77,6 +84,7 @@
   },
   "team": {
     "title": "만든 사람들",
+    "sectionLabel": "모카데브 팀",
     "subtitle": "작은 문제를 발견하고 앱으로 해결하는 모카데브 팀을 소개합니다.",
     "profileAlt": "{name} 프로필",
     "ogImageAlt": "모카데브 팀",
