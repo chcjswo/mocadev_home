@@ -14,37 +14,26 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'seo.apps.senior-care-diary' });
 
+  const ogImageUrl = base.heroImage.startsWith('http') ? base.heroImage : `${seoConfig.siteUrl}${base.heroImage}`;
   return {
     title: t('title'),
     description: t('description'),
     keywords: t('keywords'),
+    robots: { index: true, follow: true },
     openGraph: {
       title: t('title'),
       description: t('description'),
       url: `${seoConfig.siteUrl}/${locale}/apps/senior-care-diary`,
       siteName: seoConfig.siteName,
-      images: [
-        {
-          url: base.heroImage.startsWith('http')
-            ? base.heroImage
-            : `${seoConfig.siteUrl}${base.heroImage}`,
-          width: 1200,
-          height: 630,
-          alt: t('title'),
-        },
-      ],
-      locale,
+      images: [{ url: ogImageUrl, width: 1200, height: 630, alt: t('title') }],
+      locale: locale === 'ko' ? 'ko_KR' : 'en_US',
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
       title: t('title'),
       description: t('description'),
-      images: [
-        base.heroImage.startsWith('http')
-          ? base.heroImage
-          : `${seoConfig.siteUrl}${base.heroImage}`,
-      ],
+      images: [ogImageUrl],
     },
     alternates: {
       canonical: `${seoConfig.siteUrl}/${locale}/apps/senior-care-diary`,
