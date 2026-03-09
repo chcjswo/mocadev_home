@@ -141,6 +141,11 @@
         "title": "Senior Med Diary – Senior Medication Tracking & Reminders",
         "description": "Register medications for seniors and check daily compliance with a simple tap. Schedules are shown automatically for the medication period.",
         "keywords": "Senior Med Diary, elderly medication, medication tracker, caregiver app, medication reminder, iOS, Android"
+      },
+      "recipehouse": {
+        "title": "Recipe Vault – My Recipe",
+        "description": "A Flutter mobile app to save and search your own recipes locally with text, photos, and video URLs. Works fully offline.",
+        "keywords": "Recipe Vault, recipe storage, my recipe, cooking memo, local storage, Flutter, iOS, Android"
       }
     }
   },
@@ -395,6 +400,54 @@
         "experienceTitle": "The Experience",
         "experienceDesc1": "Once you register a medication, it appears automatically every day for the period. Record completion with one checkbox on the Today screen and overview compliance on the calendar.",
         "experienceDesc2": "Push notifications at medication times help prevent missed doses. All data is stored only locally, keeping personal information safe."
+      }
+    },
+    "recipehouse": {
+      "name": "Recipe Vault",
+      "tagline": "A simple app to save and find your own recipes",
+      "description": "Save recipes from YouTube or blogs as text, photos, and video URLs, and search quickly by title. No sign-up—everything stays on your device so you can use it offline anytime, anywhere.",
+      "tags": ["Recipe Storage", "Search", "Local Storage", "iOS/Android"],
+      "storeLinks": {
+        "0": { "label": "App Store", "badge": "Download on iOS" },
+        "1": { "label": "Google Play", "badge": "Download on Android" }
+      },
+      "features": {
+        "0": { "title": "Recipe Cards at a Glance", "description": "Saved recipes appear as cards with thumbnail, title, and date, sorted by newest. Tap a card to open the detail screen." },
+        "1": { "title": "Real-Time Search by Title", "description": "Type in the search bar on the home screen to filter recipes by title instantly and find what you need quickly." },
+        "2": { "title": "Save Text, Photos & Video URLs", "description": "Enter recipe title and instructions, and add photos from gallery or camera plus video URLs (e.g. YouTube) in one place." },
+        "3": { "title": "Fully Local & Offline", "description": "All data is stored only on your device. Add, view, edit, and delete recipes without an internet connection." }
+      },
+      "usage": {
+        "0": { "title": "1. Add a Recipe from the Save Screen", "description": "Enter title (required), description, photo, and video URL, then tap Save to store in local DB." },
+        "1": { "title": "2. Search and Tap Cards on Home", "description": "Use the search bar to find by title, then tap a card to open that recipe's detail screen." },
+        "2": { "title": "3. Edit or Delete in Detail", "description": "From the detail screen, use Edit to change content or Delete to remove the recipe." }
+      },
+      "screenshots": {
+        "0": { "alt": "Home recipe card list", "caption": "Saved recipe cards and search bar" },
+        "1": { "alt": "Save recipe screen", "caption": "Enter title, description, photo, video URL" },
+        "2": { "alt": "Recipe detail", "caption": "Recipe detail view and edit/delete" }
+      },
+      "qna": {
+        "0": { "question": "Can I use it without the internet?", "answer": "Yes. All data is stored only on your device, so you can add, search, edit, and delete recipes without an internet connection." },
+        "1": { "question": "How do I save videos?", "answer": "You save the video URL (e.g. YouTube) as text. Tapping the link on the detail screen opens it in your browser or app." },
+        "2": { "question": "Where is my data stored?", "answer": "Only in your device's local storage (SQLite). Nothing is sent to external servers, so your data stays private." },
+        "3": { "question": "How many images can I attach?", "answer": "In the first version you can attach one main image per recipe, from gallery or camera." }
+      },
+      "summary": {
+        "problem": "Recipes from YouTube or blogs were hard to find again later, and keeping them in a notes app with photos and videos was inconvenient.",
+        "solution": "Recipe Vault lets you store your recipes with title, description, photo, and video URL in one place and search by title in real time. Everything runs locally with no server, so you can use it offline anytime."
+      },
+      "intro": {
+        "title": "Meet Recipe Vault",
+        "bannerAlt": "Recipe Vault app introduction image",
+        "targetTitle": "Perfect for You If",
+        "target1": "You want to save YouTube or blog recipes quickly",
+        "target2": "You want to keep your own cooking photos with recipes",
+        "target3": "You want to find saved recipes quickly by title",
+        "target4": "You prefer no sign-up and everything on your device only",
+        "experienceTitle": "The Experience",
+        "experienceDesc1": "Enter text, photo, and video URL in one screen to save your recipes, view them as cards on the home screen, and find them instantly with title search.",
+        "experienceDesc2": "All data stays on your device, so you can follow recipes in the kitchen with just your phone, offline. The simple Material Design 3 UI is easy for anyone to use."
       }
     },
     "cat-weather": {
