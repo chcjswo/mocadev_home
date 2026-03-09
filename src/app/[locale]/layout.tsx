@@ -41,7 +41,23 @@ export async function generateMetadata({
     },
     description: t('siteDescription'),
     keywords: seoConfig.defaultKeywords,
-    robots: { index: true, follow: true },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+    openGraph: {
+      siteName: seoConfig.siteName,
+      type: 'website',
+      images: [
+        {
+          url: seoConfig.defaultImage.startsWith('http') ? seoConfig.defaultImage : `${seoConfig.siteUrl}${seoConfig.defaultImage}`,
+          width: 1200,
+          height: 630,
+          alt: seoConfig.siteName,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: seoConfig.twitterUsername,
+    },
     alternates: {
       languages: {
         ko: `${seoConfig.siteUrl}/ko`,
