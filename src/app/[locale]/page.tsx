@@ -19,6 +19,7 @@ export async function generateMetadata({
     title: t('title'),
     description: t('description'),
     keywords: t('keywords'),
+    robots: { index: true, follow: true },
     openGraph: {
       title: t('title'),
       description: t('description'),
@@ -32,7 +33,7 @@ export async function generateMetadata({
           alt: t('ogImageAlt'),
         },
       ],
-      locale,
+      locale: locale === 'ko' ? 'ko_KR' : 'en_US',
       type: 'website',
     },
     twitter: {
