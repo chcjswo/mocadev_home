@@ -7,7 +7,7 @@ export const seoConfig: SeoConfigProps = {
   defaultDescription:
     '모카데브가 직접 설계하고 운영하는 생활형 모바일 앱 컬렉션. 랜덤 식당 추천, 포춘 메시지, 푸시 기반 점심 관리까지 한 곳에서 만나보세요.',
   defaultKeywords:
-    '모카데브, Mocadev, 개인 개발자, 식당 추천 앱, 포춘쿠키 앱, 점심 추천, 포트폴리오',
+    '모카데브, Mocadev, 밥정너, 포춘쿠키, 점심 뭐 먹지, 우리아기 투약일기, 날씨다냥, 어르신 투약일지, 레시피창고, 개인 개발자, 모바일 앱, 포트폴리오',
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://mocadev-home.vercel.app',
   siteName: 'Mocadev',
   defaultImage: '/images/og/home.svg',
@@ -86,6 +86,7 @@ export const structuredDataTemplates = {
   organization: {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': `${seoConfig.siteUrl}/#organization`,
     name: seoConfig.siteName,
     url: seoConfig.siteUrl,
     logo: `${seoConfig.siteUrl}/logo.svg`,
@@ -100,12 +101,13 @@ export const structuredDataTemplates = {
     name: seoConfig.siteName,
     url: seoConfig.siteUrl,
     description: seoConfig.defaultDescription,
-    inLanguage: seoConfig.language,
+    inLanguage: ['ko', 'en'],
     potentialAction: {
       '@type': 'SearchAction',
       target: `${seoConfig.siteUrl}/search?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
+    publisher: { '@id': `${seoConfig.siteUrl}/#organization` },
   },
 
   // 소프트웨어 애플리케이션 정보
