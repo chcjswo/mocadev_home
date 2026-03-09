@@ -186,6 +186,31 @@ export const appsBaseData: AppBaseData[] = [
     testimonialCount: 0,
     introBannerSrc: '/images/apps/seniorcarediary/seniorcarediary.jpg',
   },
+  {
+    slug: 'recipehouse',
+    heroImage: '/images/apps/recipehouse/icons/icon.png',
+    theme: { accent: '#4CAF50', gradientFrom: '#e8f5e9', gradientTo: '#c8e6c9' },
+    icon: '📖',
+    storeLinks: [
+      { platform: 'ios', url: 'https://apps.apple.com/kr/app/id0000000000' },
+      { platform: 'android', url: 'https://play.google.com/store/apps/details?id=com.mocadev.recipehouse' },
+    ],
+    screenshotSrcs: [
+      '/images/apps/recipehouse/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2026-03-08 at 23.43.27.png',
+      '/images/apps/recipehouse/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2026-03-08 at 23.43.31.png',
+      '/images/apps/recipehouse/screenshot/Simulator Screenshot - iPhone 17 Pro Max - 2026-03-08 at 23.43.47.png',
+    ],
+    featureIcons: ['📝', '🔍', '📷', '🎬'],
+    featureCount: 4,
+    usageCount: 3,
+    screenshotCount: 3,
+    qnaCount: 4,
+    hasMessageExamples: false,
+    messageExampleCount: 0,
+    hasTestimonials: false,
+    testimonialCount: 0,
+    introBannerSrc: '/images/apps/recipehouse/graphic_image.png',
+  },
 ];
 
 export const getAppBase = (slug: string): AppBaseData | undefined =>
