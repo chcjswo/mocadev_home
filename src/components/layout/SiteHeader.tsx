@@ -11,7 +11,7 @@ export function SiteHeader() {
   const t = useTranslations('nav');
 
   const navigation = [
-    { label: 'Apps', href: '/#apps' },
+    { label: t('apps'), href: '/#apps' },
     { label: t('team'), href: '/team' },
   ];
 
@@ -31,7 +31,7 @@ export function SiteHeader() {
           </span>
           <div className="flex flex-col leading-tight">
             <span>Mocadev</span>
-            <span className="text-xs font-normal text-gray-500">Personal App Lab</span>
+            <span className="text-xs font-normal text-gray-500">{t('brandSubline')}</span>
           </div>
         </Link>
 
