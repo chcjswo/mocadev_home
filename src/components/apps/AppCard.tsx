@@ -20,10 +20,7 @@ export function AppCard({ slug, icon, name, tagline, tags, theme, viewDetails }:
         <div className="mb-4 inline-flex rounded-2xl bg-gradient-to-br from-white to-purple-50 px-3 py-2 text-2xl">
           {icon}
         </div>
-        <div className="mb-3 flex items-center gap-2">
-          <h3 className="text-xl font-semibold text-gray-900">{name}</h3>
-          <ArrowUpRight className="h-4 w-4 text-gray-400 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-        </div>
+        <h3 className="mb-3 text-xl font-semibold text-gray-900">{name}</h3>
         <p className="mb-4 text-sm text-gray-600">{tagline}</p>
         <div className="mb-6 flex flex-wrap gap-2 text-xs text-gray-500">
           {tags.map((tag) => (
