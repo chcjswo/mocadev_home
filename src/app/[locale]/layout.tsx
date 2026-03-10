@@ -3,12 +3,12 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { Analytics } from '@vercel/analytics/react';
 import { routing } from '@/i18n/routing';
 import { structuredDataTemplates, seoConfig } from '@/lib/seo/config';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { FirebaseAnalyticsClient } from '@/components/analytics/FirebaseAnalyticsClient';
+import { VercelAnalyticsClient } from '@/components/analytics/VercelAnalyticsClient';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -112,7 +112,7 @@ export default async function LocaleLayout({
             <main className="flex-1">{children}</main>
             <SiteFooter />
           </div>
-          <Analytics />
+          <VercelAnalyticsClient />
           <FirebaseAnalyticsClient />
         </NextIntlClientProvider>
       </body>
