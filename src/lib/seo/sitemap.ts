@@ -1,44 +1,35 @@
 import { SitemapUrl, RobotsRule } from '@/types/seo';
 import { routing } from '@/i18n/routing';
+import { getAllAppSlugs } from '@/lib/data/apps';
 import { seoConfig } from './config';
 
-// 정적 페이지 URL들 (locale prefix 없음, generateSitemap에서 각 locale별로 확장)
-const staticPages = [
-  { url: '/', priority: 1.0, changeFrequency: 'weekly' as const },
-  { url: '/apps/bapjeongne', priority: 0.8, changeFrequency: 'monthly' as const },
-  { url: '/apps/fortune-cookie', priority: 0.8, changeFrequency: 'monthly' as const },
-  { url: '/apps/lunch-picker', priority: 0.8, changeFrequency: 'monthly' as const },
-  { url: '/apps/baby-med-diary', priority: 0.8, changeFrequency: 'monthly' as const },
-  { url: '/apps/cat-weather', priority: 0.8, changeFrequency: 'monthly' as const },
-  { url: '/apps/senior-care-diary', priority: 0.8, changeFrequency: 'monthly' as const },
-  { url: '/apps/recipehouse', priority: 0.8, changeFrequency: 'monthly' as const },
-  { url: '/team', priority: 0.7, changeFrequency: 'monthly' as const },
-  // /privacy는 검색엔진 노출 제외 (noindex)
+const APP_PRIORITY = 0.8;
+const APP_CHANGE_FREQ = 'monthly' as const;
+
+/** 고정 라우트 (앱 목록은 apps 데이터에서 생성) */
+const FIXED_PAGES: Array<{ url: string; priority: number; changeFrequency: 'weekly' | 'monthly' }> = [
+  { url: '/', priority: 1.0, changeFrequency: 'weekly' },
+  { url: '/team', priority: 0.7, changeFrequency: 'monthly' },
 ];
 
-// 동적 페이지 URL 생성 함수
+/** 정적 페이지 목록: 고정 라우트 + 앱 상세 (locale prefix 없음, generateSitemap에서 locale별 확장) */
+function getStaticPages(): Array<{ url: string; priority: number; changeFrequency: SitemapUrl['changeFrequency'] }> {
+  const appPages = getAllAppSlugs().map((slug) => ({
+    url: `/apps/${slug}`,
+    priority: APP_PRIORITY,
+    changeFrequency: APP_CHANGE_FREQ,
+  }));
+  return [...FIXED_PAGES, ...appPages];
+}
+
+/** 동적 페이지 URL (블로그·상품 등 추가 시 여기서 반환) */
 export const getDynamicPages = async (): Promise<SitemapUrl[]> => {
-  // 실제 프로젝트에서는 데이터베이스나 API에서 동적 페이지 목록을 가져와야 합니다
-  // 예시: 블로그 포스트, 상품 페이지 등
-
-  const dynamicPages: SitemapUrl[] = [];
-
-  // 예시: 블로그 포스트가 있다면
-  // const posts = await fetchBlogPosts();
-  // posts.forEach(post => {
-  //   dynamicPages.push({
-  //     url: `/blog/${post.slug}`,
-  //     lastModified: new Date(post.updatedAt),
-  //     priority: 0.6,
-  //     changeFrequency: 'weekly'
-  //   });
-  // });
-
-  return dynamicPages;
+  return [];
 };
 
 // 사이트맵 XML 생성 (다국어: 각 페이지를 locale별 URL로 노출, hreflang 링크 포함)
 export const generateSitemap = async (): Promise<string> => {
+  const staticPages = getStaticPages();
   const staticUrls: SitemapUrl[] = [];
   for (const locale of routing.locales) {
     for (const page of staticPages) {
@@ -84,11 +75,7 @@ export const generateSitemap = async (): Promise<string> => {
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${allUrls.map(urlEntry).join('\n')}
 </urlset>`;
 
