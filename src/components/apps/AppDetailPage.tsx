@@ -1,10 +1,22 @@
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { getAppBase } from '@/lib/data/apps';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { DownloadButtons } from './DownloadButtons';
-import { ScreenshotCarousel } from './ScreenshotCarousel';
+
+const ScreenshotCarousel = dynamic(
+  () => import('./ScreenshotCarousel').then((m) => ({ default: m.ScreenshotCarousel })),
+  {
+    loading: () => (
+      <div
+        className="min-h-[280px] animate-pulse rounded-3xl bg-gray-100"
+        aria-hidden
+      />
+    ),
+  },
+);
 
 interface AppDetailPageProps {
   slug: string;
