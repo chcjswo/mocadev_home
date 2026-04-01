@@ -14,7 +14,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'seo.team' });
-  const tTeam = await getTranslations({ locale, namespace: 'team' });
 
   return {
     title: t('title'),
@@ -31,7 +30,7 @@ export async function generateMetadata({
           url: `${seoConfig.siteUrl}${seoConfig.defaultImage}`,
           width: 1200,
           height: 630,
-          alt: tTeam('ogImageAlt'),
+          alt: t('ogImageAlt'),
         },
       ],
       locale: locale === 'ko' ? 'ko_KR' : 'en_US',

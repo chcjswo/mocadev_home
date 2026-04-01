@@ -116,9 +116,10 @@
       "ogImageAlt": "Mocadev Home"
     },
     "team": {
-      "title": "The Team",
-      "description": "Meet the team members who build Mocadev apps together.",
-      "keywords": "Mocadev team, developer, planner, designer"
+      "title": "The Team – Meet Mocadev",
+      "description": "Meet the indie developer and team behind 7 lifestyle mobile apps including Bapjeongne, Fortune Cookie, and Recipe Vault.",
+      "keywords": "Mocadev team, indie developer, mobile app developer, iOS developer, Android developer, Flutter developer",
+      "ogImageAlt": "Mocadev Team"
     },
     "privacy": {
       "title": "Mocadev Privacy Policy",
@@ -130,37 +131,44 @@
       "bapjeongne": {
         "title": "Bapjeongne – Random Nearby Restaurant Picks",
         "description": "Mocadev's flagship app that randomly recommends nearby restaurants based on your dining preferences. Lunch decision done in 3 minutes.",
-        "keywords": "Bapjeongne, restaurant picker, lunch recommendation, random pick, location-based, food app, iOS, Android"
+        "keywords": "Bapjeongne, restaurant picker, lunch recommendation, random pick, location-based, food app, free app, iOS, Android",
+        "ogImageAlt": "Bapjeongne – Random nearby restaurant recommendation app screenshot"
       },
       "fortune-cookie": {
         "title": "Fortune Cookie – Today's Message",
         "description": "Tap a fortune cookie to receive today's fortune and message. A feel-good app to start your day lightly.",
-        "keywords": "Fortune Cookie, daily fortune, daily message, mood app, iOS, Android"
+        "keywords": "Fortune Cookie, daily fortune, daily message, mood app, free app, iOS, Android",
+        "ogImageAlt": "Fortune Cookie – Today's message app screenshot"
       },
       "lunch-picker": {
         "title": "Lunch Picker – Schedule-Based Random Recommendations",
         "description": "A smart lunch recommendation desk assistant that sends push notifications by day and time based on your saved restaurant list.",
-        "keywords": "Lunch Picker, lunch recommendation, restaurant list, push notification, iOS, Android"
+        "keywords": "Lunch Picker, lunch recommendation, restaurant list, push notification, random pick, free app, iOS, Android",
+        "ogImageAlt": "Lunch Picker – Schedule-based lunch recommendation app screenshot"
       },
       "baby-med-diary": {
         "title": "Baby Med Diary – Baby Medication Tracking & Reminders",
         "description": "A mobile app that accurately records when, how much medication your baby took, and provides reminders to never miss a dose.",
-        "keywords": "Baby Med Diary, infant medication, medication reminder, baby care app, iOS, Android"
+        "keywords": "Baby Med Diary, infant medication, medication reminder, baby care app, parenting app, free app, iOS, Android",
+        "ogImageAlt": "Baby Med Diary – Baby medication tracking app screenshot"
       },
       "cat-weather": {
         "title": "Cat Weather – A Cute Cat Weather App",
         "description": "Check today's weather with adorable cats that transform for every weather condition. 9 weather cats, 7-day forecast, and lifestyle indices.",
-        "keywords": "Cat Weather, weather app, cat weather, forecast, lifestyle weather, iOS, Android"
+        "keywords": "Cat Weather, weather app, cute weather app, cat weather, forecast, lifestyle weather index, free app, iOS, Android",
+        "ogImageAlt": "Cat Weather – Cat weather app screenshot"
       },
       "senior-care-diary": {
         "title": "Senior Med Diary – Senior Medication Tracking & Reminders",
         "description": "Register medications for seniors and check daily compliance with a simple tap. Schedules are shown automatically for the medication period.",
-        "keywords": "Senior Med Diary, elderly medication, medication tracker, caregiver app, medication reminder, iOS, Android"
+        "keywords": "Senior Med Diary, elderly medication, medication tracker, caregiver app, senior care, medication reminder, free app, iOS, Android",
+        "ogImageAlt": "Senior Med Diary – Senior medication tracking app screenshot"
       },
       "recipehouse": {
-        "title": "Recipe Vault – My Recipe",
+        "title": "Recipe Vault – My Personal Recipe Storage",
         "description": "A Flutter mobile app to save and search your own recipes locally with text, photos, and video URLs. Works fully offline.",
-        "keywords": "Recipe Vault, recipe storage, my recipe, cooking memo, local storage, Flutter, iOS, Android"
+        "keywords": "Recipe Vault, recipe storage, my recipe, cooking memo, local storage, offline recipe, free app, Flutter, iOS, Android",
+        "ogImageAlt": "Recipe Vault – Personal recipe storage app screenshot"
       }
     }
   },

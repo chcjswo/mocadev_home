@@ -25,7 +25,7 @@ export async function generateMetadata({
       description: t('description'),
       url: `${seoConfig.siteUrl}/${locale}/apps/recipehouse`,
       siteName: seoConfig.siteName,
-      images: [{ url: ogImageUrl, width: 1200, height: 630, alt: t('title') }],
+      images: [{ url: ogImageUrl, width: 1200, height: 630, alt: t('ogImageAlt') }],
       locale: locale === 'ko' ? 'ko_KR' : 'en_US',
       type: 'website',
     },
