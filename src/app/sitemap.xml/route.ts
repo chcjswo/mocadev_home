@@ -28,4 +28,5 @@ export async function GET() {
   }
 }
 
-export const dynamic = 'force-dynamic';
+// 24시간마다 재생성 (ISR)
+export const revalidate = 86400;

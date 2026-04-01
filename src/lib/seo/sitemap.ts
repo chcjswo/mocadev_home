@@ -6,18 +6,40 @@ import { seoConfig } from './config';
 const APP_PRIORITY = 0.8;
 const APP_CHANGE_FREQ = 'monthly' as const;
 
+/** 각 앱의 마지막 업데이트 날짜 (앱 추가/업데이트 시 갱신) */
+const APP_LAST_MODIFIED: Record<string, Date> = {
+  bapjeongne: new Date('2025-11-25'),
+  'fortune-cookie': new Date('2025-11-25'),
+  'lunch-picker': new Date('2025-11-25'),
+  'baby-med-diary': new Date('2026-01-15'),
+  'cat-weather': new Date('2026-01-15'),
+  'senior-care-diary': new Date('2026-02-14'),
+  recipehouse: new Date('2026-03-08'),
+};
+
 /** 고정 라우트 (앱 목록은 apps 데이터에서 생성) */
-const FIXED_PAGES: Array<{ url: string; priority: number; changeFrequency: 'weekly' | 'monthly' }> = [
-  { url: '/', priority: 1.0, changeFrequency: 'weekly' },
-  { url: '/team', priority: 0.7, changeFrequency: 'monthly' },
+const FIXED_PAGES: Array<{
+  url: string;
+  priority: number;
+  changeFrequency: 'weekly' | 'monthly';
+  lastModified: Date;
+}> = [
+  { url: '/', priority: 1.0, changeFrequency: 'weekly', lastModified: new Date('2026-03-08') },
+  { url: '/team', priority: 0.7, changeFrequency: 'monthly', lastModified: new Date('2026-01-01') },
 ];
 
 /** 정적 페이지 목록: 고정 라우트 + 앱 상세 (locale prefix 없음, generateSitemap에서 locale별 확장) */
-function getStaticPages(): Array<{ url: string; priority: number; changeFrequency: SitemapUrl['changeFrequency'] }> {
+function getStaticPages(): Array<{
+  url: string;
+  priority: number;
+  changeFrequency: SitemapUrl['changeFrequency'];
+  lastModified: Date;
+}> {
   const appPages = getAllAppSlugs().map((slug) => ({
     url: `/apps/${slug}`,
     priority: APP_PRIORITY,
     changeFrequency: APP_CHANGE_FREQ,
+    lastModified: APP_LAST_MODIFIED[slug] ?? new Date('2026-01-01'),
   }));
   return [...FIXED_PAGES, ...appPages];
 }
@@ -40,7 +62,7 @@ export const generateSitemap = async (): Promise<string> => {
       alternates['x-default'] = `${seoConfig.siteUrl}/ko${page.url}`;
       staticUrls.push({
         url: `/${locale}${page.url}`,
-        lastModified: new Date(),
+        lastModified: page.lastModified,
         priority: page.priority,
         changeFrequency: page.changeFrequency,
         alternates,
