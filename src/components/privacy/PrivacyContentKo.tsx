@@ -3,7 +3,7 @@ export function PrivacyContentKo() {
     <>
       <section className="border-b border-black/5 bg-gradient-to-r from-indigo-50 to-purple-50">
         <div className="mx-auto max-w-4xl px-4 py-16">
-          <p className="text-sm font-semibold text-gray-500">Privacy Policy</p>
+          <p className="text-sm font-semibold text-gray-500">개인정보 보호</p>
           <h1 className="mt-2 text-4xl font-bold text-gray-900">개인정보처리방침</h1>
         </div>
       </section>
