@@ -4,7 +4,7 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import { structuredDataTemplates, seoConfig } from '@/lib/seo/config';
+import { seoConfig } from '@/lib/seo/config';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { FirebaseAnalyticsClient } from '@/components/analytics/FirebaseAnalyticsClient';
@@ -88,21 +88,48 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   const messages = await getMessages();
+  const tMeta = await getTranslations({ locale, namespace: 'metadata' });
+
+  const siteDescription = tMeta('siteDescription');
+  const siteName = locale === 'ko' ? '모카데브' : 'Mocadev';
+
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${seoConfig.siteUrl}/#organization`,
+    name: siteName,
+    url: seoConfig.siteUrl,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${seoConfig.siteUrl}/logo.svg`,
+      width: 200,
+      height: 200,
+    },
+    description: siteDescription,
+    sameAs: ['https://github.com/mocadev'],
+  };
+
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${seoConfig.siteUrl}/#website`,
+    name: siteName,
+    url: seoConfig.siteUrl,
+    description: siteDescription,
+    inLanguage: locale,
+    publisher: { '@id': `${seoConfig.siteUrl}/#organization` },
+  };
 
   return (
     <html lang={locale}>
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredDataTemplates.organization),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(structuredDataTemplates.website),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#f7f6fb]`}>
