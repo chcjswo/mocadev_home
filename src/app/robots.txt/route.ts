@@ -28,4 +28,5 @@ export async function GET() {
   }
 }
 
-export const dynamic = 'force-dynamic';
+// robots.txt는 정적으로 제공 (변경 빈도 낮음)
+export const revalidate = false;

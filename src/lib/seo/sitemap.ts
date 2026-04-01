@@ -104,51 +104,34 @@ ${allUrls.map(urlEntry).join('\n')}
   return sitemap;
 };
 
-// robots.txt 생성 (구글·네이버 검색엔진 수집 허용)
+// robots.txt 생성 (주요 검색엔진 크롤러 허용, 불필요한 경로 차단)
 export const generateRobotsTxt = (): string => {
+  const disallowPaths = ['/api/', '/admin/', '/_next/'];
+  const allowPaths = ['/'];
+
   const rules: RobotsRule[] = [
-    {
-      userAgent: '*',
-      allow: ['/'],
-      disallow: ['/api/', '/admin/'],
-    },
-    {
-      userAgent: 'Googlebot',
-      allow: ['/'],
-      disallow: ['/api/', '/admin/'],
-    },
-    {
-      userAgent: 'Yeti',
-      allow: ['/'],
-      disallow: ['/api/', '/admin/'],
-    },
+    { userAgent: '*', allow: allowPaths, disallow: disallowPaths },
+    // 구글
+    { userAgent: 'Googlebot', allow: allowPaths, disallow: disallowPaths },
+    { userAgent: 'Googlebot-Image', allow: allowPaths, disallow: [] },
+    // 네이버
+    { userAgent: 'Yeti', allow: allowPaths, disallow: disallowPaths },
+    // 빙
+    { userAgent: 'Bingbot', allow: allowPaths, disallow: disallowPaths },
+    // 애플
+    { userAgent: 'Applebot', allow: allowPaths, disallow: disallowPaths },
   ];
 
   let robotsTxt = '';
 
   rules.forEach((rule) => {
     robotsTxt += `User-agent: ${rule.userAgent}\n`;
-
-    if (rule.allow) {
-      rule.allow.forEach((path) => {
-        robotsTxt += `Allow: ${path}\n`;
-      });
-    }
-
-    if (rule.disallow) {
-      rule.disallow.forEach((path) => {
-        robotsTxt += `Disallow: ${path}\n`;
-      });
-    }
-
-    if (rule.crawlDelay) {
-      robotsTxt += `Crawl-delay: ${rule.crawlDelay}\n`;
-    }
-
+    if (rule.allow) rule.allow.forEach((path) => (robotsTxt += `Allow: ${path}\n`));
+    if (rule.disallow) rule.disallow.forEach((path) => (robotsTxt += `Disallow: ${path}\n`));
+    if (rule.crawlDelay) robotsTxt += `Crawl-delay: ${rule.crawlDelay}\n`;
     robotsTxt += '\n';
   });
 
-  // 사이트맵 URL 추가
   robotsTxt += `Sitemap: ${seoConfig.siteUrl}/sitemap.xml\n`;
 
   return robotsTxt;
