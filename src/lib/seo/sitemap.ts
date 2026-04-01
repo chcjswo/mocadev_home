@@ -45,7 +45,7 @@ function getStaticPages(): Array<{
 }
 
 /** 동적 페이지 URL (블로그·상품 등 추가 시 여기서 반환) */
-export const getDynamicPages = async (): Promise<SitemapUrl[]> => {
+const getDynamicPages = async (): Promise<SitemapUrl[]> => {
   return [];
 };
 
@@ -59,7 +59,7 @@ export const generateSitemap = async (): Promise<string> => {
       for (const loc of routing.locales) {
         alternates[loc] = `${seoConfig.siteUrl}/${loc}${page.url}`;
       }
-      alternates['x-default'] = `${seoConfig.siteUrl}/ko${page.url}`;
+      alternates['x-default'] = `${seoConfig.siteUrl}/${routing.defaultLocale}${page.url}`;
       staticUrls.push({
         url: `/${locale}${page.url}`,
         lastModified: page.lastModified,
@@ -135,89 +135,4 @@ export const generateRobotsTxt = (): string => {
   robotsTxt += `Sitemap: ${seoConfig.siteUrl}/sitemap.xml\n`;
 
   return robotsTxt;
-};
-
-// 사이트맵 인덱스 생성 (여러 사이트맵이 있는 경우)
-export const generateSitemapIndex = (): string => {
-  const sitemaps = [
-    { url: '/sitemap.xml', lastModified: new Date() },
-    // 추가 사이트맵이 있다면 여기에 추가
-    // { url: '/sitemap-news.xml', lastModified: new Date() },
-    // { url: '/sitemap-images.xml', lastModified: new Date() },
-  ];
-
-  const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${sitemaps
-  .map(
-    (sitemap) => `  <sitemap>
-    <loc>${seoConfig.siteUrl}${sitemap.url}</loc>
-    <lastmod>${sitemap.lastModified.toISOString()}</lastmod>
-  </sitemap>`,
-  )
-  .join('\n')}
-</sitemapindex>`;
-
-  return sitemapIndex;
-};
-
-// Next.js API 라우트에서 사용할 헬퍼 함수들
-export const sitemapHelpers = {
-  // 사이트맵 응답 헤더 설정
-  setSitemapHeaders: (res: { setHeader: (key: string, value: string) => void }) => {
-    res.setHeader('Content-Type', 'application/xml');
-    res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate');
-  },
-
-  // robots.txt 응답 헤더 설정
-  setRobotsHeaders: (res: { setHeader: (key: string, value: string) => void }) => {
-    res.setHeader('Content-Type', 'text/plain');
-    res.setHeader('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate');
-  },
-};
-
-// URL 정규화 함수
-export const normalizeUrl = (url: string): string => {
-  // 중복 슬래시 제거
-  url = url.replace(/\/+/g, '/');
-
-  // 마지막 슬래시 제거 (루트 URL 제외)
-  if (url.length > 1 && url.endsWith('/')) {
-    url = url.slice(0, -1);
-  }
-
-  return url;
-};
-
-// URL 우선순위 계산 (페이지 깊이 기반)
-export const calculatePriority = (url: string): number => {
-  const depth = url.split('/').length - 1;
-
-  if (depth === 1) return 1.0; // 홈페이지
-  if (depth === 2) return 0.8; // 주요 섹션
-  if (depth === 3) return 0.6; // 서브 페이지
-  return 0.4; // 깊은 페이지
-};
-
-// 페이지 변경 빈도 계산
-export const calculateChangeFrequency = (url: string): SitemapUrl['changeFrequency'] => {
-  if (url === '/') return 'daily';
-  if (url.includes('/blog/') || url.includes('/news/')) return 'weekly';
-  if (url.includes('/product/') || url.includes('/service/')) return 'monthly';
-  return 'yearly';
-};
-
-// 사이트맵 검증
-export const validateSitemap = (sitemap: string): boolean => {
-  try {
-    // XML 형식 기본 검증
-    const hasXmlDeclaration = sitemap.includes('<?xml version="1.0"');
-    const hasUrlset = sitemap.includes('<urlset');
-    const hasClosingUrlset = sitemap.includes('</urlset>');
-
-    return hasXmlDeclaration && hasUrlset && hasClosingUrlset;
-  } catch (error) {
-    console.error('사이트맵 검증 오류:', error);
-    return false;
-  }
 };
