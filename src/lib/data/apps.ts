@@ -1,6 +1,13 @@
 import { StructuredDataProps } from '@/types/seo';
 import { seoConfig } from '@/lib/seo/config';
 
+export type IntroVariant = 'bapjeongne' | 'standard' | 'cat-weather';
+
+export interface AppIntroConfig {
+  variant: IntroVariant;
+  accentColorClass: string;
+}
+
 export interface AppBaseData {
   slug: 'bapjeongne' | 'fortune-cookie' | 'lunch-picker' | 'baby-med-diary' | 'cat-weather' | 'senior-care-diary' | 'recipehouse';
   heroImage: string;
@@ -18,6 +25,7 @@ export interface AppBaseData {
   hasTestimonials: boolean;
   testimonialCount: number;
   introBannerSrc?: string;
+  introConfig?: AppIntroConfig;
 }
 
 export const appsBaseData: AppBaseData[] = [
@@ -46,6 +54,7 @@ export const appsBaseData: AppBaseData[] = [
     hasTestimonials: false,
     testimonialCount: 0,
     introBannerSrc: '/images/apps/bobjeongneo/ChatGPT-Image-2025년-11월-25일-오전-01_17_08.png',
+    introConfig: { variant: 'bapjeongne', accentColorClass: 'text-purple-600' },
   },
   {
     slug: 'fortune-cookie',
@@ -100,6 +109,7 @@ export const appsBaseData: AppBaseData[] = [
     hasTestimonials: true,
     testimonialCount: 2,
     introBannerSrc: '/images/apps/lunch-pick/chatgpt_image_2025.png',
+    introConfig: { variant: 'standard', accentColorClass: 'text-sky-600' },
   },
   {
     slug: 'baby-med-diary',
@@ -132,6 +142,7 @@ export const appsBaseData: AppBaseData[] = [
     hasTestimonials: false,
     testimonialCount: 0,
     introBannerSrc: '/images/apps/babycarediary/0008c61d.png',
+    introConfig: { variant: 'standard', accentColorClass: 'text-emerald-600' },
   },
   {
     slug: 'cat-weather',
@@ -158,6 +169,7 @@ export const appsBaseData: AppBaseData[] = [
     hasTestimonials: false,
     testimonialCount: 0,
     introBannerSrc: '/images/apps/cat-weather/catweather.jpg',
+    introConfig: { variant: 'cat-weather', accentColorClass: 'text-amber-600' },
   },
   {
     slug: 'senior-care-diary',
@@ -185,6 +197,7 @@ export const appsBaseData: AppBaseData[] = [
     hasTestimonials: false,
     testimonialCount: 0,
     introBannerSrc: '/images/apps/seniorcarediary/seniorcarediary.jpg',
+    introConfig: { variant: 'standard', accentColorClass: 'text-teal-600' },
   },
   {
     slug: 'recipehouse',
@@ -210,6 +223,7 @@ export const appsBaseData: AppBaseData[] = [
     hasTestimonials: false,
     testimonialCount: 0,
     introBannerSrc: '/images/apps/recipehouse/graphic_image.png',
+    introConfig: { variant: 'standard', accentColorClass: 'text-green-600' },
   },
 ];
 

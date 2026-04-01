@@ -143,13 +143,13 @@ export async function AppDetailPage({ slug }: AppDetailPageProps) {
           <ScreenshotCarousel screenshots={screenshots} accentColor={base.theme.accent} />
         </section>
 
-        {slug === 'bapjeongne' && (
+        {base.introConfig?.variant === 'bapjeongne' && base.introBannerSrc && (
           <section>
             <p className="text-sm font-semibold text-gray-500">{ui('appIntroSubtitle')}</p>
             <h2 className="mb-6 text-2xl font-bold text-gray-900">{t('intro.title')}</h2>
             <div className="space-y-6">
               <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-4 shadow-lg">
-                <Image src={base.introBannerSrc!} alt={t('intro.bannerAlt')} width={1200} height={800} sizes="(min-width: 1280px) 1152px, 100vw" className="h-auto w-full rounded-2xl object-contain" />
+                <Image src={base.introBannerSrc} alt={t('intro.bannerAlt')} width={1200} height={800} sizes="(min-width: 1280px) 1152px, 100vw" className="h-auto w-full rounded-2xl object-contain" loading="lazy" />
               </div>
               <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-gray-50 to-white p-8">
                 <h3 className="text-xl font-bold text-gray-900">{t('intro.flowTitle')}</h3>
@@ -161,7 +161,7 @@ export async function AppDetailPage({ slug }: AppDetailPageProps) {
                 <ul className="space-y-2 text-gray-700">
                   {['solve1', 'solve2', 'solve3', 'solve4'].map((key) => (
                     <li key={key} className="flex items-start">
-                      <span className="mr-2 text-purple-600">✓</span>
+                      <span className={`mr-2 ${base.introConfig!.accentColorClass}`}>✓</span>
                       <span>{t(`intro.${key}`)}</span>
                     </li>
                   ))}
@@ -172,48 +172,20 @@ export async function AppDetailPage({ slug }: AppDetailPageProps) {
           </section>
         )}
 
-        {slug === 'lunch-picker' && (
+        {base.introConfig?.variant === 'cat-weather' && base.introBannerSrc && (
           <section>
             <p className="text-sm font-semibold text-gray-500">{ui('appIntroSubtitle')}</p>
             <h2 className="mb-6 text-2xl font-bold text-gray-900">{t('intro.title')}</h2>
             <div className="space-y-6">
               <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-4 shadow-lg">
-                <Image src={base.introBannerSrc!} alt={t('intro.bannerAlt')} width={1200} height={800} sizes="(min-width: 1280px) 1152px, 100vw" className="h-auto w-full rounded-2xl object-contain" />
-              </div>
-              <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-gray-50 to-white p-8">
-                <h3 className="text-xl font-bold text-gray-900">{t('intro.targetTitle')}</h3>
-                <ul className="space-y-3 text-gray-700">
-                  {['target1', 'target2', 'target3', 'target4'].map((key) => (
-                    <li key={key} className="flex items-start">
-                      <span className="mr-2 text-sky-600">✓</span>
-                      <span>{t(`intro.${key}`)}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-white to-gray-50 p-8">
-                <h3 className="text-xl font-bold text-gray-900">{t('intro.experienceTitle')}</h3>
-                <p className="text-gray-700">{t('intro.experienceDesc1')}</p>
-                <p className="mt-4 text-gray-700">{t('intro.experienceDesc2')}</p>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {slug === 'cat-weather' && (
-          <section>
-            <p className="text-sm font-semibold text-gray-500">{ui('appIntroSubtitle')}</p>
-            <h2 className="mb-6 text-2xl font-bold text-gray-900">{t('intro.title')}</h2>
-            <div className="space-y-6">
-              <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-4 shadow-lg">
-                <Image src={base.introBannerSrc!} alt={t('intro.bannerAlt')} width={1200} height={800} sizes="(min-width: 1280px) 1152px, 100vw" className="h-auto w-full rounded-2xl object-contain" />
+                <Image src={base.introBannerSrc} alt={t('intro.bannerAlt')} width={1200} height={800} sizes="(min-width: 1280px) 1152px, 100vw" className="h-auto w-full rounded-2xl object-contain" loading="lazy" />
               </div>
               <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-gray-50 to-white p-8">
                 <h3 className="text-xl font-bold text-gray-900">{t('intro.recommendTitle')}</h3>
                 <ul className="space-y-3 text-gray-700">
                   {['recommend1', 'recommend2', 'recommend3', 'recommend4', 'recommend5'].map((key) => (
                     <li key={key} className="flex items-start">
-                      <span className="mr-2 text-amber-600">✓</span>
+                      <span className={`mr-2 ${base.introConfig!.accentColorClass}`}>✓</span>
                       <span>{t(`intro.${key}`)}</span>
                     </li>
                   ))}
@@ -224,7 +196,7 @@ export async function AppDetailPage({ slug }: AppDetailPageProps) {
                 <ul className="space-y-2 text-gray-700">
                   {['highlight1', 'highlight2', 'highlight3', 'highlight4', 'highlight5'].map((key) => (
                     <li key={key} className="flex items-start">
-                      <span className="mr-2 text-amber-600">·</span>
+                      <span className={`mr-2 ${base.introConfig!.accentColorClass}`}>·</span>
                       <span>{t(`intro.${key}`)}</span>
                     </li>
                   ))}
@@ -239,76 +211,20 @@ export async function AppDetailPage({ slug }: AppDetailPageProps) {
           </section>
         )}
 
-        {slug === 'baby-med-diary' && (
+        {base.introConfig?.variant === 'standard' && base.introBannerSrc && (
           <section>
             <p className="text-sm font-semibold text-gray-500">{ui('appIntroSubtitle')}</p>
             <h2 className="mb-6 text-2xl font-bold text-gray-900">{t('intro.title')}</h2>
             <div className="space-y-6">
               <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-4 shadow-lg">
-                <Image src={base.introBannerSrc!} alt={t('intro.bannerAlt')} width={1200} height={800} sizes="(min-width: 1280px) 1152px, 100vw" className="h-auto w-full rounded-2xl object-contain" />
+                <Image src={base.introBannerSrc} alt={t('intro.bannerAlt')} width={1200} height={800} sizes="(min-width: 1280px) 1152px, 100vw" className="h-auto w-full rounded-2xl object-contain" loading="lazy" />
               </div>
               <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-gray-50 to-white p-8">
                 <h3 className="text-xl font-bold text-gray-900">{t('intro.targetTitle')}</h3>
                 <ul className="space-y-3 text-gray-700">
                   {['target1', 'target2', 'target3', 'target4'].map((key) => (
                     <li key={key} className="flex items-start">
-                      <span className="mr-2 text-emerald-600">✓</span>
-                      <span>{t(`intro.${key}`)}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-white to-gray-50 p-8">
-                <h3 className="text-xl font-bold text-gray-900">{t('intro.experienceTitle')}</h3>
-                <p className="text-gray-700">{t('intro.experienceDesc1')}</p>
-                <p className="mt-4 text-gray-700">{t('intro.experienceDesc2')}</p>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {slug === 'senior-care-diary' && (
-          <section>
-            <p className="text-sm font-semibold text-gray-500">{ui('appIntroSubtitle')}</p>
-            <h2 className="mb-6 text-2xl font-bold text-gray-900">{t('intro.title')}</h2>
-            <div className="space-y-6">
-              <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-4 shadow-lg">
-                <Image src={base.introBannerSrc!} alt={t('intro.bannerAlt')} width={1200} height={800} sizes="(min-width: 1280px) 1152px, 100vw" className="h-auto w-full rounded-2xl object-contain" />
-              </div>
-              <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-gray-50 to-white p-8">
-                <h3 className="text-xl font-bold text-gray-900">{t('intro.targetTitle')}</h3>
-                <ul className="space-y-3 text-gray-700">
-                  {['target1', 'target2', 'target3', 'target4'].map((key) => (
-                    <li key={key} className="flex items-start">
-                      <span className="mr-2 text-teal-600">✓</span>
-                      <span>{t(`intro.${key}`)}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-white to-gray-50 p-8">
-                <h3 className="text-xl font-bold text-gray-900">{t('intro.experienceTitle')}</h3>
-                <p className="text-gray-700">{t('intro.experienceDesc1')}</p>
-                <p className="mt-4 text-gray-700">{t('intro.experienceDesc2')}</p>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {slug === 'recipehouse' && (
-          <section>
-            <p className="text-sm font-semibold text-gray-500">{ui('appIntroSubtitle')}</p>
-            <h2 className="mb-6 text-2xl font-bold text-gray-900">{t('intro.title')}</h2>
-            <div className="space-y-6">
-              <div className="relative overflow-hidden rounded-3xl border border-black/5 bg-white p-4 shadow-lg">
-                <Image src={base.introBannerSrc!} alt={t('intro.bannerAlt')} width={1200} height={800} sizes="(min-width: 1280px) 1152px, 100vw" className="h-auto w-full rounded-2xl object-contain" />
-              </div>
-              <div className="space-y-4 rounded-3xl border border-black/5 bg-gradient-to-br from-gray-50 to-white p-8">
-                <h3 className="text-xl font-bold text-gray-900">{t('intro.targetTitle')}</h3>
-                <ul className="space-y-3 text-gray-700">
-                  {['target1', 'target2', 'target3', 'target4'].map((key) => (
-                    <li key={key} className="flex items-start">
-                      <span className="mr-2 text-green-600">✓</span>
+                      <span className={`mr-2 ${base.introConfig!.accentColorClass}`}>✓</span>
                       <span>{t(`intro.${key}`)}</span>
                     </li>
                   ))}
