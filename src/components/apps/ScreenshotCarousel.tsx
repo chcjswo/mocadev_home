@@ -48,6 +48,7 @@ export function ScreenshotCarousel({ screenshots, accentColor }: ScreenshotCarou
         <div className="screenshot-slider flex md:gap-4">
           {screenshots.map((screenshot, index) => {
             const isActive = index === activeIndex;
+            const isFirst = index === 0;
             return (
               <div
                 key={screenshot.src}
@@ -71,7 +72,8 @@ export function ScreenshotCarousel({ screenshots, accentColor }: ScreenshotCarou
                     height={240}
                     sizes="(min-width: 768px) 360px, 100vw"
                     className="h-auto w-full rounded-2xl object-cover"
-                    priority={isActive}
+                    priority={isFirst}
+                    loading={isFirst ? undefined : 'lazy'}
                   />
                   <p className="mt-3 text-sm text-gray-600">{screenshot.caption}</p>
                 </div>
