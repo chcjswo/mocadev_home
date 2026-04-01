@@ -15,6 +15,11 @@
   "footer": {
     "tagline": "생활을 바꾸는 작은 실험실"
   },
+  "languageSwitcher": {
+    "ariaLabel": "언어 선택",
+    "switchToKo": "한국어로 변경",
+    "switchToEn": "영어로 변경"
+  },
   "home": {
     "hero": {
       "brandLabel": "모카데브",

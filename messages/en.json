@@ -15,6 +15,11 @@
   "footer": {
     "tagline": "A small lab that changes everyday life"
   },
+  "languageSwitcher": {
+    "ariaLabel": "Select language",
+    "switchToKo": "Switch to Korean",
+    "switchToEn": "Switch to English"
+  },
   "home": {
     "hero": {
       "brandLabel": "Mocadev",
