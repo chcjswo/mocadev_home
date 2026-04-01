@@ -65,7 +65,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const itemListStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: locale === 'ko' ? '모카데브 앱 목록' : 'Mocadev Apps',
+    name: t('appsSection.structuredDataName'),
     numberOfItems: appsBase.length,
     itemListElement: appsBase.map((app, index) => ({
       '@type': 'ListItem',

@@ -36,7 +36,8 @@
     "appsSection": {
       "sectionLabel": "Mocadev Apps",
       "title": "Apps by Mocadev",
-      "description": "Tap each card to view screenshots and download links on the detail page."
+      "description": "Tap each card to view screenshots and download links on the detail page.",
+      "structuredDataName": "Mocadev Apps"
     },
     "about": {
       "sectionLabel": "About Mocadev",
