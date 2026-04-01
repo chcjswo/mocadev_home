@@ -4,22 +4,29 @@
 
 ## 📱 소개
 
-Mocadev Home은 개인 개발자 모카데브가 만든 3개의 모바일 앱을 소개하는 웹사이트입니다. 각 앱의 기능, 사용법, 다운로드 링크를 한 곳에서 확인할 수 있습니다.
+Mocadev Home은 개인 개발자 모카데브가 만든 7개의 모바일 앱을 소개하는 웹사이트입니다. 각 앱의 기능, 사용법, 다운로드 링크를 한 곳에서 확인할 수 있습니다.
 
 ### 주요 앱
 
-- **밥정너** - 주변 맛집을 랜덤으로 추천해 주는 점심 파트너
-- **포춘쿠키** - 쿠키를 톡! 오늘의 메시지가 도착합니다
-- **점심 뭐 먹지** - 스케줄 기반 푸시로 점심 고민을 자동화
+| 앱 | 아이콘 | 설명 |
+|----|--------|------|
+| **밥정너** | 🍱 | 당신의 점심 고민을 대신 해결하는 한 끼 큐레이터 |
+| **포춘쿠키** | 🥠 | 쿠키를 톡! 오늘의 메시지가 도착합니다 |
+| **점심 뭐 먹지** | 🍽️ | 내가 고른 식당들로 완성되는, 나만의 점심 추천 앱 |
+| **우리아기 투약일기** | 💊 | 아기 투약 기록과 알림을 한눈에 |
+| **날씨다냥** | 🐱 | 귀여운 고양이와 함께 날씨를 확인하세요! |
+| **어르신 투약일지** | 💊 | 한 번 등록하면 기간 동안 자동 관리 |
+| **레시피창고** | 📖 | 나만의 레시피를 기록하고 찾는 심플한 앱 |
 
 ## 🛠️ 기술 스택
 
-- **프레임워크**: Next.js 15.4.2 (App Router)
+- **프레임워크**: Next.js 16 (App Router, Turbopack)
 - **언어**: TypeScript 5
 - **스타일링**: Tailwind CSS 4
 - **UI 컴포넌트**: Shadcn/ui (Radix UI 기반)
 - **폰트**: Geist Sans, Geist Mono
-- **분석**: Vercel Analytics
+- **다국어**: next-intl (한국어 / 영어)
+- **분석**: Vercel Analytics, Firebase Analytics
 - **광고**: Google AdSense
 
 ## 📦 주요 의존성
@@ -29,16 +36,16 @@ Mocadev Home은 개인 개발자 모카데브가 만든 3개의 모바일 앱을
 - `tailwindcss` - 유틸리티 CSS 프레임워크
 - `@radix-ui/*` - 접근성 우선 UI 프리미티브
 - `lucide-react` - 아이콘 라이브러리
-- `zod` - 스키마 검증
-- `react-hook-form` - 폼 관리
-- `next-themes` - 다크모드 지원
+- `next-intl` - 다국어 지원 (i18n)
+- `firebase` - Firebase Analytics
+- `@vercel/analytics` - Vercel Analytics
 
 ## 🚀 시작하기
 
 ### 사전 요구사항
 
-- Node.js 18 이상
-- npm 또는 yarn
+- Node.js 22.x
+- npm
 
 ### 설치
 
@@ -46,7 +53,7 @@ Mocadev Home은 개인 개발자 모카데브가 만든 3개의 모바일 앱을
 # 의존성 설치
 npm install
 
-# 개발 서버 실행
+# 개발 서버 실행 (Turbopack)
 npm run dev
 ```
 
@@ -68,35 +75,55 @@ npm start
 npm run lint
 ```
 
+### 이미지 최적화
+
+새 이미지를 `public/images`에 추가한 후 아래 명령으로 압축하세요:
+
+```bash
+npm run optimize:images
+```
+
+- PNG: compressionLevel 9 / quality 85
+- JPEG: quality 82 progressive
+- 파일명 공백 자동 제거 (공백 → 하이픈)
+
 ## 📁 프로젝트 구조
 
 ```
 src/
-├── app/                    # Next.js App Router
-│   ├── api/               # API 라우트
-│   ├── apps/              # 앱 상세 페이지
-│   │   ├── bapjeongne/
-│   │   ├── fortune-cookie/
-│   │   └── lunch-picker/
-│   ├── privacy/           # 개인정보 처리방침
-│   ├── team/              # 팀 소개
-│   ├── layout.tsx         # 루트 레이아웃
-│   ├── page.tsx           # 홈페이지
-│   ├── sitemap.xml/       # 사이트맵 생성
-│   └── robots.txt/        # robots.txt 생성
-├── components/            # React 컴포넌트
+├── app/
+│   └── [locale]/              # 다국어 라우트 (ko / en)
+│       ├── apps/              # 앱 상세 페이지
+│       │   ├── bapjeongne/
+│       │   ├── fortune-cookie/
+│       │   ├── lunch-picker/
+│       │   ├── baby-med-diary/
+│       │   ├── cat-weather/
+│       │   ├── senior-care-diary/
+│       │   └── recipehouse/
+│       ├── privacy/           # 개인정보 처리방침
+│       ├── team/              # 팀 소개
+│       ├── layout.tsx         # 로케일 레이아웃
+│       └── page.tsx           # 홈페이지
+├── components/
 │   ├── ads/              # 광고 컴포넌트
+│   ├── analytics/        # Vercel / Firebase Analytics
 │   ├── apps/             # 앱 관련 컴포넌트
-│   ├── layout/           # 레이아웃 컴포넌트
+│   ├── layout/           # 헤더, 푸터, 언어 전환
+│   ├── privacy/          # 개인정보 처리방침
 │   ├── seo/              # SEO 컴포넌트
 │   └── ui/               # Shadcn/ui 컴포넌트
-├── lib/                  # 유틸리티 & 설정
-│   ├── data/            # 앱 데이터
-│   ├── seo/             # SEO 설정
-│   └── utils.ts         # 공통 유틸리티
+├── i18n/                 # next-intl 설정
+├── lib/
+│   ├── data/             # 앱 데이터 (apps.ts)
+│   ├── seo/              # SEO 설정 & 사이트맵
+│   └── utils.ts
 ├── types/                # TypeScript 타입 정의
-├── hooks/                # 커스텀 훅
-└── contexts/             # React Context
+messages/
+├── ko.json               # 한국어 번역
+└── en.json               # 영어 번역
+scripts/
+└── optimize-images.mjs   # 이미지 압축 스크립트
 ```
 
 ## ✨ 주요 기능
@@ -131,6 +158,18 @@ src/
 
 ```env
 NEXT_PUBLIC_SITE_URL=https://your-domain.com
+
+# Firebase Analytics
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=
+
+# Google AdSense (선택)
+NEXT_PUBLIC_GOOGLE_ADSENSE_ID=
 ```
 
 ## 📝 개발 규칙
