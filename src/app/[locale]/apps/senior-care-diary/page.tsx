@@ -56,6 +56,7 @@ export default async function SeniorCareDiaryPage({
 
   const t = await getTranslations({ locale, namespace: 'seo.apps.senior-care-diary' });
   const tApp = await getTranslations({ locale, namespace: 'apps.senior-care-diary' });
+  const tNav = await getTranslations({ locale, namespace: 'nav' });
   const slug = 'senior-care-diary';
   const appStructured = getAppStructuredData(
     slug,
@@ -64,7 +65,7 @@ export default async function SeniorCareDiaryPage({
     base.heroImage,
     locale,
   );
-  const breadcrumb = getBreadcrumbStructuredData(locale, tApp('name'), slug);
+  const breadcrumb = getBreadcrumbStructuredData(locale, tApp('name'), slug, tNav('home'));
 
   return (
     <>

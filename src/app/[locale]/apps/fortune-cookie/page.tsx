@@ -52,9 +52,10 @@ export default async function FortuneCookiePage({ params }: { params: Promise<{ 
 
   const t = await getTranslations({ locale, namespace: 'seo.apps.fortune-cookie' });
   const tApp = await getTranslations({ locale, namespace: 'apps.fortune-cookie' });
+  const tNav = await getTranslations({ locale, namespace: 'nav' });
   const slug = 'fortune-cookie';
   const appStructured = getAppStructuredData(slug, t('title'), t('description'), base.heroImage, locale);
-  const breadcrumb = getBreadcrumbStructuredData(locale, tApp('name'), slug);
+  const breadcrumb = getBreadcrumbStructuredData(locale, tApp('name'), slug, tNav('home'));
 
   return (
     <>

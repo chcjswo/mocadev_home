@@ -10,7 +10,8 @@
     "team": "Team",
     "contact": "Contact",
     "contactShort": "Contact",
-    "contactAriaLabel": "Contact via email"
+    "contactAriaLabel": "Contact via email",
+    "home": "Home"
   },
   "footer": {
     "tagline": "A small lab that changes everyday life"

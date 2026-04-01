@@ -10,7 +10,8 @@
     "team": "만든 사람들",
     "contact": "문의하기",
     "contactShort": "문의",
-    "contactAriaLabel": "이메일로 문의하기"
+    "contactAriaLabel": "이메일로 문의하기",
+    "home": "홈"
   },
   "footer": {
     "tagline": "생활을 바꾸는 작은 실험실"

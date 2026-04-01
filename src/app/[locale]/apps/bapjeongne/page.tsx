@@ -52,9 +52,10 @@ export default async function BapjeongnePage({ params }: { params: Promise<{ loc
 
   const t = await getTranslations({ locale, namespace: 'seo.apps.bapjeongne' });
   const tApp = await getTranslations({ locale, namespace: 'apps.bapjeongne' });
+  const tNav = await getTranslations({ locale, namespace: 'nav' });
   const slug = 'bapjeongne';
   const appStructured = getAppStructuredData(slug, t('title'), t('description'), base.heroImage, locale);
-  const breadcrumb = getBreadcrumbStructuredData(locale, tApp('name'), slug);
+  const breadcrumb = getBreadcrumbStructuredData(locale, tApp('name'), slug, tNav('home'));
 
   return (
     <>

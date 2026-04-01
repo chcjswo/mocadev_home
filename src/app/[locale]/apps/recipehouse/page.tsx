@@ -56,6 +56,7 @@ export default async function RecipehousePage({
 
   const t = await getTranslations({ locale, namespace: 'seo.apps.recipehouse' });
   const tApp = await getTranslations({ locale, namespace: 'apps.recipehouse' });
+  const tNav = await getTranslations({ locale, namespace: 'nav' });
   const slug = 'recipehouse';
   const appStructured = getAppStructuredData(
     slug,
@@ -64,7 +65,7 @@ export default async function RecipehousePage({
     base.heroImage,
     locale,
   );
-  const breadcrumb = getBreadcrumbStructuredData(locale, tApp('name'), slug);
+  const breadcrumb = getBreadcrumbStructuredData(locale, tApp('name'), slug, tNav('home'));
 
   return (
     <>

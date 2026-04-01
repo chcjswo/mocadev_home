@@ -52,9 +52,10 @@ export default async function LunchPickerPage({ params }: { params: Promise<{ lo
 
   const t = await getTranslations({ locale, namespace: 'seo.apps.lunch-picker' });
   const tApp = await getTranslations({ locale, namespace: 'apps.lunch-picker' });
+  const tNav = await getTranslations({ locale, namespace: 'nav' });
   const slug = 'lunch-picker';
   const appStructured = getAppStructuredData(slug, t('title'), t('description'), base.heroImage, locale);
-  const breadcrumb = getBreadcrumbStructuredData(locale, tApp('name'), slug);
+  const breadcrumb = getBreadcrumbStructuredData(locale, tApp('name'), slug, tNav('home'));
 
   return (
     <>

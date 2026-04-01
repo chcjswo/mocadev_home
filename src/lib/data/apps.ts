@@ -264,6 +264,7 @@ export const getBreadcrumbStructuredData = (
   locale: string,
   appName: string,
   slug: string,
+  homeName: string,
 ): StructuredDataProps => ({
   type: 'BreadcrumbList',
   data: {
@@ -273,7 +274,7 @@ export const getBreadcrumbStructuredData = (
       {
         '@type': 'ListItem',
         position: 1,
-        name: locale === 'ko' ? '홈' : 'Home',
+        name: homeName,
         item: `${seoConfig.siteUrl}/${locale}`,
       },
       {

@@ -52,9 +52,10 @@ export default async function BabyMedDiaryPage({ params }: { params: Promise<{ l
 
   const t = await getTranslations({ locale, namespace: 'seo.apps.baby-med-diary' });
   const tApp = await getTranslations({ locale, namespace: 'apps.baby-med-diary' });
+  const tNav = await getTranslations({ locale, namespace: 'nav' });
   const slug = 'baby-med-diary';
   const appStructured = getAppStructuredData(slug, t('title'), t('description'), base.heroImage, locale);
-  const breadcrumb = getBreadcrumbStructuredData(locale, tApp('name'), slug);
+  const breadcrumb = getBreadcrumbStructuredData(locale, tApp('name'), slug, tNav('home'));
 
   return (
     <>
