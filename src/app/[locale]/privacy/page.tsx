@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { PageSEO } from '@/components/seo';
 import { seoConfig } from '@/lib/seo/config';
 import { PrivacyContentKo } from '@/components/privacy/PrivacyContentKo';
 import { PrivacyContentEn } from '@/components/privacy/PrivacyContentEn';
@@ -59,20 +58,10 @@ export default async function PrivacyPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: 'seo.privacy' });
 
   return (
-    <>
-      <PageSEO
-        title={t('title')}
-        description={t('description')}
-        keywords={t('keywords')}
-        canonical={`/${locale}/privacy`}
-        noindex
-      />
-      <div className="bg-white">
-        {locale === 'ko' ? <PrivacyContentKo /> : <PrivacyContentEn />}
-      </div>
-    </>
+    <div className="bg-white">
+      {locale === 'ko' ? <PrivacyContentKo /> : <PrivacyContentEn />}
+    </div>
   );
 }

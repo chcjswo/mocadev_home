@@ -2,7 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import type { Metadata } from 'next';
-import { seoConfig, structuredDataTemplates } from '@/lib/seo/config';
+import { seoConfig } from '@/lib/seo/config';
 import { getAllAppsBase } from '@/lib/data/apps';
 import { AppCard } from '@/components/apps/AppCard';
 import { Card, CardContent } from '@/components/ui/card';
@@ -60,8 +60,25 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const t = await getTranslations('home');
   const tCard = await getTranslations('appCard');
   const tApps = await getTranslations('apps');
+  const tMeta = await getTranslations('metadata');
+  const tSeoHome = await getTranslations('seo.home');
 
+  const siteName = tMeta('siteName');
   const appsBase = getAllAppsBase();
+
+  const softwareApplicationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: siteName,
+    description: tSeoHome('description'),
+    url: `${seoConfig.siteUrl}/${locale}`,
+    applicationCategory: 'LifestyleApplication',
+    operatingSystem: 'iOS, Android',
+    inLanguage: locale,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
+    author: { '@type': 'Person', name: siteName },
+  };
+
   const itemListStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -80,7 +97,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(structuredDataTemplates.softwareApplication),
+          __html: JSON.stringify(softwareApplicationSchema),
         }}
       />
       <script
