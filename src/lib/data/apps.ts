@@ -1,5 +1,6 @@
 import { StructuredDataProps } from '@/types/seo';
 import { seoConfig } from '@/lib/seo/config';
+import type { Locale } from '@/i18n/routing';
 
 export type IntroVariant = 'bapjeongne' | 'standard' | 'cat-weather';
 
@@ -239,7 +240,7 @@ export const getAppStructuredData = (
   name: string,
   description: string,
   heroImage: string,
-  locale: string = 'ko',
+  locale: Locale = 'ko',
 ): StructuredDataProps[] => [
   {
     type: 'SoftwareApplication',
@@ -261,7 +262,7 @@ export const getAppStructuredData = (
 
 /** 앱 상세 페이지용 BreadcrumbList JSON-LD (검색 결과 breadcrumb 노출) */
 export const getBreadcrumbStructuredData = (
-  locale: string,
+  locale: Locale,
   appName: string,
   slug: string,
   homeName: string,
