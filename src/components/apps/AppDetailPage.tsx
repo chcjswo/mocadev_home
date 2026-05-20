@@ -41,8 +41,6 @@ export async function AppDetailPage({ slug }: AppDetailPageProps) {
     caption: t(`screenshots.${i}.caption`),
   }));
 
-  const tags = t.raw('tags') as string[];
-
   return (
     <div className="bg-white">
       <section
