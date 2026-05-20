@@ -2,7 +2,9 @@
   "metadata": {
     "siteTitle": "모카데브 – 개인 앱 개발자",
     "siteDescription": "랜덤 식당 추천부터 포춘쿠키 메시지까지. 모카데브가 직접 설계하고 운영하는 생활형 앱 컬렉션을 만나보세요.",
-    "titleTemplate": "%s | 모카데브"
+    "titleTemplate": "%s | 모카데브",
+    "siteName": "모카데브",
+    "keywords": "모카데브, 밥정너, 포춘쿠키, 점심 뭐 먹지, 우리아기 투약일기, 날씨다냥, 어르신 투약일지, 레시피창고, 인디 개발자, 모바일 앱, iOS 앱, Android 앱, 포트폴리오"
   },
   "nav": {
     "apps": "앱",

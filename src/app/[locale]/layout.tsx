@@ -40,7 +40,7 @@ export async function generateMetadata({
       template: t('titleTemplate'),
     },
     description: t('siteDescription'),
-    keywords: seoConfig.defaultKeywords,
+    keywords: t('keywords'),
     robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
     openGraph: {
       siteName: seoConfig.siteName,
@@ -91,7 +91,7 @@ export default async function LocaleLayout({
   const tMeta = await getTranslations({ locale, namespace: 'metadata' });
 
   const siteDescription = tMeta('siteDescription');
-  const siteName = locale === 'ko' ? '모카데브' : 'Mocadev';
+  const siteName = tMeta('siteName');
 
   const organizationSchema = {
     '@context': 'https://schema.org',

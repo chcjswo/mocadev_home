@@ -2,7 +2,9 @@
   "metadata": {
     "siteTitle": "Mocadev – Indie App Developer",
     "siteDescription": "From random restaurant picks to fortune cookie messages. Explore Mocadev's collection of lifestyle apps, designed and operated by a solo developer.",
-    "titleTemplate": "%s | Mocadev"
+    "titleTemplate": "%s | Mocadev",
+    "siteName": "Mocadev",
+    "keywords": "Mocadev, Bapjeongne, Fortune Cookie, Lunch Picker, Baby Med Diary, Cat Weather, Senior Med Diary, Recipe Vault, indie developer, mobile app, iOS app, Android app, portfolio"
   },
   "nav": {
     "apps": "Apps",
