@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { AppDetailPage } from '@/components/apps/AppDetailPage';
+import type { Locale } from '@/i18n/routing';
 import { getAppBase, getAppStructuredData, getBreadcrumbStructuredData } from '@/lib/data/apps';
 import { seoConfig } from '@/lib/seo/config';
 
@@ -9,7 +10,7 @@ const base = getAppBase('baby-med-diary')!;
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'seo.apps.baby-med-diary' });
@@ -46,7 +47,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function BabyMedDiaryPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function BabyMedDiaryPage({ params }: { params: Promise<{ locale: Locale }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 
