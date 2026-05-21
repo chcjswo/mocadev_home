@@ -3,12 +3,12 @@ import { Geist } from 'next/font/google';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { pickClientMessages } from '@/i18n/client-messages';
 import { routing } from '@/i18n/routing';
 import { seoConfig } from '@/lib/seo/config';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SiteFooter } from '@/components/layout/SiteFooter';
-import { FirebaseAnalyticsClient } from '@/components/analytics/FirebaseAnalyticsClient';
-import { VercelAnalyticsClient } from '@/components/analytics/VercelAnalyticsClient';
+import { AnalyticsProviders } from '@/components/analytics/AnalyticsProviders';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -127,14 +127,13 @@ export default async function LocaleLayout({
         />
       </head>
       <body className={`${geistSans.variable} antialiased bg-[#f7f6fb]`}>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider messages={pickClientMessages(messages)}>
           <div className="flex min-h-screen flex-col">
             <SiteHeader />
             <main className="flex-1">{children}</main>
             <SiteFooter />
           </div>
-          <VercelAnalyticsClient />
-          <FirebaseAnalyticsClient />
+          <AnalyticsProviders />
         </NextIntlClientProvider>
       </body>
     </html>
