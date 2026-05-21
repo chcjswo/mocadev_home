@@ -22,40 +22,29 @@ export function ScreenshotCarousel({ screenshots, accentColor }: ScreenshotCarou
     setActiveIndex(normalized);
   };
 
-  const handleImageClick = (index: number) => {
-    setActiveIndex(index);
-  };
-
   if (screenshots.length === 0) return null;
 
-  const slideOffset = slideIndex * -100;
-  const slideOffsetMd = slideIndex * -(100 / 3);
+  const slideStyle = {
+    '--slide-offset': `${slideIndex * -100}%`,
+    '--slide-offset-md': `${slideIndex * -(100 / 3)}%`,
+  } as React.CSSProperties;
 
   return (
     <div className="space-y-4">
       <div className="relative overflow-hidden rounded-3xl">
-        <style jsx>{`
-          .screenshot-slider {
-            transform: translateX(${slideOffset}%);
-            transition: transform 0.5s ease-in-out;
-          }
-          @media (min-width: 768px) {
-            .screenshot-slider {
-              transform: translateX(${slideOffsetMd}%);
-            }
-          }
-        `}</style>
-        <div className="screenshot-slider flex md:gap-4">
+        <div
+          className="flex transition-transform duration-500 ease-in-out max-md:translate-x-[var(--slide-offset)] md:gap-4 md:translate-x-[var(--slide-offset-md)]"
+          style={slideStyle}
+        >
           {screenshots.map((screenshot, index) => {
             const isActive = index === activeIndex;
-            const isFirst = index === 0;
             return (
               <div
                 key={screenshot.src}
                 className="min-w-0 flex-shrink-0 flex-grow-0 basis-full md:basis-[calc(33.333%-0.67rem)]"
               >
                 <div
-                  onClick={() => handleImageClick(index)}
+                  onClick={() => setActiveIndex(index)}
                   className={cn(
                     'relative mx-auto max-w-[360px] cursor-pointer overflow-hidden rounded-3xl border bg-white p-4 shadow-lg transition-all duration-300 hover:shadow-xl',
                     isActive ? 'border-2 opacity-100' : 'border border-black/5 opacity-75',
@@ -72,8 +61,7 @@ export function ScreenshotCarousel({ screenshots, accentColor }: ScreenshotCarou
                     height={240}
                     sizes="(min-width: 768px) 360px, 100vw"
                     className="h-auto w-full rounded-2xl object-cover"
-                    priority={isFirst}
-                    loading={isFirst ? undefined : 'lazy'}
+                    loading="lazy"
                   />
                   <p className="mt-3 text-sm text-gray-600">{screenshot.caption}</p>
                 </div>
