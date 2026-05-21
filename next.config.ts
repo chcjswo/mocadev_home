@@ -18,14 +18,7 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   experimental: {
-    optimizePackageImports: [
-      'lucide-react',
-      '@radix-ui/react-label',
-      '@radix-ui/react-select',
-      '@radix-ui/react-separator',
-      '@radix-ui/react-slot',
-      '@radix-ui/react-tabs',
-    ],
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-slot'],
   },
   async headers() {
     return [

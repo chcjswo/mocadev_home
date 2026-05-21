@@ -1,7 +1,5 @@
-export { MetaTags, PageSEO, ArticleSEO } from './MetaTags';
 export type {
-  MetaTagsProps,
-  OpenGraphProps,
-  TwitterCardsProps,
+  SitemapUrl,
+  RobotsRule,
   StructuredDataProps,
 } from '@/types/seo';
