@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist } from 'next/font/google';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -12,12 +12,6 @@ import { VercelAnalyticsClient } from '@/components/analytics/VercelAnalyticsCli
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
-  subsets: ['latin'],
-  display: 'swap',
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
   subsets: ['latin'],
   display: 'swap',
 });
@@ -132,7 +126,7 @@ export default async function LocaleLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#f7f6fb]`}>
+      <body className={`${geistSans.variable} antialiased bg-[#f7f6fb]`}>
         <NextIntlClientProvider messages={messages}>
           <div className="flex min-h-screen flex-col">
             <SiteHeader />
