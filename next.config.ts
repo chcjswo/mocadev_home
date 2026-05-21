@@ -15,7 +15,6 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: ONE_DAY_SECONDS,
   },
-  compress: true,
   poweredByHeader: false,
   experimental: {
     optimizePackageImports: ['lucide-react', '@radix-ui/react-slot'],
@@ -28,24 +27,6 @@ const nextConfig: NextConfig = {
           {
             key: 'Cache-Control',
             value: `public, max-age=${ONE_YEAR_SECONDS}, immutable`,
-          },
-        ],
-      },
-      {
-        source: '/_next/static/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: `public, max-age=${ONE_YEAR_SECONDS}, immutable`,
-          },
-        ],
-      },
-      {
-        source: '/_next/image',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: `public, max-age=${ONE_DAY_SECONDS}, stale-while-revalidate=${ONE_DAY_SECONDS * 7}`,
           },
         ],
       },

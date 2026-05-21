@@ -88,6 +88,7 @@ export default async function TeamPage({ params }: { params: Promise<{ locale: s
                           alt={t('profileAlt', { name })}
                           width={128}
                           height={128}
+                          sizes="128px"
                           className="h-full w-full object-cover"
                         />
                       </div>
