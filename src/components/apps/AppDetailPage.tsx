@@ -9,7 +9,6 @@ import { DownloadButtons } from './DownloadButtons';
 const ScreenshotCarousel = dynamic(
   () => import('./ScreenshotCarousel').then((m) => ({ default: m.ScreenshotCarousel })),
   {
-    ssr: false,
     loading: () => (
       <div
         className="min-h-[280px] animate-pulse rounded-3xl bg-gray-100"

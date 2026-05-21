@@ -1,7 +1,6 @@
-import { initializeApp, getApps, type FirebaseApp } from 'firebase/app';
-import { getAnalytics, type Analytics } from 'firebase/analytics';
+import type { FirebaseApp } from 'firebase/app';
+import type { Analytics } from 'firebase/analytics';
 
-// Firebase 환경 변수 맵
 const envVarMap = {
   apiKey: 'NEXT_PUBLIC_FIREBASE_API_KEY',
   authDomain: 'NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN',
@@ -12,12 +11,9 @@ const envVarMap = {
   measurementId: 'NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID',
 } as const;
 
-// Firebase 앱 인스턴스 캐시
 let app: FirebaseApp | null = null;
+let analyticsPromise: Promise<Analytics | null> | null = null;
 
-/**
- * Firebase 환경 변수 검증 및 설정값 반환
- */
 function getFirebaseConfig() {
   const requiredEnvVars = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -29,15 +25,14 @@ function getFirebaseConfig() {
     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
   };
 
-  // 필수 환경 변수 검증
   const missingVars = Object.entries(requiredEnvVars)
-    .filter(([_, value]) => !value)
+    .filter(([, value]) => !value)
     .map(([key]) => envVarMap[key as keyof typeof envVarMap]);
 
   if (missingVars.length > 0) {
     throw new Error(
       `Firebase 설정 오류: 다음 환경 변수가 필요합니다: ${missingVars.join(', ')}\n` +
-      `.env.local 파일을 생성하고 필요한 환경 변수를 설정해주세요.`
+        `.env.local 파일을 생성하고 필요한 환경 변수를 설정해주세요.`,
     );
   }
 
@@ -52,14 +47,12 @@ function getFirebaseConfig() {
   };
 }
 
-/**
- * Firebase 앱 인스턴스 가져오기 (지연 초기화)
- */
-function getFirebaseApp(): FirebaseApp {
+async function getFirebaseApp(): Promise<FirebaseApp> {
   if (app) {
     return app;
   }
 
+  const { initializeApp, getApps } = await import('firebase/app');
   const firebaseConfig = getFirebaseConfig();
 
   if (getApps().length === 0) {
@@ -72,34 +65,31 @@ function getFirebaseApp(): FirebaseApp {
 }
 
 /**
- * Firebase Analytics 인스턴스 가져오기
- * 클라이언트 사이드에서만 초기화 가능
+ * Firebase Analytics 인스턴스 가져오기 (클라이언트 전용, 동적 import)
  */
-export const getFirebaseAnalytics = (): Analytics | null => {
+export function getFirebaseAnalytics(): Promise<Analytics | null> {
   if (typeof window === 'undefined') {
-    return null;
+    return Promise.resolve(null);
   }
 
-  try {
-    const firebaseApp = getFirebaseApp();
-    return getAnalytics(firebaseApp);
-  } catch (error) {
-    console.error('Firebase Analytics initialization error:', error);
-    return null;
+  if (!analyticsPromise) {
+    analyticsPromise = (async () => {
+      try {
+        const [{ getAnalytics }, firebaseApp] = await Promise.all([
+          import('firebase/analytics'),
+          getFirebaseApp(),
+        ]);
+        return getAnalytics(firebaseApp);
+      } catch (error) {
+        console.error('Firebase Analytics initialization error:', error);
+        return null;
+      }
+    })();
   }
-};
 
-/**
- * Firebase 앱 인스턴스 가져오기 (export용)
- */
-export function getApp(): FirebaseApp {
-  return getFirebaseApp();
+  return analyticsPromise;
 }
 
-// 기본 export는 지연 초기화를 위한 getter 함수
-export default {
-  get app() {
-    return getFirebaseApp();
-  },
-};
-
+export async function getApp(): Promise<FirebaseApp> {
+  return getFirebaseApp();
+}
