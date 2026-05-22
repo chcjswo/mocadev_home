@@ -16,7 +16,8 @@
     "home": "Home"
   },
   "footer": {
-    "tagline": "A small lab that changes everyday life"
+    "tagline": "A small lab that changes everyday life",
+    "privacy": "Privacy Policy"
   },
   "languageSwitcher": {
     "ariaLabel": "Select language",

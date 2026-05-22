@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server';
+import { Link } from '@/i18n/navigation';
 
 export async function SiteFooter() {
   const t = await getTranslations('footer');
@@ -10,6 +11,11 @@ export async function SiteFooter() {
           <p className="font-semibold text-gray-900">&copy; {new Date().getFullYear()} Mocadev</p>
           <p>{t('tagline')}</p>
         </div>
+        <nav aria-label="Footer">
+          <Link href="/privacy" className="font-medium text-gray-700 transition-colors hover:text-gray-900">
+            {t('privacy')}
+          </Link>
+        </nav>
       </div>
     </footer>
   );

@@ -16,7 +16,8 @@
     "home": "홈"
   },
   "footer": {
-    "tagline": "생활을 바꾸는 작은 실험실"
+    "tagline": "생활을 바꾸는 작은 실험실",
+    "privacy": "개인정보 처리방침"
   },
   "languageSwitcher": {
     "ariaLabel": "언어 선택",
