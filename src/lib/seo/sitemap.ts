@@ -1,7 +1,21 @@
 import { SitemapUrl, RobotsRule } from '@/types/seo';
 import { routing } from '@/i18n/routing';
 import { getAllAppSlugs } from '@/lib/data/apps';
+import { getSiteUrl } from './metadata';
 import { seoConfig } from './config';
+
+function escapeXml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+function formatSitemapDate(date: Date): string {
+  return date.toISOString().slice(0, 10);
+}
 
 const APP_PRIORITY = 0.8;
 const APP_CHANGE_FREQ = 'monthly' as const;
@@ -53,13 +67,15 @@ const getDynamicPages = async (): Promise<SitemapUrl[]> => {
 export const generateSitemap = async (): Promise<string> => {
   const staticPages = getStaticPages();
   const staticUrls: SitemapUrl[] = [];
+  const siteUrl = getSiteUrl();
+
   for (const locale of routing.locales) {
     for (const page of staticPages) {
       const alternates: Record<string, string> = {};
       for (const loc of routing.locales) {
-        alternates[loc] = `${seoConfig.siteUrl}/${loc}${page.url}`;
+        alternates[loc] = `${siteUrl}/${loc}${page.url}`;
       }
-      alternates['x-default'] = `${seoConfig.siteUrl}/${routing.defaultLocale}${page.url}`;
+      alternates['x-default'] = `${siteUrl}/${routing.defaultLocale}${page.url}`;
       staticUrls.push({
         url: `/${locale}${page.url}`,
         lastModified: page.lastModified,
@@ -74,8 +90,8 @@ export const generateSitemap = async (): Promise<string> => {
   const allUrls = [...staticUrls, ...dynamicUrls];
 
   const urlEntry = (url: SitemapUrl) => {
-    const loc = `${seoConfig.siteUrl}${url.url}`;
-    const lastmod = url.lastModified?.toISOString() || new Date().toISOString();
+    const loc = escapeXml(`${siteUrl}${url.url}`);
+    const lastmod = formatSitemapDate(url.lastModified ?? new Date());
     const changefreq = url.changeFrequency || 'monthly';
     const priority = url.priority ?? 0.5;
     const xhtmlLinks =
@@ -83,7 +99,7 @@ export const generateSitemap = async (): Promise<string> => {
       Object.entries(url.alternates)
         .map(
           ([hreflang, href]) =>
-            `    <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}"/>`,
+            `    <xhtml:link rel="alternate" hreflang="${escapeXml(hreflang)}" href="${escapeXml(href)}"/>`,
         )
         .join('\n');
     const xhtmlBlock = xhtmlLinks ? `\n${xhtmlLinks}\n    ` : '';
@@ -132,7 +148,7 @@ export const generateRobotsTxt = (): string => {
     robotsTxt += '\n';
   });
 
-  robotsTxt += `Sitemap: ${seoConfig.siteUrl}/sitemap.xml\n`;
+  robotsTxt += `Sitemap: ${getSiteUrl()}/sitemap.xml\n`;
 
   return robotsTxt;
 };
