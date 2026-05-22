@@ -239,26 +239,37 @@ export const getAppStructuredData = (
   slug: string,
   name: string,
   description: string,
-  heroImage: string,
+  base: AppBaseData,
   locale: Locale = 'ko',
-): StructuredDataProps[] => [
-  {
-    type: 'SoftwareApplication',
-    data: {
-      '@context': 'https://schema.org',
-      '@type': 'SoftwareApplication',
-      name,
-      description,
-      image: heroImage.startsWith('http') ? heroImage : `${seoConfig.siteUrl}${heroImage}`,
-      operatingSystem: 'iOS, Android',
-      applicationCategory: 'LifestyleApplication',
-      inLanguage: locale === 'en' ? 'en' : 'ko',
-      offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
-      url: `${seoConfig.siteUrl}/${locale}/apps/${slug}`,
-      creator: { '@type': 'Person', name: 'Mocadev' },
+): StructuredDataProps[] => {
+  const pageUrl = `${seoConfig.siteUrl}/${locale}/apps/${slug}`;
+  const imageUrl = base.heroImage.startsWith('http')
+    ? base.heroImage
+    : `${seoConfig.siteUrl}${base.heroImage}`;
+
+  return [
+    {
+      type: 'SoftwareApplication',
+      data: {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name,
+        description,
+        image: imageUrl,
+        screenshot: base.screenshotSrcs.map((src) =>
+          src.startsWith('http') ? src : `${seoConfig.siteUrl}${src}`,
+        ),
+        operatingSystem: ['iOS', 'Android'],
+        applicationCategory: 'LifestyleApplication',
+        inLanguage: locale === 'en' ? 'en' : 'ko',
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
+        url: pageUrl,
+        downloadUrl: base.storeLinks.map((link) => link.url),
+        creator: { '@type': 'Organization', '@id': `${seoConfig.siteUrl}/#organization` },
+      },
     },
-  },
-];
+  ];
+};
 
 /** 앱 상세 페이지용 BreadcrumbList JSON-LD (검색 결과 breadcrumb 노출) */
 export const getBreadcrumbStructuredData = (
