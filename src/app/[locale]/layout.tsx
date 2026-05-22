@@ -4,8 +4,10 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { pickClientMessages } from '@/i18n/client-messages';
-import { routing } from '@/i18n/routing';
-import { seoConfig } from '@/lib/seo/config';
+import { routing, type Locale } from '@/i18n/routing';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { organizationSchema, websiteSchema } from '@/lib/seo/json-ld';
+import { buildRootLayoutMetadata, getSiteUrl, resolveAbsoluteUrl } from '@/lib/seo/metadata';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { AnalyticsProviders } from '@/components/analytics/AnalyticsProviders';
@@ -24,42 +26,13 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'metadata' });
 
-  return {
-    metadataBase:
-      typeof process.env.NEXT_PUBLIC_SITE_URL === 'string'
-        ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
-        : undefined,
-    title: {
-      default: t('siteTitle'),
-      template: t('titleTemplate'),
-    },
-    description: t('siteDescription'),
-    keywords: t('keywords'),
-    robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
-    openGraph: {
-      siteName: seoConfig.siteName,
-      type: 'website',
-      images: [
-        {
-          url: seoConfig.defaultImage.startsWith('http') ? seoConfig.defaultImage : `${seoConfig.siteUrl}${seoConfig.defaultImage}`,
-          width: 1200,
-          height: 630,
-          alt: seoConfig.siteName,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      site: seoConfig.twitterUsername,
-    },
-    alternates: {
-      languages: {
-        ko: `${seoConfig.siteUrl}/ko`,
-        en: `${seoConfig.siteUrl}/en`,
-        'x-default': `${seoConfig.siteUrl}/ko`,
-      },
-    },
-  };
+  return buildRootLayoutMetadata(
+    locale as Locale,
+    t('siteTitle'),
+    t('siteDescription'),
+    t('keywords'),
+    t('titleTemplate'),
+  );
 }
 
 export function generateStaticParams() {
@@ -87,44 +60,28 @@ export default async function LocaleLayout({
   const siteDescription = tMeta('siteDescription');
   const siteName = tMeta('siteName');
 
-  const organizationSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    '@id': `${seoConfig.siteUrl}/#organization`,
+  const siteUrl = getSiteUrl();
+  const orgSchema = organizationSchema({
+    siteUrl,
     name: siteName,
-    url: seoConfig.siteUrl,
-    logo: {
-      '@type': 'ImageObject',
-      url: `${seoConfig.siteUrl}/logo.svg`,
-      width: 200,
-      height: 200,
-    },
     description: siteDescription,
-    sameAs: ['https://github.com/mocadev'],
-  };
-
-  const websiteSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    '@id': `${seoConfig.siteUrl}/#website`,
+    logoUrl: resolveAbsoluteUrl('/logo.svg'),
+    email: 'mocadev.tony@gmail.com',
+  });
+  const siteSchema = websiteSchema({
+    siteUrl,
+    localeUrl: `${siteUrl}/${locale}`,
     name: siteName,
-    url: seoConfig.siteUrl,
     description: siteDescription,
-    inLanguage: locale,
-    publisher: { '@id': `${seoConfig.siteUrl}/#organization` },
-  };
+    locale,
+    publisherId: `${siteUrl}/#organization`,
+    inLanguage: [...routing.locales],
+  });
 
   return (
     <html lang={locale}>
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
+        <JsonLd data={[orgSchema, siteSchema]} />
       </head>
       <body className={`${geistSans.variable} antialiased bg-[#f7f6fb]`}>
         <NextIntlClientProvider messages={pickClientMessages(messages)}>

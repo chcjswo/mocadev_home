@@ -2,7 +2,10 @@ import { ArrowRight } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import type { Metadata } from 'next';
-import { seoConfig } from '@/lib/seo/config';
+import { JsonLd } from '@/components/seo/JsonLd';
+import type { Locale } from '@/i18n/routing';
+import { itemListSchema } from '@/lib/seo/json-ld';
+import { buildPageMetadata, getSiteUrl } from '@/lib/seo/metadata';
 import { getAllAppsBase } from '@/lib/data/apps';
 import { AppCard } from '@/components/apps/AppCard';
 import { Card, CardContent } from '@/components/ui/card';
@@ -15,42 +18,14 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'seo.home' });
 
-  return {
+  return buildPageMetadata({
+    locale: locale as Locale,
+    path: '/',
     title: t('title'),
     description: t('description'),
     keywords: t('keywords'),
-    robots: { index: true, follow: true },
-    openGraph: {
-      title: t('title'),
-      description: t('description'),
-      url: `${seoConfig.siteUrl}/${locale}`,
-      siteName: seoConfig.siteName,
-      images: [
-        {
-          url: `${seoConfig.siteUrl}${seoConfig.defaultImage}`,
-          width: 1200,
-          height: 630,
-          alt: t('ogImageAlt'),
-        },
-      ],
-      locale: locale === 'ko' ? 'ko_KR' : 'en_US',
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: t('title'),
-      description: t('description'),
-      images: [`${seoConfig.siteUrl}${seoConfig.defaultImage}`],
-    },
-    alternates: {
-      canonical: `${seoConfig.siteUrl}/${locale}`,
-      languages: {
-        ko: `${seoConfig.siteUrl}/ko`,
-        en: `${seoConfig.siteUrl}/en`,
-        'x-default': `${seoConfig.siteUrl}/ko`,
-      },
-    },
-  };
+    ogImageAlt: t('ogImageAlt'),
+  });
 }
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
@@ -60,52 +35,20 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const t = await getTranslations('home');
   const tCard = await getTranslations('appCard');
   const tApps = await getTranslations('apps');
-  const tMeta = await getTranslations('metadata');
-  const tSeoHome = await getTranslations('seo.home');
-
-  const siteName = tMeta('siteName');
   const appsBase = getAllAppsBase();
 
-  const softwareApplicationSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: siteName,
-    description: tSeoHome('description'),
-    url: `${seoConfig.siteUrl}/${locale}`,
-    applicationCategory: 'LifestyleApplication',
-    operatingSystem: 'iOS, Android',
-    inLanguage: locale,
-    offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
-    author: { '@type': 'Person', name: siteName },
-  };
-
-  const itemListStructuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
+  const siteUrl = getSiteUrl();
+  const itemListStructuredData = itemListSchema({
     name: t('appsSection.structuredDataName'),
-    numberOfItems: appsBase.length,
-    itemListElement: appsBase.map((app, index) => ({
-      '@type': 'ListItem',
-      position: index + 1,
+    items: appsBase.map((app) => ({
       name: tApps(`${app.slug}.name`),
-      url: `${seoConfig.siteUrl}/${locale}/apps/${app.slug}`,
+      url: `${siteUrl}/${locale}/apps/${app.slug}`,
     })),
-  };
+  });
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(softwareApplicationSchema),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(itemListStructuredData),
-        }}
-      />
+      <JsonLd data={itemListStructuredData} />
 
       <div className="bg-gradient-to-br from-[#f5f3ff] via-white to-[#e0f2fe]">
         <section className="border-b border-black/5">

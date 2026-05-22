@@ -1,7 +1,10 @@
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { seoConfig } from '@/lib/seo/config';
+import { JsonLd } from '@/components/seo/JsonLd';
+import type { Locale } from '@/i18n/routing';
+import { aboutPageSchema } from '@/lib/seo/json-ld';
+import { buildPageMetadata, getSiteUrl, resolveAbsoluteUrl } from '@/lib/seo/metadata';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
@@ -15,42 +18,14 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'seo.team' });
 
-  return {
+  return buildPageMetadata({
+    locale: locale as Locale,
+    path: '/team',
     title: t('title'),
     description: t('description'),
     keywords: t('keywords'),
-    robots: { index: true, follow: true },
-    openGraph: {
-      title: t('title'),
-      description: t('description'),
-      url: `${seoConfig.siteUrl}/${locale}/team`,
-      siteName: seoConfig.siteName,
-      images: [
-        {
-          url: `${seoConfig.siteUrl}${seoConfig.defaultImage}`,
-          width: 1200,
-          height: 630,
-          alt: t('ogImageAlt'),
-        },
-      ],
-      locale: locale === 'ko' ? 'ko_KR' : 'en_US',
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: t('title'),
-      description: t('description'),
-      images: [`${seoConfig.siteUrl}${seoConfig.defaultImage}`],
-    },
-    alternates: {
-      canonical: `${seoConfig.siteUrl}/${locale}/team`,
-      languages: {
-        ko: `${seoConfig.siteUrl}/ko/team`,
-        en: `${seoConfig.siteUrl}/en/team`,
-        'x-default': `${seoConfig.siteUrl}/ko/team`,
-      },
-    },
-  };
+    ogImageAlt: t('ogImageAlt'),
+  });
 }
 
 export default async function TeamPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -58,9 +33,25 @@ export default async function TeamPage({ params }: { params: Promise<{ locale: s
   setRequestLocale(locale);
 
   const t = await getTranslations('team');
+  const tSeo = await getTranslations({ locale, namespace: 'seo.team' });
+
+  const members = memberImages.map((image, i) => ({
+    name: t(`members.${i}.name`),
+    description: t(`members.${i}.description`),
+    image: resolveAbsoluteUrl(image),
+  }));
+
+  const aboutSchema = aboutPageSchema({
+    siteUrl: getSiteUrl(),
+    locale,
+    name: tSeo('title'),
+    description: tSeo('description'),
+    members,
+  });
 
   return (
     <div className="bg-gradient-to-br from-[#f5f3ff] via-white to-[#e0f2fe]">
+      <JsonLd data={aboutSchema} />
       <section className="border-b border-black/5">
         <div className="mx-auto max-w-6xl px-4 py-16">
           <div className="mb-12 text-center">
@@ -68,9 +59,7 @@ export default async function TeamPage({ params }: { params: Promise<{ locale: s
               {t('sectionLabel')}
             </p>
             <h1 className="mt-4 text-4xl font-bold text-gray-900 md:text-5xl">{t('title')}</h1>
-            <p className="mt-6 text-lg text-gray-700">
-              {t('subtitle')}
-            </p>
+            <p className="mt-6 text-lg text-gray-700">{t('subtitle')}</p>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2">

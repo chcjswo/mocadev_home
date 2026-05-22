@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { seoConfig } from '@/lib/seo/config';
 import { PrivacyContentKo } from '@/components/privacy/PrivacyContentKo';
 import { PrivacyContentEn } from '@/components/privacy/PrivacyContentEn';
+import type { Locale } from '@/i18n/routing';
+import { buildLanguageAlternates, buildPageMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata({
   params,
@@ -12,41 +13,25 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'seo.privacy' });
 
-  return {
+  const metadata = buildPageMetadata({
+    locale: locale as Locale,
+    path: '/privacy',
     title: t('title'),
     description: t('description'),
     keywords: t('keywords'),
-    openGraph: {
-      title: t('title'),
-      description: t('description'),
-      url: `${seoConfig.siteUrl}/${locale}/privacy`,
-      siteName: seoConfig.siteName,
-      images: [
-        {
-          url: `${seoConfig.siteUrl}${seoConfig.defaultImage}`,
-          width: 1200,
-          height: 630,
-          alt: t('ogImageAlt'),
-        },
-      ],
-      locale: locale === 'ko' ? 'ko_KR' : 'en_US',
-      type: 'website',
-    },
+    ogImageAlt: t('ogImageAlt'),
+    robots: { index: false, follow: false },
+  });
+
+  return {
+    ...metadata,
     twitter: {
+      ...metadata.twitter,
       card: 'summary',
-      title: t('title'),
-      description: t('description'),
     },
     alternates: {
-      canonical: `${seoConfig.siteUrl}/${locale}/privacy`,
-      languages: {
-        ko: `${seoConfig.siteUrl}/ko/privacy`,
-        en: `${seoConfig.siteUrl}/en/privacy`,
-      },
-    },
-    robots: {
-      index: false,
-      follow: false,
+      canonical: metadata.alternates?.canonical,
+      ...buildLanguageAlternates('/privacy'),
     },
   };
 }
