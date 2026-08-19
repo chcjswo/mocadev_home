@@ -66,3 +66,12 @@ For multi-step tasks, state a brief plan:
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
 ---
+
+## 5. Commit Discipline (MUST — 반드시 준수)
+
+**GitHub 이슈 작업 시 커밋 단위 규칙. 예외 없이 지킨다.**
+
+- 이슈에 하위 작업(acceptance criteria 체크리스트 등)이 있으면: **하위 작업 하나가 완료될 때마다 반드시 커밋한 후** 다음 하위 작업을 진행한다.
+- 이슈에 하위 작업이 없으면: **이슈 하나의 작업이 완료되면 반드시 커밋**한다.
+- 커밋 없이 다음 하위 작업/다음 이슈로 넘어가는 것을 금지한다.
+- 커밋 메시지에는 관련 이슈 번호를 참조한다 (예: `feat: 게임 섹션 추가 (#5)`).
