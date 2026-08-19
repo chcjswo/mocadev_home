@@ -9,7 +9,6 @@ export function organizationSchema(params: {
   description: string;
   logoUrl: string;
   sameAs?: string[];
-  email?: string;
 }) {
   return {
     '@context': 'https://schema.org',
@@ -25,15 +24,6 @@ export function organizationSchema(params: {
     },
     description: params.description,
     sameAs: params.sameAs ?? ['https://github.com/mocadev'],
-    ...(params.email
-      ? {
-          contactPoint: {
-            '@type': 'ContactPoint',
-            contactType: 'customer support',
-            email: params.email,
-          },
-        }
-      : {}),
   };
 }
 

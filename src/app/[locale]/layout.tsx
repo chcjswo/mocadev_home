@@ -66,7 +66,6 @@ export default async function LocaleLayout({
     name: siteName,
     description: siteDescription,
     logoUrl: resolveAbsoluteUrl('/logo.svg'),
-    email: 'mocadev.tony@gmail.com',
   });
   const siteSchema = websiteSchema({
     siteUrl,
