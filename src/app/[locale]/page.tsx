@@ -6,7 +6,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import type { Locale } from '@/i18n/routing';
 import { itemListSchema } from '@/lib/seo/json-ld';
 import { buildPageMetadata, getSiteUrl } from '@/lib/seo/metadata';
-import { getAllAppsBase } from '@/lib/data/apps';
+import { getAppsByCategory } from '@/lib/data/apps';
 import { AppCard } from '@/components/apps/AppCard';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -35,7 +35,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const t = await getTranslations('home');
   const tCard = await getTranslations('appCard');
   const tApps = await getTranslations('apps');
-  const appsBase = getAllAppsBase();
+  const appsBase = getAppsByCategory('app');
+  const gamesBase = getAppsByCategory('game');
 
   const siteUrl = getSiteUrl();
   const itemListStructuredData = itemListSchema({
@@ -45,10 +46,26 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       url: `${siteUrl}/${locale}/apps/${app.slug}`,
     })),
   });
+  const gamesItemListStructuredData =
+    gamesBase.length > 0
+      ? itemListSchema({
+          name: t('gamesSection.structuredDataName'),
+          items: gamesBase.map((game) => ({
+            name: tApps(`${game.slug}.name`),
+            url: `${siteUrl}/${locale}/apps/${game.slug}`,
+          })),
+        })
+      : null;
 
   return (
     <>
-      <JsonLd data={itemListStructuredData} />
+      <JsonLd
+        data={
+          gamesItemListStructuredData
+            ? [itemListStructuredData, gamesItemListStructuredData]
+            : itemListStructuredData
+        }
+      />
 
       <div className="bg-gradient-to-br from-[#f5f3ff] via-white to-[#e0f2fe]">
         <section className="border-b border-black/5">
@@ -113,6 +130,44 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               );
             })}
           </div>
+        </section>
+
+        <section id="games" className="mx-auto max-w-6xl border-t border-black/5 px-4 py-16">
+          <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-sm font-semibold text-gray-500">{t('gamesSection.sectionLabel')}</p>
+              <h2 className="text-3xl font-bold text-gray-900">{t('gamesSection.title')}</h2>
+              <p className="text-sm text-gray-600">
+                {t('gamesSection.description')}
+              </p>
+            </div>
+          </div>
+          {gamesBase.length > 0 ? (
+            <div className="grid gap-6 md:grid-cols-3">
+              {gamesBase.map((game) => {
+                const tags = tApps.raw(`${game.slug}.tags`) as string[];
+                return (
+                  <AppCard
+                    key={game.slug}
+                    slug={game.slug}
+                    icon={game.icon}
+                    name={tApps(`${game.slug}.name`)}
+                    tagline={tApps(`${game.slug}.tagline`)}
+                    tags={tags}
+                    theme={game.theme}
+                    viewDetails={tCard('viewDetails')}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            <Card className="border-dashed border-black/10 bg-white/70">
+              <CardContent className="p-8 text-center">
+                <p className="text-lg font-semibold text-gray-900">{t('gamesSection.emptyTitle')}</p>
+                <p className="mt-2 text-sm text-gray-600">{t('gamesSection.emptyDescription')}</p>
+              </CardContent>
+            </Card>
+          )}
         </section>
 
         <section className="border-t border-black/5 bg-white">
