@@ -236,14 +236,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               >
                 {t('cta.emailButton')}
               </a>
-              <a
-                href="https://github.com/mocadev"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-white/50 px-5 py-3"
-              >
-                {t('cta.githubButton')}
-              </a>
             </div>
           </div>
         </section>

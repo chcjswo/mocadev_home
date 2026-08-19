@@ -65,8 +65,7 @@
     "cta": {
       "title": "다음 실험에 함께하고 싶다면",
       "description": "새로운 아이디어 제안, 강연, 인터뷰 요청을 기다리고 있어요.",
-      "emailButton": "이메일 보내기",
-      "githubButton": "GitHub 살펴보기"
+      "emailButton": "이메일 보내기"
     }
   },
   "appCard": {
