@@ -14,9 +14,6 @@ export async function SiteHeader() {
     <SiteHeaderClient
       brandSubline={t('brandSubline')}
       navItems={navItems}
-      contact={t('contact')}
-      contactShort={t('contactShort')}
-      contactAriaLabel={t('contactAriaLabel')}
     />
   );
 }

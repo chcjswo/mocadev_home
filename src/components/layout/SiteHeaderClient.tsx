@@ -1,7 +1,6 @@
 'use client';
 
 import { Link, usePathname } from '@/i18n/navigation';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
@@ -10,17 +9,11 @@ export type SiteHeaderNavItem = { href: string; label: string };
 export type SiteHeaderClientProps = {
   brandSubline: string;
   navItems: SiteHeaderNavItem[];
-  contact: string;
-  contactShort: string;
-  contactAriaLabel: string;
 };
 
 export function SiteHeaderClient({
   brandSubline,
   navItems,
-  contact,
-  contactShort,
-  contactAriaLabel,
 }: SiteHeaderClientProps) {
   const pathname = usePathname();
 
@@ -61,11 +54,6 @@ export function SiteHeaderClient({
 
         <div className="hidden items-center gap-3 md:flex">
           <LanguageSwitcher />
-          <Button asChild variant="default">
-            <a href="mailto:mocadev.tony@gmail.com" aria-label={contactAriaLabel}>
-              {contact}
-            </a>
-          </Button>
         </div>
       </div>
       <div className="block border-t border-black/5 bg-white md:hidden">
@@ -83,13 +71,6 @@ export function SiteHeaderClient({
             </Link>
           ))}
           <LanguageSwitcher />
-          <a
-            href="mailto:mocadev.tony@gmail.com"
-            className="rounded-full bg-gray-900 px-3 py-1 text-white"
-            aria-label={contactAriaLabel}
-          >
-            {contactShort}
-          </a>
         </div>
       </div>
     </header>
