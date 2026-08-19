@@ -6,6 +6,7 @@ export async function SiteHeader() {
 
   const navItems = [
     { label: t('apps'), href: '/#apps' },
+    { label: t('games'), href: '/#games' },
     { label: t('team'), href: '/team' },
   ];
 
