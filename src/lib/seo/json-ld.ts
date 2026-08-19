@@ -8,7 +8,6 @@ export function organizationSchema(params: {
   name: string;
   description: string;
   logoUrl: string;
-  sameAs?: string[];
 }) {
   return {
     '@context': 'https://schema.org',
@@ -23,7 +22,6 @@ export function organizationSchema(params: {
       height: 200,
     },
     description: params.description,
-    sameAs: params.sameAs ?? ['https://github.com/mocadev'],
   };
 }
 
