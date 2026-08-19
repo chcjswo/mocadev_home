@@ -9,7 +9,10 @@ export interface AppIntroConfig {
   accentColorClass: string;
 }
 
+export type ContentCategory = 'app' | 'game';
+
 export interface AppBaseData {
+  category: ContentCategory;
   slug: 'bapjeongne' | 'fortune-cookie' | 'lunch-picker' | 'baby-med-diary' | 'cat-weather' | 'senior-care-diary' | 'recipehouse';
   heroImage: string;
   theme: { accent: string; gradientFrom: string; gradientTo: string };
@@ -32,6 +35,7 @@ export interface AppBaseData {
 export const appsBaseData: AppBaseData[] = [
   {
     slug: 'bapjeongne',
+    category: 'app',
     heroImage: '/images/apps/bobjeongneo/icons/icon.png',
     theme: { accent: '#7C3AED', gradientFrom: '#ede9fe', gradientTo: '#c7d2fe' },
     icon: '🍱',
@@ -59,6 +63,7 @@ export const appsBaseData: AppBaseData[] = [
   },
   {
     slug: 'fortune-cookie',
+    category: 'app',
     heroImage: '/images/apps/fortune-cookie/icons/icon.png',
     theme: { accent: '#ec4899', gradientFrom: '#ffe4e6', gradientTo: '#fde68a' },
     icon: '🥠',
@@ -84,6 +89,7 @@ export const appsBaseData: AppBaseData[] = [
   },
   {
     slug: 'lunch-picker',
+    category: 'app',
     heroImage: '/images/apps/lunch-pick/icons/icon.png',
     theme: { accent: '#0ea5e9', gradientFrom: '#cffafe', gradientTo: '#dbeafe' },
     icon: '🍽️',
@@ -114,6 +120,7 @@ export const appsBaseData: AppBaseData[] = [
   },
   {
     slug: 'baby-med-diary',
+    category: 'app',
     heroImage: '/images/apps/babycarediary/icons/icon.png',
     theme: { accent: '#10b981', gradientFrom: '#d1fae5', gradientTo: '#a7f3d0' },
     icon: '💊',
@@ -147,6 +154,7 @@ export const appsBaseData: AppBaseData[] = [
   },
   {
     slug: 'cat-weather',
+    category: 'app',
     heroImage: '/images/apps/cat-weather/catweather.jpg',
     theme: { accent: '#f59e0b', gradientFrom: '#fef3c7', gradientTo: '#bfdbfe' },
     icon: '🐱',
@@ -174,6 +182,7 @@ export const appsBaseData: AppBaseData[] = [
   },
   {
     slug: 'senior-care-diary',
+    category: 'app',
     heroImage: '/images/apps/seniorcarediary/seniorcarediary.jpg',
     theme: { accent: '#0d9488', gradientFrom: '#ccfbf1', gradientTo: '#99f6e4' },
     icon: '💊',
@@ -202,6 +211,7 @@ export const appsBaseData: AppBaseData[] = [
   },
   {
     slug: 'recipehouse',
+    category: 'app',
     heroImage: '/images/apps/recipehouse/icons/icon.png',
     theme: { accent: '#4CAF50', gradientFrom: '#e8f5e9', gradientTo: '#c8e6c9' },
     icon: '📖',
@@ -234,6 +244,9 @@ export const getAppBase = (slug: string): AppBaseData | undefined =>
 export const getAllAppSlugs = () => appsBaseData.map((a) => a.slug);
 
 export const getAllAppsBase = () => appsBaseData;
+
+export const getAppsByCategory = (category: ContentCategory) =>
+  appsBaseData.filter((a) => a.category === category);
 
 export const getAppStructuredData = (
   slug: string,
