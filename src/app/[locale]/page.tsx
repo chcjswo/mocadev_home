@@ -229,14 +229,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <p className="text-base text-white/80">
               {t('cta.description')}
             </p>
-            <div className="flex flex-wrap justify-center gap-4 text-sm font-semibold">
-              <a
-                href="mailto:mocadev.tony@gmail.com"
-                className="rounded-full bg-white px-5 py-3 text-gray-900"
-              >
-                {t('cta.emailButton')}
-              </a>
-            </div>
           </div>
         </section>
       </div>
