@@ -200,25 +200,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                   </p>
                 </CardContent>
               </Card>
-              <Card className="border-black/5 bg-gray-50">
-                <CardContent className="p-5">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
-                    {t('about.contactLabel')}
-                  </p>
-                  <p className="mt-2">
-                    {t.rich('about.contactDescription', {
-                      email: () => (
-                        <a
-                          href="mailto:mocadev.tony@gmail.com"
-                          className="font-semibold text-gray-900"
-                        >
-                          mocadev.tony@gmail.com
-                        </a>
-                      ),
-                    })}
-                  </p>
-                </CardContent>
-              </Card>
             </div>
           </div>
         </section>

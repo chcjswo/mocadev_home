@@ -55,9 +55,7 @@
       "workflowLabel": "워크플로우",
       "workflowDescription": "아이디어 → 프로토타입 → 커뮤니티 피드백 → 데이터 계측 → 제품화 순으로 반복하며, 각 단계별로 Notion/Linear를 통해 기록을 남깁니다.",
       "stackLabel": "스택",
-      "stackDescription": "Next.js, React Native, Expo, Firebase, Supabase, Vercel, Cloudflare, GA4, FCM, RevenueCat.",
-      "contactLabel": "문의",
-      "contactDescription": "사이드 프로젝트 협업 혹은 강연 요청은 <email>mocadev.tony@gmail.com</email>으로 편하게 보내주세요."
+      "stackDescription": "Next.js, React Native, Expo, Firebase, Supabase, Vercel, Cloudflare, GA4, FCM, RevenueCat."
     },
     "cta": {
       "title": "다음 실험에 함께하고 싶다면",

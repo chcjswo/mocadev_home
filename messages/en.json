@@ -55,9 +55,7 @@
       "workflowLabel": "Workflow",
       "workflowDescription": "We iterate through Idea → Prototype → Community Feedback → Data Instrumentation → Productization, documenting each stage via Notion/Linear.",
       "stackLabel": "Stack",
-      "stackDescription": "Next.js, React Native, Expo, Firebase, Supabase, Vercel, Cloudflare, GA4, FCM, RevenueCat.",
-      "contactLabel": "Contact",
-      "contactDescription": "For side project collaboration or speaking requests, feel free to reach out at <email>mocadev.tony@gmail.com</email>."
+      "stackDescription": "Next.js, React Native, Expo, Firebase, Supabase, Vercel, Cloudflare, GA4, FCM, RevenueCat."
     },
     "cta": {
       "title": "Want to Join the Next Experiment?",
