@@ -243,8 +243,6 @@ export const getAppBase = (slug: string): AppBaseData | undefined =>
 
 export const getAllAppSlugs = () => appsBaseData.map((a) => a.slug);
 
-export const getAllAppsBase = () => appsBaseData;
-
 export const getAppsByCategory = (category: ContentCategory) =>
   appsBaseData.filter((a) => a.category === category);
 
