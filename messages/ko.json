@@ -8,6 +8,7 @@
   },
   "nav": {
     "apps": "앱",
+    "games": "게임",
     "brandSubline": "개인 앱 연구실",
     "team": "만든 사람들",
     "contact": "문의하기",
@@ -41,6 +42,14 @@
       "title": "모카데브가 만든 앱들",
       "description": "각 카드에서 상세 페이지로 이동해 스크린샷과 다운로드 링크를 확인하세요.",
       "structuredDataName": "모카데브 앱 목록"
+    },
+    "gamesSection": {
+      "sectionLabel": "모카데브 게임",
+      "title": "모카데브가 만든 게임들",
+      "description": "각 카드에서 상세 페이지로 이동해 스크린샷과 다운로드 링크를 확인하세요.",
+      "structuredDataName": "모카데브 게임 목록",
+      "emptyTitle": "준비 중이에요",
+      "emptyDescription": "첫 번째 게임을 만들고 있어요. 곧 만나보실 수 있어요."
     },
     "about": {
       "sectionLabel": "모카데브 소개",

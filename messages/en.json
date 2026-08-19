@@ -8,6 +8,7 @@
   },
   "nav": {
     "apps": "Apps",
+    "games": "Games",
     "brandSubline": "Personal App Lab",
     "team": "Team",
     "contact": "Contact",
@@ -41,6 +42,14 @@
       "title": "Apps by Mocadev",
       "description": "Tap each card to view screenshots and download links on the detail page.",
       "structuredDataName": "Mocadev Apps"
+    },
+    "gamesSection": {
+      "sectionLabel": "Mocadev Games",
+      "title": "Games by Mocadev",
+      "description": "Tap each card to view screenshots and download links on the detail page.",
+      "structuredDataName": "Mocadev Games",
+      "emptyTitle": "Coming soon",
+      "emptyDescription": "We're building our first game. Stay tuned!"
     },
     "about": {
       "sectionLabel": "About Mocadev",
