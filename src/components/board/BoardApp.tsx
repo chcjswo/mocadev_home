@@ -3,9 +3,13 @@
 import { useEffect, useState } from 'react';
 import { INITIAL_DATA } from '@/lib/board/data';
 import type { BoardData } from '@/lib/board/types';
-import { dleft, iso, lastStage, meId, meName, openCards } from '@/lib/board/utils';
+import { dleft, iso, lastStage, meId, meName, openCards, proj } from '@/lib/board/utils';
 import { Agenda } from './Agenda';
 import { Calendar } from './Calendar';
+import { FileDialog, type FileDraft } from './FileDialog';
+import { Gauge } from './Gauge';
+import { ProjectDialog, type ProjectDraft } from './ProjectDialog';
+import { ProjectList } from './ProjectList';
 
 export function BoardApp() {
   const [data, setData] = useState<BoardData>(INITIAL_DATA);
@@ -13,6 +17,11 @@ export function BoardApp() {
   const [calY, setCalY] = useState(0);
   const [calM, setCalM] = useState(0);
   const [selDay, setSelDay] = useState('');
+  const [fProj, setFProj] = useState<string | null>(null);
+  /** 열려 있는 프로젝트 다이얼로그 (editId: null이면 새로 만들기) */
+  const [projDlg, setProjDlg] = useState<{ editId: string | null } | null>(null);
+  /** 열려 있는 파일 다이얼로그 (editId: null이면 새로 추가) */
+  const [fileDlg, setFileDlg] = useState<{ editId: string | null } | null>(null);
 
   // 원본과 동일하게 순수 클라이언트 렌더링 (오늘 날짜는 브라우저 기준)
   useEffect(() => {
@@ -70,6 +79,68 @@ export function BoardApp() {
     setSelDay(todayKey);
   };
 
+  /* 프로젝트 */
+  const pickProj = (id: string) => setFProj(fProj === id ? null : id);
+
+  const setStage = (id: string, stage: number) =>
+    setData((d) => ({ ...d, projects: d.projects.map((p) => (p.id === id ? { ...p, stage } : p)) }));
+
+  const saveProj = (v: ProjectDraft) => {
+    const editId = projDlg?.editId ?? null;
+    setData((d) =>
+      editId
+        ? { ...d, projects: d.projects.map((p) => (p.id === editId ? { ...p, ...v } : p)) }
+        : { ...d, projects: [...d.projects, { id: 'p' + Date.now().toString(36), files: [], ...v }] },
+    );
+    setProjDlg(null);
+  };
+
+  const delProj = () => {
+    const editId = projDlg?.editId;
+    if (!editId) return;
+    const n = data.cards.filter((c) => c.proj === editId).length;
+    if (n && !window.confirm(`카드 ${n}장이 함께 지워집니다. 계속할까요?`)) return;
+    setData((d) => ({
+      ...d,
+      cards: d.cards.filter((c) => c.proj !== editId),
+      projects: d.projects.filter((p) => p.id !== editId),
+    }));
+    if (fProj === editId) setFProj(null);
+    setProjDlg(null);
+  };
+
+  /* 프로젝트 파일 */
+  const saveFile = (v: FileDraft) => {
+    if (!fProj) return;
+    const editId = fileDlg?.editId ?? null;
+    setData((d) => ({
+      ...d,
+      projects: d.projects.map((p) =>
+        p.id === fProj
+          ? {
+              ...p,
+              files: editId
+                ? p.files.map((f) => (f.id === editId ? { ...f, ...v } : f))
+                : [...p.files, { id: 'F' + Date.now().toString(36), ...v }],
+            }
+          : p,
+      ),
+    }));
+    setFileDlg(null);
+  };
+
+  const delFile = () => {
+    const editId = fileDlg?.editId;
+    if (!fProj || !editId) return;
+    setData((d) => ({
+      ...d,
+      projects: d.projects.map((p) => (p.id === fProj ? { ...p, files: p.files.filter((f) => f.id !== editId) } : p)),
+    }));
+    setFileDlg(null);
+  };
+
+  const selProj = fProj ? proj(data, fProj) : undefined;
+
   return (
     <div className="wrap">
       <header>
@@ -117,6 +188,53 @@ export function BoardApp() {
           </div>
         </section>
       </div>
+
+      <div className="grid">
+        <ProjectList
+          data={data}
+          today={today}
+          fProj={fProj}
+          onPick={pickProj}
+          onShowAll={() => setFProj(null)}
+          onEdit={(id) => setProjDlg({ editId: id })}
+        />
+
+        <section className="panel">
+          {selProj && (
+            <Gauge
+              data={data}
+              today={today}
+              project={selProj}
+              onSetStage={(s) => setStage(selProj.id, s)}
+              onEditFile={(id) => setFileDlg({ editId: id })}
+            />
+          )}
+          {/* TODO(#10): 칸반 보드 + 라벨 범례 이식 */}
+          <h2>
+            카드 <span className="side" />
+          </h2>
+          <div className="board" />
+        </section>
+      </div>
+
+      {projDlg && (
+        <ProjectDialog
+          data={data}
+          editId={projDlg.editId}
+          onSave={saveProj}
+          onDelete={delProj}
+          onClose={() => setProjDlg(null)}
+        />
+      )}
+      {fileDlg && selProj && (
+        <FileDialog
+          project={selProj}
+          editId={fileDlg.editId}
+          onSave={saveFile}
+          onDelete={delFile}
+          onClose={() => setFileDlg(null)}
+        />
+      )}
 
       <footer>
         데이터는 브라우저 안에만 있습니다. <b>파일로 저장</b>을 눌러 내려받고, 다음에 <b>불러오기</b>로 되살립니다.
