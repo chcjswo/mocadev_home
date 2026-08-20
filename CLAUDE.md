@@ -75,3 +75,11 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - 이슈에 하위 작업이 없으면: **이슈 하나의 작업이 완료되면 반드시 커밋**한다.
 - 커밋 없이 다음 하위 작업/다음 이슈로 넘어가는 것을 금지한다.
 - 커밋 메시지에는 관련 이슈 번호를 참조한다 (예: `feat: 게임 섹션 추가 (#5)`).
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+
+<!-- END:nextjs-agent-rules -->
