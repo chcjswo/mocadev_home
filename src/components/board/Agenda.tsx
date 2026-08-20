@@ -9,9 +9,10 @@ interface AgendaProps {
   today: Date;
   todayKey: string;
   selDay: string;
+  onOpenCard: (cardId: number) => void;
 }
 
-export function Agenda({ data, today, todayKey, selDay }: AgendaProps) {
+export function Agenda({ data, today, todayKey, selDay, onOpenCard }: AgendaProps) {
   const isToday = selDay === todayKey;
   const dObj = new Date(selDay + 'T00:00:00');
   const title = isToday
@@ -36,7 +37,7 @@ export function Agenda({ data, today, todayKey, selDay }: AgendaProps) {
         <span className="s">{sub}</span>
       </div>
       <div>
-        {/* TODO(#10, #11): 카드·일정 클릭 시 편집 다이얼로그 연결 */}
+        {/* TODO(#11): 일정 클릭 시 편집 다이얼로그 연결 */}
         {evs.map((e) => (
           <div key={e.id} className="ag">
             <span className="bar" style={{ background: evCol(data, e.type) }} />
@@ -55,7 +56,7 @@ export function Agenda({ data, today, todayKey, selDay }: AgendaProps) {
         {[...late, ...day].map((c) => {
           const d = dleft(c.due, today);
           return (
-            <div key={c.id} className="ag">
+            <div key={c.id} className="ag" onClick={() => onOpenCard(c.id)}>
               <span className="bar" style={{ background: c.labs.length ? labCol(data, c.labs[0]) : 'var(--ink-soft)' }} />
               <span>
                 <span className="agt">{c.text}</span>

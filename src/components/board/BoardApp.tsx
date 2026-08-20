@@ -6,8 +6,10 @@ import type { BoardData } from '@/lib/board/types';
 import { dleft, iso, lastStage, meId, meName, openCards, proj } from '@/lib/board/utils';
 import { Agenda } from './Agenda';
 import { Calendar } from './Calendar';
+import { CardDialog, type CardDraft } from './CardDialog';
 import { FileDialog, type FileDraft } from './FileDialog';
 import { Gauge } from './Gauge';
+import { KanbanBoard } from './KanbanBoard';
 import { ProjectDialog, type ProjectDraft } from './ProjectDialog';
 import { ProjectList } from './ProjectList';
 
@@ -22,6 +24,8 @@ export function BoardApp() {
   const [projDlg, setProjDlg] = useState<{ editId: string | null } | null>(null);
   /** 열려 있는 파일 다이얼로그 (editId: null이면 새로 추가) */
   const [fileDlg, setFileDlg] = useState<{ editId: string | null } | null>(null);
+  /** 열려 있는 카드 다이얼로그 (editId: null이면 새 카드, list: 시작 칸) */
+  const [cardDlg, setCardDlg] = useState<{ editId: number | null; list: number } | null>(null);
 
   // 원본과 동일하게 순수 클라이언트 렌더링 (오늘 날짜는 브라우저 기준)
   useEffect(() => {
@@ -139,6 +143,35 @@ export function BoardApp() {
     setFileDlg(null);
   };
 
+  /* 카드 */
+  const openCard = (editId: number | null, list = 0) => {
+    if (editId === null && !data.projects.length) {
+      window.alert('먼저 프로젝트를 추가하세요.');
+      return;
+    }
+    setCardDlg({ editId, list });
+  };
+
+  const moveCard = (cardId: number, list: number) =>
+    setData((d) => ({ ...d, cards: d.cards.map((c) => (c.id === cardId ? { ...c, list } : c)) }));
+
+  const saveCard = (v: CardDraft) => {
+    const editId = cardDlg?.editId ?? null;
+    setData((d) =>
+      editId !== null
+        ? { ...d, cards: d.cards.map((c) => (c.id === editId ? { ...c, ...v } : c)) }
+        : { ...d, cards: [...d.cards, { id: Math.max(99, ...d.cards.map((c) => c.id)) + 1, ...v }] },
+    );
+    setCardDlg(null);
+  };
+
+  const delCard = () => {
+    const editId = cardDlg?.editId;
+    if (editId == null) return;
+    setData((d) => ({ ...d, cards: d.cards.filter((c) => c.id !== editId) }));
+    setCardDlg(null);
+  };
+
   const selProj = fProj ? proj(data, fProj) : undefined;
 
   return (
@@ -184,7 +217,7 @@ export function BoardApp() {
                 <span className="sub">{over ? '지난 것 ' + over : ''}</span>
               </div>
             </div>
-            <Agenda data={data} today={today} todayKey={todayKey} selDay={selDay} />
+            <Agenda data={data} today={today} todayKey={todayKey} selDay={selDay} onOpenCard={openCard} />
           </div>
         </section>
       </div>
@@ -209,11 +242,10 @@ export function BoardApp() {
               onEditFile={(id) => setFileDlg({ editId: id })}
             />
           )}
-          {/* TODO(#10): 칸반 보드 + 라벨 범례 이식 */}
           <h2>
-            카드 <span className="side" />
+            카드 <span className="side">{selProj ? selProj.name : '전체'}</span>
           </h2>
-          <div className="board" />
+          <KanbanBoard data={data} today={today} fProj={fProj} onMoveCard={moveCard} onOpenCard={openCard} />
         </section>
       </div>
 
@@ -233,6 +265,17 @@ export function BoardApp() {
           onSave={saveFile}
           onDelete={delFile}
           onClose={() => setFileDlg(null)}
+        />
+      )}
+      {cardDlg && (
+        <CardDialog
+          data={data}
+          editId={cardDlg.editId}
+          initialList={cardDlg.list}
+          fProj={fProj}
+          onSave={saveCard}
+          onDelete={delCard}
+          onClose={() => setCardDlg(null)}
         />
       )}
 
