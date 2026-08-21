@@ -19,6 +19,7 @@ export function BoardGate() {
   const [loadErr, setLoadErr] = useState('');
   const [saveErr, setSaveErr] = useState(false);
   const saveTimer = useRef<number | null>(null);
+  const pending = useRef<BoardData | null>(null);
 
   useEffect(() => {
     if (!supabase) return;
@@ -70,20 +71,36 @@ export function BoardGate() {
     };
   }, [supabase, session]);
 
+  /* 대기 중인 변경을 즉시 저장 (로그아웃·페이지 이탈 시 유실 방지) */
+  const flush = useCallback(async () => {
+    if (saveTimer.current) {
+      window.clearTimeout(saveTimer.current);
+      saveTimer.current = null;
+    }
+    const d = pending.current;
+    if (!d || !supabase) return;
+    pending.current = null;
+    const { error } = await supabase
+      .from('board')
+      .upsert({ id: BOARD_ID, data: d, updated_at: new Date().toISOString() });
+    setSaveErr(!!error);
+  }, [supabase]);
+
   /* 편집할 때마다 디바운스해서 DB에 저장 */
   const persist = useCallback(
     (d: BoardData) => {
-      if (!supabase) return;
+      pending.current = d;
       if (saveTimer.current) window.clearTimeout(saveTimer.current);
-      saveTimer.current = window.setTimeout(async () => {
-        const { error } = await supabase
-          .from('board')
-          .upsert({ id: BOARD_ID, data: d, updated_at: new Date().toISOString() });
-        setSaveErr(!!error);
-      }, 600);
+      saveTimer.current = window.setTimeout(() => void flush(), 600);
     },
-    [supabase],
+    [flush],
   );
+
+  useEffect(() => {
+    const h = () => void flush();
+    window.addEventListener('beforeunload', h);
+    return () => window.removeEventListener('beforeunload', h);
+  }, [flush]);
 
   if (!supabase) {
     return (
@@ -137,7 +154,14 @@ export function BoardGate() {
   return (
     <>
       {saveErr && <div className="savebar">저장하지 못했습니다 — 네트워크 연결을 확인해 주세요.</div>}
-      <BoardApp initialData={board} onDataChange={persist} onLogout={() => supabase.auth.signOut()} />
+      <BoardApp
+        initialData={board}
+        onDataChange={persist}
+        onLogout={async () => {
+          await flush();
+          supabase.auth.signOut();
+        }}
+      />
     </>
   );
 }
