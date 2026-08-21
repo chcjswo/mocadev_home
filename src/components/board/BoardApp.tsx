@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { INITIAL_DATA } from '@/lib/board/data';
 import type { BoardData } from '@/lib/board/types';
 import { dleft, iso, lastStage, meId, meName, openCards, proj } from '@/lib/board/utils';
 import { Agenda } from './Agenda';
@@ -20,16 +19,16 @@ import { StagesDialog } from './StagesDialog';
 import { TypesDialog } from './TypesDialog';
 
 interface BoardAppProps {
-  /** DB에서 불러온 시작 데이터 (없으면 원본 초기 데이터) */
-  initialData?: BoardData;
+  /** DB에서 불러온 시작 데이터 */
+  initialData: BoardData;
   /** 데이터가 바뀔 때마다 호출 (DB 저장용) */
-  onDataChange?: (d: BoardData) => void;
+  onDataChange: (d: BoardData) => void;
   /** 로그인 게이트에서 내려주는 로그아웃 동작 */
-  onLogout?: () => void;
+  onLogout: () => void;
 }
 
 export function BoardApp({ initialData, onDataChange, onLogout }: BoardAppProps) {
-  const [data, setData] = useState<BoardData>(initialData ?? INITIAL_DATA);
+  const [data, setData] = useState<BoardData>(initialData);
   const [today, setToday] = useState<Date | null>(null);
   const [calY, setCalY] = useState(0);
   const [calM, setCalM] = useState(0);
@@ -57,7 +56,7 @@ export function BoardApp({ initialData, onDataChange, onLogout }: BoardAppProps)
       skipFirstChange.current = false;
       return;
     }
-    onDataChange?.(data);
+    onDataChange(data);
   }, [data, onDataChange]);
 
   // 원본과 동일하게 순수 클라이언트 렌더링 (오늘 날짜는 브라우저 기준)
@@ -193,7 +192,14 @@ export function BoardApp({ initialData, onDataChange, onLogout }: BoardAppProps)
     setData((d) =>
       editId !== null
         ? { ...d, cards: d.cards.map((c) => (c.id === editId ? { ...c, ...v } : c)) }
-        : { ...d, cards: [...d.cards, { id: Math.max(99, ...d.cards.map((c) => c.id)) + 1, ...v }] },
+        : {
+            ...d,
+            // 불러온 JSON에 숫자 아닌 id가 섞여 있어도 새 id가 NaN이 되지 않게 거른다
+            cards: [
+              ...d.cards,
+              { id: Math.max(99, ...d.cards.map((c) => Number(c.id)).filter((n) => !isNaN(n))) + 1, ...v },
+            ],
+          },
     );
     setCardDlg(null);
   };
@@ -264,7 +270,7 @@ export function BoardApp({ initialData, onDataChange, onLogout }: BoardAppProps)
           <button onClick={saveJson}>파일로 저장</button>
           <button onClick={() => fileInRef.current?.click()}>불러오기</button>
           <button onClick={() => setPeopleOpen(true)}>담당자</button>
-          {onLogout && <button onClick={onLogout}>로그아웃</button>}
+          <button onClick={onLogout}>로그아웃</button>
           <input ref={fileInRef} type="file" accept=".json,application/json" hidden onChange={loadJson} />
         </span>
       </header>
@@ -402,16 +408,8 @@ export function BoardApp({ initialData, onDataChange, onLogout }: BoardAppProps)
       )}
 
       <footer>
-        {onDataChange ? (
-          <>
-            데이터는 Supabase에 저장되어 로그인한 사용자끼리 공유됩니다. <b>파일로 저장</b>·<b>불러오기</b>는 백업·복원
-            용도입니다.
-          </>
-        ) : (
-          <>
-            데이터는 브라우저 안에만 있습니다. <b>파일로 저장</b>을 눌러 내려받고, 다음에 <b>불러오기</b>로 되살립니다.
-          </>
-        )}
+        데이터는 Supabase에 저장되어 로그인한 사용자끼리 공유됩니다. <b>파일로 저장</b>·<b>불러오기</b>는 백업·복원
+        용도입니다.
       </footer>
     </div>
   );
