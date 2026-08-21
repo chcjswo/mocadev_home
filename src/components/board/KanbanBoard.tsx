@@ -11,9 +11,10 @@ interface KanbanBoardProps {
   fProj: string | null;
   onMoveCard: (cardId: number, list: number) => void;
   onOpenCard: (cardId: number | null, list?: number) => void;
+  onOpenLabels: () => void;
 }
 
-export function KanbanBoard({ data, today, fProj, onMoveCard, onOpenCard }: KanbanBoardProps) {
+export function KanbanBoard({ data, today, fProj, onMoveCard, onOpenCard, onOpenLabels }: KanbanBoardProps) {
   const [dragId, setDragId] = useState<number | null>(null);
   const [overList, setOverList] = useState<number | null>(null);
 
@@ -95,8 +96,9 @@ export function KanbanBoard({ data, today, fProj, onMoveCard, onOpenCard }: Kanb
         })}
       </div>
       <div className="legend">
-        {/* TODO(#11): 라벨 편집 다이얼로그 연결 */}
-        <button className="edit">라벨 고치기</button>
+        <button className="edit" onClick={onOpenLabels}>
+          라벨 고치기
+        </button>
         <span className="keys">
           {data.labels.map((l) => (
             <span key={l.id}>

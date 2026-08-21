@@ -11,9 +11,10 @@ interface GaugeProps {
   project: Project;
   onSetStage: (stage: number) => void;
   onEditFile: (fileId: string | null) => void;
+  onOpenStages: () => void;
 }
 
-export function Gauge({ data, today, project: p, onSetStage, onEditFile }: GaugeProps) {
+export function Gauge({ data, today, project: p, onSetStage, onEditFile, onOpenStages }: GaugeProps) {
   const d = dleft(p.due, today);
   const files = p.files || [];
 
@@ -38,8 +39,7 @@ export function Gauge({ data, today, project: p, onSetStage, onEditFile }: Gauge
       </div>
       <div className="ghint">
         <span>단계를 누르면 옮겨집니다 · 남은 카드 {openOf(data, p.id)}</span>
-        {/* TODO(#11): 단계 편집 다이얼로그 연결 */}
-        <button>단계 고치기</button>
+        <button onClick={onOpenStages}>단계 고치기</button>
       </div>
       <div className="files">
         <span className="flabel">보관함</span>

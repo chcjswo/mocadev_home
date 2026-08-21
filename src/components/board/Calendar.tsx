@@ -16,6 +16,7 @@ interface CalendarProps {
   onToday: () => void;
   onSelectDay: (day: string) => void;
   onOpenEventList: () => void;
+  onOpenTypes: () => void;
 }
 
 export function Calendar({
@@ -29,6 +30,7 @@ export function Calendar({
   onToday,
   onSelectDay,
   onOpenEventList,
+  onOpenTypes,
 }: CalendarProps) {
   const start = new Date(calY, calM, 1).getDay();
   const last = new Date(calY, calM + 1, 0).getDate();
@@ -95,7 +97,6 @@ export function Calendar({
         {days}
       </div>
       <div className="calleg">
-        {/* TODO(#11): 종류 편집 다이얼로그 연결 */}
         <button onClick={onOpenEventList}>일정</button>
         <span className="keys">
           {data.etypes.map((t) => (
@@ -105,7 +106,9 @@ export function Calendar({
             </span>
           ))}
         </span>
-        <button className="last">종류</button>
+        <button className="last" onClick={onOpenTypes}>
+          종류
+        </button>
       </div>
     </section>
   );

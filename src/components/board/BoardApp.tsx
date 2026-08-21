@@ -12,8 +12,12 @@ import { EventListDialog } from './EventListDialog';
 import { FileDialog, type FileDraft } from './FileDialog';
 import { Gauge } from './Gauge';
 import { KanbanBoard } from './KanbanBoard';
+import { LabelsDialog } from './LabelsDialog';
+import { PeopleDialog } from './PeopleDialog';
 import { ProjectDialog, type ProjectDraft } from './ProjectDialog';
 import { ProjectList } from './ProjectList';
+import { StagesDialog } from './StagesDialog';
+import { TypesDialog } from './TypesDialog';
 
 export function BoardApp() {
   const [data, setData] = useState<BoardData>(INITIAL_DATA);
@@ -31,6 +35,10 @@ export function BoardApp() {
   /** 열려 있는 일정 다이얼로그 (editId: null이면 새 일정) */
   const [eventDlg, setEventDlg] = useState<{ editId: string | null } | null>(null);
   const [eventListOpen, setEventListOpen] = useState(false);
+  const [typesOpen, setTypesOpen] = useState(false);
+  const [peopleOpen, setPeopleOpen] = useState(false);
+  const [labelsOpen, setLabelsOpen] = useState(false);
+  const [stagesOpen, setStagesOpen] = useState(false);
 
   // 원본과 동일하게 순수 클라이언트 렌더링 (오늘 날짜는 브라우저 기준)
   useEffect(() => {
@@ -203,10 +211,10 @@ export function BoardApp() {
         <h1>제작 현황판</h1>
         <span className="htools">
           <span className="stamp">{stamp}</span>
-          {/* TODO(#11): 저장/불러오기/담당자 다이얼로그 연결 */}
+          {/* TODO(#11): 저장/불러오기 연결 */}
           <button>파일로 저장</button>
           <button>불러오기</button>
-          <button>담당자</button>
+          <button onClick={() => setPeopleOpen(true)}>담당자</button>
         </span>
       </header>
 
@@ -222,6 +230,7 @@ export function BoardApp() {
           onToday={goToday}
           onSelectDay={setSelDay}
           onOpenEventList={() => setEventListOpen(true)}
+          onOpenTypes={() => setTypesOpen(true)}
         />
 
         <section className="panel">
@@ -271,12 +280,20 @@ export function BoardApp() {
               project={selProj}
               onSetStage={(s) => setStage(selProj.id, s)}
               onEditFile={(id) => setFileDlg({ editId: id })}
+              onOpenStages={() => setStagesOpen(true)}
             />
           )}
           <h2>
             카드 <span className="side">{selProj ? selProj.name : '전체'}</span>
           </h2>
-          <KanbanBoard data={data} today={today} fProj={fProj} onMoveCard={moveCard} onOpenCard={openCard} />
+          <KanbanBoard
+            data={data}
+            today={today}
+            fProj={fProj}
+            onMoveCard={moveCard}
+            onOpenCard={openCard}
+            onOpenLabels={() => setLabelsOpen(true)}
+          />
         </section>
       </div>
 
@@ -298,6 +315,10 @@ export function BoardApp() {
           onClose={() => setFileDlg(null)}
         />
       )}
+      {typesOpen && <TypesDialog data={data} onUpdate={setData} onClose={() => setTypesOpen(false)} />}
+      {peopleOpen && <PeopleDialog data={data} onUpdate={setData} onClose={() => setPeopleOpen(false)} />}
+      {labelsOpen && <LabelsDialog data={data} onUpdate={setData} onClose={() => setLabelsOpen(false)} />}
+      {stagesOpen && <StagesDialog data={data} onUpdate={setData} onClose={() => setStagesOpen(false)} />}
       {eventListOpen && (
         <EventListDialog
           data={data}
