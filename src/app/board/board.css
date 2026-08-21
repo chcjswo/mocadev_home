@@ -217,6 +217,9 @@ dialog::backdrop{background:rgba(22,35,58,.35)}
 .newrow{width:100%;font:inherit;font-size:13px;background:none;border:1px dashed var(--line);border-radius:var(--r-sm);color:var(--ink-soft);padding:8px;cursor:pointer;margin-top:10px}
 .newrow:hover{border-color:var(--ink-soft);color:var(--ink)}
 
+/* 저장 실패 알림 */
+.savebar{position:sticky;top:0;z-index:10;background:var(--rust);color:#fff;text-align:center;font-size:12px;padding:6px}
+
 /* 로그인 */
 .login{min-height:80vh;display:flex;align-items:center;justify-content:center;padding:20px}
 .login .panel{width:min(340px,92vw)}

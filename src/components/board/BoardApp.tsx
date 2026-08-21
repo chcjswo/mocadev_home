@@ -20,12 +20,16 @@ import { StagesDialog } from './StagesDialog';
 import { TypesDialog } from './TypesDialog';
 
 interface BoardAppProps {
+  /** DB에서 불러온 시작 데이터 (없으면 원본 초기 데이터) */
+  initialData?: BoardData;
+  /** 데이터가 바뀔 때마다 호출 (DB 저장용) */
+  onDataChange?: (d: BoardData) => void;
   /** 로그인 게이트에서 내려주는 로그아웃 동작 */
   onLogout?: () => void;
 }
 
-export function BoardApp({ onLogout }: BoardAppProps) {
-  const [data, setData] = useState<BoardData>(INITIAL_DATA);
+export function BoardApp({ initialData, onDataChange, onLogout }: BoardAppProps) {
+  const [data, setData] = useState<BoardData>(initialData ?? INITIAL_DATA);
   const [today, setToday] = useState<Date | null>(null);
   const [calY, setCalY] = useState(0);
   const [calM, setCalM] = useState(0);
@@ -45,6 +49,16 @@ export function BoardApp({ onLogout }: BoardAppProps) {
   const [labelsOpen, setLabelsOpen] = useState(false);
   const [stagesOpen, setStagesOpen] = useState(false);
   const fileInRef = useRef<HTMLInputElement>(null);
+
+  // 첫 렌더(불러온 데이터)는 건너뛰고, 편집이 생길 때만 저장 콜백 호출
+  const skipFirstChange = useRef(true);
+  useEffect(() => {
+    if (skipFirstChange.current) {
+      skipFirstChange.current = false;
+      return;
+    }
+    onDataChange?.(data);
+  }, [data, onDataChange]);
 
   // 원본과 동일하게 순수 클라이언트 렌더링 (오늘 날짜는 브라우저 기준)
   useEffect(() => {
@@ -388,7 +402,16 @@ export function BoardApp({ onLogout }: BoardAppProps) {
       )}
 
       <footer>
-        데이터는 브라우저 안에만 있습니다. <b>파일로 저장</b>을 눌러 내려받고, 다음에 <b>불러오기</b>로 되살립니다.
+        {onDataChange ? (
+          <>
+            데이터는 Supabase에 저장되어 로그인한 사용자끼리 공유됩니다. <b>파일로 저장</b>·<b>불러오기</b>는 백업·복원
+            용도입니다.
+          </>
+        ) : (
+          <>
+            데이터는 브라우저 안에만 있습니다. <b>파일로 저장</b>을 눌러 내려받고, 다음에 <b>불러오기</b>로 되살립니다.
+          </>
+        )}
       </footer>
     </div>
   );
