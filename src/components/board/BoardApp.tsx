@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { INITIAL_DATA } from '@/lib/board/data';
 import type { BoardData } from '@/lib/board/types';
 import { dleft, iso, lastStage, meId, meName, openCards, proj } from '@/lib/board/utils';
@@ -39,6 +39,7 @@ export function BoardApp() {
   const [peopleOpen, setPeopleOpen] = useState(false);
   const [labelsOpen, setLabelsOpen] = useState(false);
   const [stagesOpen, setStagesOpen] = useState(false);
+  const fileInRef = useRef<HTMLInputElement>(null);
 
   // 원본과 동일하게 순수 클라이언트 렌더링 (오늘 날짜는 브라우저 기준)
   useEffect(() => {
@@ -203,6 +204,36 @@ export function BoardApp() {
     setEventDlg(null);
   };
 
+  /* 저장 · 불러오기 */
+  const saveJson = () => {
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = '현황판-' + todayKey + '.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+
+  const loadJson = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const r = new FileReader();
+    r.onload = () => {
+      try {
+        const d = JSON.parse(String(r.result)) as BoardData;
+        if (!d.projects || !d.cards) throw new Error('형식이 다릅니다');
+        d.people = d.people || [{ id: 'M1', name: '나', me: true }];
+        d.projects.forEach((p) => (p.files = p.files || []));
+        setData(d);
+        setFProj(null);
+      } catch (err) {
+        window.alert('불러오지 못했습니다: ' + (err instanceof Error ? err.message : String(err)));
+      }
+      e.target.value = '';
+    };
+    r.readAsText(file);
+  };
+
   const selProj = fProj ? proj(data, fProj) : undefined;
 
   return (
@@ -211,10 +242,10 @@ export function BoardApp() {
         <h1>제작 현황판</h1>
         <span className="htools">
           <span className="stamp">{stamp}</span>
-          {/* TODO(#11): 저장/불러오기 연결 */}
-          <button>파일로 저장</button>
-          <button>불러오기</button>
+          <button onClick={saveJson}>파일로 저장</button>
+          <button onClick={() => fileInRef.current?.click()}>불러오기</button>
           <button onClick={() => setPeopleOpen(true)}>담당자</button>
+          <input ref={fileInRef} type="file" accept=".json,application/json" hidden onChange={loadJson} />
         </span>
       </header>
 
