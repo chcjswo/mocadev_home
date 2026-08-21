@@ -10,9 +10,10 @@ interface AgendaProps {
   todayKey: string;
   selDay: string;
   onOpenCard: (cardId: number) => void;
+  onOpenEvent: (eventId: string) => void;
 }
 
-export function Agenda({ data, today, todayKey, selDay, onOpenCard }: AgendaProps) {
+export function Agenda({ data, today, todayKey, selDay, onOpenCard, onOpenEvent }: AgendaProps) {
   const isToday = selDay === todayKey;
   const dObj = new Date(selDay + 'T00:00:00');
   const title = isToday
@@ -37,9 +38,8 @@ export function Agenda({ data, today, todayKey, selDay, onOpenCard }: AgendaProp
         <span className="s">{sub}</span>
       </div>
       <div>
-        {/* TODO(#11): 일정 클릭 시 편집 다이얼로그 연결 */}
         {evs.map((e) => (
-          <div key={e.id} className="ag">
+          <div key={e.id} className="ag" onClick={() => onOpenEvent(e.id)}>
             <span className="bar" style={{ background: evCol(data, e.type) }} />
             <span>
               <span className="agt">

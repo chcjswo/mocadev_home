@@ -7,6 +7,8 @@ import { dleft, iso, lastStage, meId, meName, openCards, proj } from '@/lib/boar
 import { Agenda } from './Agenda';
 import { Calendar } from './Calendar';
 import { CardDialog, type CardDraft } from './CardDialog';
+import { EventDialog, type EventDraft } from './EventDialog';
+import { EventListDialog } from './EventListDialog';
 import { FileDialog, type FileDraft } from './FileDialog';
 import { Gauge } from './Gauge';
 import { KanbanBoard } from './KanbanBoard';
@@ -26,6 +28,9 @@ export function BoardApp() {
   const [fileDlg, setFileDlg] = useState<{ editId: string | null } | null>(null);
   /** 열려 있는 카드 다이얼로그 (editId: null이면 새 카드, list: 시작 칸) */
   const [cardDlg, setCardDlg] = useState<{ editId: number | null; list: number } | null>(null);
+  /** 열려 있는 일정 다이얼로그 (editId: null이면 새 일정) */
+  const [eventDlg, setEventDlg] = useState<{ editId: string | null } | null>(null);
+  const [eventListOpen, setEventListOpen] = useState(false);
 
   // 원본과 동일하게 순수 클라이언트 렌더링 (오늘 날짜는 브라우저 기준)
   useEffect(() => {
@@ -172,6 +177,24 @@ export function BoardApp() {
     setCardDlg(null);
   };
 
+  /* 일정 */
+  const saveEvent = (v: EventDraft) => {
+    const editId = eventDlg?.editId ?? null;
+    setData((d) =>
+      editId
+        ? { ...d, events: d.events.map((e) => (e.id === editId ? { ...e, ...v } : e)) }
+        : { ...d, events: [...d.events, { id: 'E' + Date.now().toString(36), ...v }] },
+    );
+    setEventDlg(null);
+  };
+
+  const delEvent = () => {
+    const editId = eventDlg?.editId;
+    if (!editId) return;
+    setData((d) => ({ ...d, events: d.events.filter((e) => e.id !== editId) }));
+    setEventDlg(null);
+  };
+
   const selProj = fProj ? proj(data, fProj) : undefined;
 
   return (
@@ -198,6 +221,7 @@ export function BoardApp() {
           onNext={goNext}
           onToday={goToday}
           onSelectDay={setSelDay}
+          onOpenEventList={() => setEventListOpen(true)}
         />
 
         <section className="panel">
@@ -217,7 +241,14 @@ export function BoardApp() {
                 <span className="sub">{over ? '지난 것 ' + over : ''}</span>
               </div>
             </div>
-            <Agenda data={data} today={today} todayKey={todayKey} selDay={selDay} onOpenCard={openCard} />
+            <Agenda
+              data={data}
+              today={today}
+              todayKey={todayKey}
+              selDay={selDay}
+              onOpenCard={openCard}
+              onOpenEvent={(id) => setEventDlg({ editId: id })}
+            />
           </div>
         </section>
       </div>
@@ -265,6 +296,25 @@ export function BoardApp() {
           onSave={saveFile}
           onDelete={delFile}
           onClose={() => setFileDlg(null)}
+        />
+      )}
+      {eventListOpen && (
+        <EventListDialog
+          data={data}
+          today={today}
+          onEdit={(id) => setEventDlg({ editId: id })}
+          onNew={() => setEventDlg({ editId: null })}
+          onClose={() => setEventListOpen(false)}
+        />
+      )}
+      {eventDlg && (
+        <EventDialog
+          data={data}
+          editId={eventDlg.editId}
+          initialDate={selDay}
+          onSave={saveEvent}
+          onDelete={delEvent}
+          onClose={() => setEventDlg(null)}
         />
       )}
       {cardDlg && (
