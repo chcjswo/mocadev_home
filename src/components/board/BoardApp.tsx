@@ -19,7 +19,12 @@ import { ProjectList } from './ProjectList';
 import { StagesDialog } from './StagesDialog';
 import { TypesDialog } from './TypesDialog';
 
-export function BoardApp() {
+interface BoardAppProps {
+  /** 로그인 게이트에서 내려주는 로그아웃 동작 */
+  onLogout?: () => void;
+}
+
+export function BoardApp({ onLogout }: BoardAppProps) {
   const [data, setData] = useState<BoardData>(INITIAL_DATA);
   const [today, setToday] = useState<Date | null>(null);
   const [calY, setCalY] = useState(0);
@@ -245,6 +250,7 @@ export function BoardApp() {
           <button onClick={saveJson}>파일로 저장</button>
           <button onClick={() => fileInRef.current?.click()}>불러오기</button>
           <button onClick={() => setPeopleOpen(true)}>담당자</button>
+          {onLogout && <button onClick={onLogout}>로그아웃</button>}
           <input ref={fileInRef} type="file" accept=".json,application/json" hidden onChange={loadJson} />
         </span>
       </header>

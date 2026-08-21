@@ -1,5 +1,5 @@
-import { BoardApp } from '@/components/board/BoardApp';
+import { BoardGate } from '@/components/board/BoardGate';
 
 export default function BoardPage() {
-  return <BoardApp />;
+  return <BoardGate />;
 }
