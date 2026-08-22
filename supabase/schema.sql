@@ -90,6 +90,22 @@ create table if not exists public.board (
   updated_at timestamptz not null default now()
 );
 
+-- 시스템 컬럼 (기존 행이 있어도 데이터 유실 없이 추가된다. 기존 행의 created_by/updated_by는 null)
+alter table public.board add column if not exists created_at timestamptz not null default now();
+alter table public.board add column if not exists created_by uuid;
+alter table public.board add column if not exists updated_by uuid;
+alter table public.board drop constraint if exists board_created_by_fkey;
+alter table public.board add constraint board_created_by_fkey
+  foreign key (created_by) references public.profiles(id);
+alter table public.board drop constraint if exists board_updated_by_fkey;
+alter table public.board add constraint board_updated_by_fkey
+  foreign key (updated_by) references public.profiles(id);
+
+drop trigger if exists board_set_updated_at on public.board;
+create trigger board_set_updated_at
+  before update on public.board
+  for each row execute function public.set_updated_at();
+
 alter table public.board enable row level security;
 
 -- 로그인(authenticated)한 사용자만 읽고 쓸 수 있다. anon은 아무것도 못 한다.
