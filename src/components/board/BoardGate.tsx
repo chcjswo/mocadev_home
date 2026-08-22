@@ -9,6 +9,23 @@ import { BoardApp } from './BoardApp';
 import { LoginForm } from './LoginForm';
 
 const BOARD_ID = 'main';
+/** 마지막으로 저장한 사람·시각 (헤더 표시용) */
+export interface LastSaved {
+  name: string;
+  at: string;
+}
+
+interface BoardRow {
+  data: BoardData;
+  updated_at: string;
+  updater: { name: string } | null;
+}
+
+const ROW_SELECT = 'data, updated_at, updater:profiles!board_updated_by_fkey(name)';
+
+function toLastSaved(row: BoardRow): LastSaved {
+  return { name: row.updater?.name ?? '알 수 없음', at: row.updated_at };
+}
 
 /** 로그인해야 현황판이 보이는 게이트. 데이터는 Supabase board 테이블에서 읽고 쓴다. */
 export function BoardGate() {
@@ -17,6 +34,7 @@ export function BoardGate() {
   const [ready, setReady] = useState(false);
   const [board, setBoard] = useState<BoardData | null>(null);
   const [userName, setUserName] = useState('');
+  const [lastSaved, setLastSaved] = useState<LastSaved | null>(null);
   const [loadErr, setLoadErr] = useState('');
   const [saveErr, setSaveErr] = useState(false);
   const saveTimer = useRef<number | null>(null);
@@ -44,24 +62,41 @@ export function BoardGate() {
       const { data: me } = await supabase.from('profiles').select('name').eq('id', session.user.id).maybeSingle();
       if (cancelled) return;
       setUserName(me?.name ?? session.user.email ?? '');
-      const { data: row, error } = await supabase.from('board').select('data').eq('id', BOARD_ID).maybeSingle();
+      const { data: row, error } = await supabase
+        .from('board')
+        .select(ROW_SELECT)
+        .eq('id', BOARD_ID)
+        .maybeSingle<BoardRow>();
       if (cancelled) return;
       if (error) {
         setLoadErr(error.message);
         return;
       }
       if (row) {
-        setBoard(row.data as BoardData);
+        setBoard(row.data);
+        setLastSaved(toLastSaved(row));
         return;
       }
-      const { error: insErr } = await supabase.from('board').insert({ id: BOARD_ID, data: INITIAL_DATA });
+      const uid = session.user.id;
+      const { data: ins, error: insErr } = await supabase
+        .from('board')
+        .insert({ id: BOARD_ID, data: INITIAL_DATA, created_by: uid, updated_by: uid })
+        .select(ROW_SELECT)
+        .single<BoardRow>();
       if (cancelled) return;
       if (insErr && insErr.code === '23505') {
         // 다른 사용자가 방금 시딩함 — 그쪽 문서를 읽는다
-        const { data: row2, error: err2 } = await supabase.from('board').select('data').eq('id', BOARD_ID).single();
+        const { data: row2, error: err2 } = await supabase
+          .from('board')
+          .select(ROW_SELECT)
+          .eq('id', BOARD_ID)
+          .single<BoardRow>();
         if (cancelled) return;
         if (err2) setLoadErr(err2.message);
-        else setBoard(row2.data as BoardData);
+        else {
+          setBoard(row2.data);
+          setLastSaved(toLastSaved(row2));
+        }
         return;
       }
       if (insErr) {
@@ -69,6 +104,7 @@ export function BoardGate() {
         return;
       }
       setBoard(INITIAL_DATA);
+      setLastSaved(toLastSaved(ins));
     })();
     return () => {
       cancelled = true;
@@ -82,13 +118,16 @@ export function BoardGate() {
       saveTimer.current = null;
     }
     const d = pending.current;
-    if (!d || !supabase) return;
+    if (!d || !supabase || !session) return;
     pending.current = null;
-    const { error } = await supabase
+    const { data: row, error } = await supabase
       .from('board')
-      .upsert({ id: BOARD_ID, data: d, updated_at: new Date().toISOString() });
+      .upsert({ id: BOARD_ID, data: d, updated_by: session.user.id })
+      .select('updated_at')
+      .single<{ updated_at: string }>();
     setSaveErr(!!error);
-  }, [supabase]);
+    if (row) setLastSaved({ name: userName, at: row.updated_at });
+  }, [supabase, session, userName]);
 
   /* 편집할 때마다 디바운스해서 DB에 저장 */
   const persist = useCallback(
@@ -161,6 +200,7 @@ export function BoardGate() {
       <BoardApp
         initialData={board}
         userName={userName}
+        lastSaved={lastSaved}
         onDataChange={persist}
         onLogout={async () => {
           await flush();

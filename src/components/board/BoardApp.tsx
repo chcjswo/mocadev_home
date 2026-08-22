@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { BoardData } from '@/lib/board/types';
 import { dleft, iso, lastStage, meId, meName, openCards, proj } from '@/lib/board/utils';
 import { Agenda } from './Agenda';
+import type { LastSaved } from './BoardGate';
 import { Calendar } from './Calendar';
 import { CardDialog, type CardDraft } from './CardDialog';
 import { EventDialog, type EventDraft } from './EventDialog';
@@ -23,13 +24,15 @@ interface BoardAppProps {
   initialData: BoardData;
   /** 로그인한 사용자의 프로필 이름 (헤더 표시용) */
   userName: string;
+  /** 마지막 저장자·시각 (아직 저장된 적 없으면 null) */
+  lastSaved: LastSaved | null;
   /** 데이터가 바뀔 때마다 호출 (DB 저장용) */
   onDataChange: (d: BoardData) => void;
   /** 로그인 게이트에서 내려주는 로그아웃 동작 */
   onLogout: () => void;
 }
 
-export function BoardApp({ initialData, userName, onDataChange, onLogout }: BoardAppProps) {
+export function BoardApp({ initialData, userName, lastSaved, onDataChange, onLogout }: BoardAppProps) {
   const [data, setData] = useState<BoardData>(initialData);
   const [today, setToday] = useState<Date | null>(null);
   const [calY, setCalY] = useState(0);
@@ -269,6 +272,11 @@ export function BoardApp({ initialData, userName, onDataChange, onLogout }: Boar
         <h1>제작 현황판</h1>
         <span className="htools">
           <span className="stamp">{stamp}</span>
+          {lastSaved && (
+            <span className="stamp">
+              마지막 저장: {lastSaved.name} · {new Date(lastSaved.at).toLocaleString('ko-KR')}
+            </span>
+          )}
           <span className="who">{userName}</span>
           <button onClick={saveJson}>파일로 저장</button>
           <button onClick={() => fileInRef.current?.click()}>불러오기</button>
