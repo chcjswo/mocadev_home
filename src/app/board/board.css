@@ -152,7 +152,6 @@ h1{font-size:clamp(19px,2vw,25px);font-weight:800;letter-spacing:-.03em}
 .list h3 span{font-family:var(--mono);font-weight:400;color:var(--ink-soft)}
 .c{background:var(--card);border:1px solid var(--line-soft);border-radius:var(--r-sm);padding:8px 9px;margin-bottom:6px;cursor:grab;font-size:12.5px}
 .c:hover{border-color:var(--ink-soft)}
-.c.drag{opacity:.4}
 .c:focus-visible{outline:2px solid var(--plum);outline-offset:1px}
 .labs{display:flex;gap:3px;margin-bottom:5px;flex-wrap:wrap}
 .lab{height:5px;width:24px;border-radius:100px}

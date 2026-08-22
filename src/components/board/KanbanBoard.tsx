@@ -15,7 +15,6 @@ interface KanbanBoardProps {
 }
 
 export function KanbanBoard({ data, today, fProj, onMoveCard, onOpenCard, onOpenLabels }: KanbanBoardProps) {
-  const [dragId, setDragId] = useState<number | null>(null);
   const [overList, setOverList] = useState<number | null>(null);
 
   const shown = data.cards.filter((c) => !fProj || c.proj === fProj);
@@ -50,14 +49,12 @@ export function KanbanBoard({ data, today, fProj, onMoveCard, onOpenCard, onOpen
                 return (
                   <div
                     key={c.id}
-                    className={`c${dragId === c.id ? ' drag' : ''}`}
+                    className="c"
                     draggable
                     tabIndex={0}
                     onDragStart={(e) => {
                       e.dataTransfer.setData('text', String(c.id));
-                      setDragId(c.id);
                     }}
-                    onDragEnd={() => setDragId(null)}
                     onClick={() => onOpenCard(c.id)}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {
