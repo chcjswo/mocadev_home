@@ -21,13 +21,15 @@ import { TypesDialog } from './TypesDialog';
 interface BoardAppProps {
   /** DB에서 불러온 시작 데이터 */
   initialData: BoardData;
+  /** 로그인한 사용자의 프로필 이름 (헤더 표시용) */
+  userName: string;
   /** 데이터가 바뀔 때마다 호출 (DB 저장용) */
   onDataChange: (d: BoardData) => void;
   /** 로그인 게이트에서 내려주는 로그아웃 동작 */
   onLogout: () => void;
 }
 
-export function BoardApp({ initialData, onDataChange, onLogout }: BoardAppProps) {
+export function BoardApp({ initialData, userName, onDataChange, onLogout }: BoardAppProps) {
   const [data, setData] = useState<BoardData>(initialData);
   const [today, setToday] = useState<Date | null>(null);
   const [calY, setCalY] = useState(0);
@@ -267,6 +269,7 @@ export function BoardApp({ initialData, onDataChange, onLogout }: BoardAppProps)
         <h1>제작 현황판</h1>
         <span className="htools">
           <span className="stamp">{stamp}</span>
+          <span className="who">{userName}</span>
           <button onClick={saveJson}>파일로 저장</button>
           <button onClick={() => fileInRef.current?.click()}>불러오기</button>
           <button onClick={() => setPeopleOpen(true)}>담당자</button>

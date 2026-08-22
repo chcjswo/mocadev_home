@@ -16,6 +16,7 @@ export function BoardGate() {
   const [session, setSession] = useState<Session | null>(null);
   const [ready, setReady] = useState(false);
   const [board, setBoard] = useState<BoardData | null>(null);
+  const [userName, setUserName] = useState('');
   const [loadErr, setLoadErr] = useState('');
   const [saveErr, setSaveErr] = useState(false);
   const saveTimer = useRef<number | null>(null);
@@ -40,6 +41,9 @@ export function BoardGate() {
     }
     let cancelled = false;
     (async () => {
+      const { data: me } = await supabase.from('profiles').select('name').eq('id', session.user.id).maybeSingle();
+      if (cancelled) return;
+      setUserName(me?.name ?? session.user.email ?? '');
       const { data: row, error } = await supabase.from('board').select('data').eq('id', BOARD_ID).maybeSingle();
       if (cancelled) return;
       if (error) {
@@ -156,6 +160,7 @@ export function BoardGate() {
       {saveErr && <div className="savebar">저장하지 못했습니다 — 네트워크 연결을 확인해 주세요.</div>}
       <BoardApp
         initialData={board}
+        userName={userName}
         onDataChange={persist}
         onLogout={async () => {
           await flush();

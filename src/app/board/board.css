@@ -15,6 +15,7 @@ header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
        padding-bottom:12px;border-bottom:2px solid var(--ink)}
 h1{font-size:clamp(19px,2vw,25px);font-weight:800;letter-spacing:-.03em}
 .htools{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.htools .who{font-size:clamp(10.5px,.95vw,12px);font-weight:600;margin-right:4px}
 .htools .stamp{font-family:var(--mono);font-size:clamp(9px,.85vw,11px);color:var(--ink-soft);letter-spacing:.06em;margin-right:4px}
 .htools button{font:inherit;font-size:clamp(10.5px,.95vw,12px);background:none;border:1px solid var(--line);
                border-radius:100px;color:var(--ink-soft);padding:4px 12px;cursor:pointer;white-space:nowrap}
