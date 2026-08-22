@@ -129,7 +129,7 @@ export function BoardGate() {
       <LoginForm
         onLogin={async (email, password) => {
           const { error } = await supabase.auth.signInWithPassword({ email, password });
-          return error ? error.message : null;
+          return error ? { code: error.code, message: error.message } : null;
         }}
       />
     );

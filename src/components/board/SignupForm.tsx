@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { getSupabase } from '@/lib/board/supabase';
+import { VerifyNotice } from './VerifyNotice';
 
 /** 회원가입 화면: 이메일·이름·비밀번호만 받는다. 프로필은 DB 트리거가 만든다. */
 export function SignupForm() {
@@ -14,6 +15,8 @@ export function SignupForm() {
   const [password, setPassword] = useState('');
   const [err, setErr] = useState('');
   const [busy, setBusy] = useState(false);
+  /** 가입 후 이메일 인증 대기 중인 주소 */
+  const [sentTo, setSentTo] = useState('');
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,19 +26,19 @@ export function SignupForm() {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { name: name.trim() } },
+      options: { data: { name: name.trim() }, emailRedirectTo: `${window.location.origin}/board` },
     });
     if (error) {
       setErr(error.message);
       setBusy(false);
       return;
     }
+    // 이메일 인증이 켜져 있으면 세션 없이 돌아온다 → 인증 안내 화면
     if (data.session) router.replace('/board');
-    else {
-      window.alert('가입되었습니다. 로그인해 주세요.');
-      router.replace('/board');
-    }
+    else setSentTo(email);
   };
+
+  if (sentTo) return <VerifyNotice email={sentTo} />;
 
   return (
     <div className="login">

@@ -1,6 +1,11 @@
 -- 제작 현황판(/board) Supabase 스키마
 -- Supabase 대시보드 > SQL Editor에서 실행한다. 다시 실행해도 안전하다(멱등).
 --
+-- [인증 설정] 대시보드 > Authentication
+--   Sign In / Providers > Email: "Confirm email" 켜기 (가입 후 이메일 인증 필수)
+--   URL Configuration > Redirect URLs: http://localhost:3000/board, https://<프로덕션 도메인>/board
+--   (인증 링크를 누르면 /board로 돌아와 바로 로그인된다)
+--
 -- [공통 규칙] 모든 테이블은 시스템 정보 컬럼 4개를 가진다.
 --   created_at timestamptz not null default now()
 --   created_by uuid references public.profiles(id)
