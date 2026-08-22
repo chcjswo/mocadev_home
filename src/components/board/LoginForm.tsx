@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 interface LoginFormProps {
@@ -42,6 +43,9 @@ export function LoginForm({ onLogin }: LoginFormProps) {
             </button>
           </div>
         </form>
+        <p className="alt">
+          계정이 없나요? <Link href="/board/signup">회원가입</Link>
+        </p>
       </section>
     </div>
   );
