@@ -21,7 +21,7 @@ interface BoardRow {
   updater: { name: string } | null;
 }
 
-const ROW_SELECT = 'data, updated_at, updater:profiles!board_updated_by_fkey(name)';
+const ROW_SELECT = 'data, updated_at, updater:status_board_users!board_updated_by_fkey(name)';
 
 function toLastSaved(row: BoardRow): LastSaved {
   return { name: row.updater?.name ?? '알 수 없음', at: row.updated_at };
@@ -59,7 +59,11 @@ export function BoardGate() {
     }
     let cancelled = false;
     (async () => {
-      const { data: me } = await supabase.from('profiles').select('name').eq('id', session.user.id).maybeSingle();
+      const { data: me } = await supabase
+        .from('status_board_users')
+        .select('name')
+        .eq('id', session.user.id)
+        .maybeSingle();
       if (cancelled) return;
       setUserName(me?.name ?? session.user.email ?? '');
       const { data: row, error } = await supabase

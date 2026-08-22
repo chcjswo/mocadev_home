@@ -8,9 +8,9 @@
 --
 -- [공통 규칙] 모든 테이블은 시스템 정보 컬럼 4개를 가진다.
 --   created_at timestamptz not null default now()
---   created_by uuid references public.profiles(id)
+--   created_by uuid references public.status_board_users(id)
 --   updated_at timestamptz not null default now()   -- set_updated_at 트리거로 자동 갱신
---   updated_by uuid references public.profiles(id)
+--   updated_by uuid references public.status_board_users(id)
 -- created_by/updated_by는 저장하는 쪽(클라이언트)이 auth.uid()로 채운다.
 
 -- updated_at 자동 갱신 트리거 함수 (모든 테이블 공용)
@@ -23,30 +23,36 @@ end;
 $$;
 
 ------------------------------------------------------------------------
--- profiles: auth.users 1:1 프로필 (이름, 유저 타입)
+-- status_board_users: auth.users 1:1 프로필 (이름, 유저 타입)
 ------------------------------------------------------------------------
-create table if not exists public.profiles (
+-- [마이그레이션] 옛 이름(profiles, production_board_users)이 남아 있으면 데이터를 유지한 채 이름만 바꾼다.
+alter table if exists public.profiles rename to status_board_users;
+alter table if exists public.production_board_users rename to status_board_users;
+
+create table if not exists public.status_board_users (
   id uuid primary key references auth.users(id) on delete cascade,
   name text not null,
   user_type text not null default 'user' check (user_type in ('admin', 'user')),
   created_at timestamptz not null default now(),
-  created_by uuid references public.profiles(id),
+  created_by uuid references public.status_board_users(id),
   updated_at timestamptz not null default now(),
-  updated_by uuid references public.profiles(id)
+  updated_by uuid references public.status_board_users(id)
 );
 
-drop trigger if exists profiles_set_updated_at on public.profiles;
-create trigger profiles_set_updated_at
-  before update on public.profiles
+drop trigger if exists profiles_set_updated_at on public.status_board_users; -- 옛 이름 정리
+drop trigger if exists production_board_users_set_updated_at on public.status_board_users; -- 옛 이름 정리
+drop trigger if exists status_board_users_set_updated_at on public.status_board_users;
+create trigger status_board_users_set_updated_at
+  before update on public.status_board_users
   for each row execute function public.set_updated_at();
 
 -- 회원가입(auth.users insert) 시 프로필 자동 생성. 이름은 가입 폼의 user metadata에서 가져온다.
 -- user_type은 기본값 'user'로만 생성된다. admin 지정은 SQL로 수동:
---   update public.profiles set user_type = 'admin' where id = '<uuid>';
+--   update public.status_board_users set user_type = 'admin' where id = '<uuid>';
 create or replace function public.handle_new_user()
 returns trigger language plpgsql security definer set search_path = public as $$
 begin
-  insert into public.profiles (id, name, created_by, updated_by)
+  insert into public.status_board_users (id, name, created_by, updated_by)
   values (
     new.id,
     coalesce(nullif(trim(new.raw_user_meta_data->>'name'), ''), split_part(new.email, '@', 1)),
@@ -62,20 +68,22 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
 
-alter table public.profiles enable row level security;
+alter table public.status_board_users enable row level security;
 
 -- 로그인 사용자는 모든 프로필을 읽고, 본인 프로필만 고칠 수 있다.
-drop policy if exists "authenticated can select profiles" on public.profiles;
-create policy "authenticated can select profiles" on public.profiles
+drop policy if exists "authenticated can select profiles" on public.status_board_users; -- 옛 이름 정리
+drop policy if exists "authenticated can select production_board_users" on public.status_board_users; -- 옛 이름 정리
+drop policy if exists "authenticated can select status_board_users" on public.status_board_users;
+create policy "authenticated can select status_board_users" on public.status_board_users
   for select to authenticated using (true);
 
-drop policy if exists "owner can update profile" on public.profiles;
-create policy "owner can update profile" on public.profiles
+drop policy if exists "owner can update profile" on public.status_board_users;
+create policy "owner can update profile" on public.status_board_users
   for update to authenticated using (auth.uid() = id) with check (auth.uid() = id);
 
 -- user_type은 본인이 바꿀 수 없다 (컬럼 단위 권한으로 차단). insert는 트리거만 한다.
-revoke insert, update on public.profiles from authenticated;
-grant update (name, updated_by) on public.profiles to authenticated;
+revoke insert, update on public.status_board_users from authenticated;
+grant update (name, updated_by) on public.status_board_users to authenticated;
 
 ------------------------------------------------------------------------
 -- board: 현황판 문서
@@ -96,10 +104,10 @@ alter table public.board add column if not exists created_by uuid;
 alter table public.board add column if not exists updated_by uuid;
 alter table public.board drop constraint if exists board_created_by_fkey;
 alter table public.board add constraint board_created_by_fkey
-  foreign key (created_by) references public.profiles(id);
+  foreign key (created_by) references public.status_board_users(id);
 alter table public.board drop constraint if exists board_updated_by_fkey;
 alter table public.board add constraint board_updated_by_fkey
-  foreign key (updated_by) references public.profiles(id);
+  foreign key (updated_by) references public.status_board_users(id);
 
 drop trigger if exists board_set_updated_at on public.board;
 create trigger board_set_updated_at
