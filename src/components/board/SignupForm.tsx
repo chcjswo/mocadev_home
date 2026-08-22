@@ -29,7 +29,13 @@ export function SignupForm() {
       options: { data: { name: name.trim() }, emailRedirectTo: `${window.location.origin}/board` },
     });
     if (error) {
-      setErr(error.message);
+      setErr(`가입하지 못했습니다: ${error.message}`);
+      setBusy(false);
+      return;
+    }
+    // 이미 가입된 이메일이면 Supabase는 오류 없이 identities가 빈 가짜 유저를 돌려준다
+    if (data.user && data.user.identities?.length === 0) {
+      setErr('이미 가입된 이메일입니다. 로그인해 주세요.');
       setBusy(false);
       return;
     }
@@ -65,7 +71,7 @@ export function SignupForm() {
                 autoComplete="new-password"
               />
             </div>
-            {err && <div className="err">가입하지 못했습니다: {err}</div>}
+            {err && <div className="err">{err}</div>}
             <div className="dbtn">
               <button type="submit" disabled={busy}>
                 가입하기

@@ -2,19 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { getSupabase } from '@/lib/board/supabase';
-
-/** 인증 메일 재발송 */
-export async function resendVerification(email: string): Promise<string | null> {
-  const supabase = getSupabase();
-  if (!supabase) return 'Supabase 환경 변수가 없습니다.';
-  const { error } = await supabase.auth.resend({
-    type: 'signup',
-    email,
-    options: { emailRedirectTo: `${window.location.origin}/board` },
-  });
-  return error ? error.message : null;
-}
+import { resendVerification } from '@/lib/board/supabase';
 
 /** 가입 직후 "인증 메일을 보냈습니다" 안내 화면 */
 export function VerifyNotice({ email }: { email: string }) {
@@ -23,8 +11,7 @@ export function VerifyNotice({ email }: { email: string }) {
 
   const resend = async () => {
     setBusy(true);
-    const err = await resendVerification(email);
-    setMsg(err ? `다시 보내지 못했습니다: ${err}` : '인증 메일을 다시 보냈습니다.');
+    setMsg(await resendVerification(email));
     setBusy(false);
   };
 

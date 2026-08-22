@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { resendVerification } from './VerifyNotice';
+import { resendVerification } from '@/lib/board/supabase';
 
 export interface LoginError {
   /** Supabase AuthError.code (예: email_not_confirmed) */
@@ -33,8 +33,7 @@ export function LoginForm({ onLogin }: LoginFormProps) {
 
   const resend = async () => {
     setBusy(true);
-    const msg = await resendVerification(email);
-    setResent(msg ? `다시 보내지 못했습니다: ${msg}` : '인증 메일을 다시 보냈습니다. 메일함을 확인해 주세요.');
+    setResent(await resendVerification(email));
     setBusy(false);
   };
 
