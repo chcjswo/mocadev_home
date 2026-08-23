@@ -128,3 +128,163 @@ create policy "authenticated can insert" on public.board
 drop policy if exists "authenticated can update" on public.board;
 create policy "authenticated can update" on public.board
   for update to authenticated using (true) with check (true);
+
+------------------------------------------------------------------------
+-- 정규화 테이블 (#17): jsonb 단일 문서를 엔티티별 테이블로 분리
+------------------------------------------------------------------------
+-- 클라이언트 모델(src/lib/board/types.ts의 BoardData)을 그대로 매핑한다.
+-- 배열 순서는 position 컬럼으로 보존한다.
+-- 기존 board 테이블은 전환 검증이 끝날 때까지 백업 겸 유지한다(제거는 별도 이슈).
+
+-- 공정 단계. 클라이언트 모델이 이름 배열(string[])이고 프로젝트가 배열 인덱스로
+-- 참조하므로, 별도 id 없이 position 자체가 식별자다.
+create table if not exists public.board_stages (
+  position int primary key,
+  name text not null,
+  created_at timestamptz not null default now(),
+  created_by uuid references public.status_board_users(id),
+  updated_at timestamptz not null default now(),
+  updated_by uuid references public.status_board_users(id)
+);
+
+-- 담당자. me 플래그는 보는 사람마다 다르므로 DB에 저장하지 않는다(클라이언트 로컬).
+create table if not exists public.board_people (
+  id text primary key,
+  name text not null,
+  position int not null,
+  created_at timestamptz not null default now(),
+  created_by uuid references public.status_board_users(id),
+  updated_at timestamptz not null default now(),
+  updated_by uuid references public.status_board_users(id)
+);
+
+-- 일정 종류
+create table if not exists public.board_event_types (
+  id text primary key,
+  name text not null,
+  color text not null,
+  mark text not null default 'none' check (mark in ('none', 'red', 'bg')),
+  position int not null,
+  created_at timestamptz not null default now(),
+  created_by uuid references public.status_board_users(id),
+  updated_at timestamptz not null default now(),
+  updated_by uuid references public.status_board_users(id)
+);
+
+-- 카드 라벨
+create table if not exists public.board_labels (
+  id text primary key,
+  name text not null,
+  color text not null,
+  position int not null,
+  created_at timestamptz not null default now(),
+  created_by uuid references public.status_board_users(id),
+  updated_at timestamptz not null default now(),
+  updated_by uuid references public.status_board_users(id)
+);
+
+-- 일정. 종류를 지우면 그 종류의 일정도 함께 지워진다(클라이언트 동작과 동일).
+create table if not exists public.board_events (
+  id text primary key,
+  date text not null,
+  type_id text not null references public.board_event_types(id) on delete cascade,
+  title text not null,
+  note text not null default '',
+  position int not null,
+  created_at timestamptz not null default now(),
+  created_by uuid references public.status_board_users(id),
+  updated_at timestamptz not null default now(),
+  updated_by uuid references public.status_board_users(id)
+);
+
+-- 프로젝트. due는 클라이언트 모델과 같게 '' 허용 문자열(YYYY-MM-DD)로 둔다.
+create table if not exists public.board_projects (
+  id text primary key,
+  name text not null,
+  kind text not null check (kind in ('앱', '게임')),
+  stage int not null default 0,
+  due text not null default '',
+  position int not null,
+  created_at timestamptz not null default now(),
+  created_by uuid references public.status_board_users(id),
+  updated_at timestamptz not null default now(),
+  updated_by uuid references public.status_board_users(id)
+);
+
+-- 프로젝트 파일 링크
+create table if not exists public.board_project_files (
+  id text primary key,
+  project_id text not null references public.board_projects(id) on delete cascade,
+  name text not null,
+  kind text not null check (kind in ('folder', 'image', 'build', 'doc', 'link')),
+  url text not null,
+  position int not null,
+  created_at timestamptz not null default now(),
+  created_by uuid references public.status_board_users(id),
+  updated_at timestamptz not null default now(),
+  updated_by uuid references public.status_board_users(id)
+);
+
+-- 칸반 카드. labs/owners는 조인 테이블 대신 배열 + GIN 인덱스(규모 대비 단순함 우선).
+-- 프로젝트를 지우면 카드도 함께 지워진다(클라이언트 동작과 동일).
+create table if not exists public.board_cards (
+  id bigint primary key,
+  project_id text not null references public.board_projects(id) on delete cascade,
+  list int not null default 0,
+  text text not null,
+  due text not null default '',
+  labs text[] not null default '{}',
+  owners text[] not null default '{}',
+  position int not null,
+  created_at timestamptz not null default now(),
+  created_by uuid references public.status_board_users(id),
+  updated_at timestamptz not null default now(),
+  updated_by uuid references public.status_board_users(id)
+);
+
+-- 마지막 저장자·시각 표시용 한 행짜리 메타. 저장할 때마다 upsert된다.
+create table if not exists public.board_meta (
+  id text primary key,
+  created_at timestamptz not null default now(),
+  created_by uuid references public.status_board_users(id),
+  updated_at timestamptz not null default now(),
+  updated_by uuid references public.status_board_users(id)
+);
+
+-- 인덱스
+create index if not exists board_cards_project_id_idx on public.board_cards (project_id);
+create index if not exists board_cards_owners_idx on public.board_cards using gin (owners);
+create index if not exists board_events_date_idx on public.board_events (date);
+create index if not exists board_project_files_project_id_idx on public.board_project_files (project_id);
+
+-- updated_at 트리거 + RLS (로그인 사용자만 읽기/쓰기, anon 차단)
+do $$
+declare
+  t text;
+begin
+  foreach t in array array[
+    'board_stages', 'board_people', 'board_event_types', 'board_labels',
+    'board_events', 'board_projects', 'board_project_files', 'board_cards', 'board_meta'
+  ] loop
+    execute format('drop trigger if exists %I on public.%I', t || '_set_updated_at', t);
+    execute format(
+      'create trigger %I before update on public.%I for each row execute function public.set_updated_at()',
+      t || '_set_updated_at', t
+    );
+    execute format('alter table public.%I enable row level security', t);
+    execute format('drop policy if exists "authenticated can select" on public.%I', t);
+    execute format('create policy "authenticated can select" on public.%I for select to authenticated using (true)', t);
+    execute format('drop policy if exists "authenticated can insert" on public.%I', t);
+    execute format(
+      'create policy "authenticated can insert" on public.%I for insert to authenticated with check (true)', t
+    );
+    execute format('drop policy if exists "authenticated can update" on public.%I', t);
+    execute format(
+      'create policy "authenticated can update" on public.%I for update to authenticated using (true) with check (true)',
+      t
+    );
+    execute format('drop policy if exists "authenticated can delete" on public.%I', t);
+    execute format('create policy "authenticated can delete" on public.%I for delete to authenticated using (true)', t);
+  end loop;
+end;
+$$;
