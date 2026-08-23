@@ -251,6 +251,28 @@ create table if not exists public.board_meta (
   updated_by uuid references public.status_board_users(id)
 );
 
+-- 카드 번호는 DB가 발급한다. 클라이언트가 로컬 max+1로 계산하면 두 사용자가 동시에
+-- 카드를 만들 때 같은 번호가 나와 나중 저장이 먼저 만든 카드를 덮어쓴다.
+-- 시퀀스 nextval은 동시 호출에도 중복이 없다. JSON 가져오기처럼 명시적 id가
+-- 들어오는 경로가 있으므로, 이미 쓰인 번호는 건너뛴다.
+create sequence if not exists public.board_card_id_seq;
+
+create or replace function public.board_next_card_id()
+returns bigint language plpgsql security definer set search_path = public as $$
+declare
+  v bigint;
+begin
+  loop
+    v := nextval('public.board_card_id_seq');
+    exit when not exists (select 1 from public.board_cards where id = v);
+  end loop;
+  return v;
+end;
+$$;
+
+revoke execute on function public.board_next_card_id() from public, anon;
+grant execute on function public.board_next_card_id() to authenticated;
+
 -- 인덱스
 create index if not exists board_cards_project_id_idx on public.board_cards (project_id);
 create index if not exists board_cards_owners_idx on public.board_cards using gin (owners);
@@ -377,3 +399,9 @@ begin
   on conflict (id) do nothing;
 end;
 $$;
+
+-- 카드 번호 시퀀스를 현재 최댓값 뒤로 맞춘다 (이관·기존 데이터 반영, 뒤로는 안 돌아간다).
+-- 99가 바닥이므로 첫 발급 번호는 100부터다.
+select setval('public.board_card_id_seq',
+  greatest(coalesce((select max(id) from public.board_cards), 99),
+           (select last_value from public.board_card_id_seq)));
