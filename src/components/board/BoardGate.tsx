@@ -83,7 +83,7 @@ export function BoardGate() {
     (async () => {
       try {
         const { data: me } = await supabase
-          .from('status_board_users')
+          .from('board_users')
           .select('name')
           .eq('id', uid)
           .maybeSingle();

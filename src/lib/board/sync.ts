@@ -127,7 +127,7 @@ export async function fetchLastSaved(
 ): Promise<{ name: string; at: string } | null> {
   const { data, error } = await supabase
     .from('board_meta')
-    .select('updated_at, updater:status_board_users!board_meta_updated_by_fkey(name)')
+    .select('updated_at, updater:board_users!board_meta_updated_by_fkey(name)')
     .eq('id', META_ID)
     .maybeSingle<{ updated_at: string; updater: { name: string } | null }>();
   if (error) throw new Error(error.message);

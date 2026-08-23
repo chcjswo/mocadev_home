@@ -12,9 +12,9 @@
 --
 -- [공통 규칙] 모든 테이블은 시스템 정보 컬럼 4개를 가진다.
 --   created_at timestamptz not null default now()
---   created_by uuid references board.status_board_users(id)
+--   created_by uuid references board.board_users(id)
 --   updated_at timestamptz not null default now()   -- set_updated_at 트리거로 자동 갱신
---   updated_by uuid references board.status_board_users(id)
+--   updated_by uuid references board.board_users(id)
 -- created_by/updated_by는 저장하는 쪽(클라이언트)이 auth.uid()로 채운다.
 
 ------------------------------------------------------------------------
@@ -33,6 +33,7 @@ alter default privileges in schema board grant all on functions to anon, authent
 -- set schema는 인덱스·FK·RLS 정책·트리거·publication 등록을 모두 함께 가져간다.
 -- 옛 함수(public.set_updated_at 등)를 가리키던 트리거는 아래에서 새 함수로 다시 만든다.
 alter table if exists public.status_board_users set schema board;
+alter table if exists public.board_users set schema board;
 alter table if exists public.board set schema board;
 alter table if exists public.board_stages set schema board;
 alter table if exists public.board_people set schema board;
@@ -55,36 +56,38 @@ end;
 $$;
 
 ------------------------------------------------------------------------
--- status_board_users: auth.users 1:1 프로필 (이름, 유저 타입)
+-- board_users: auth.users 1:1 프로필 (이름, 유저 타입)
 ------------------------------------------------------------------------
--- [마이그레이션] 옛 이름(profiles, production_board_users)이 남아 있으면 데이터를 유지한 채 이름만 바꾼다.
-alter table if exists board.profiles rename to status_board_users;
-alter table if exists board.production_board_users rename to status_board_users;
+-- [마이그레이션] 옛 이름(profiles, production_board_users, status_board_users)이 남아 있으면 데이터를 유지한 채 이름만 바꾼다.
+alter table if exists board.profiles rename to board_users;
+alter table if exists board.production_board_users rename to board_users;
+alter table if exists board.status_board_users rename to board_users;
 
-create table if not exists board.status_board_users (
+create table if not exists board.board_users (
   id uuid primary key references auth.users(id) on delete cascade,
   name text not null,
   user_type text not null default 'user' check (user_type in ('admin', 'user')),
   created_at timestamptz not null default now(),
-  created_by uuid references board.status_board_users(id),
+  created_by uuid references board.board_users(id),
   updated_at timestamptz not null default now(),
-  updated_by uuid references board.status_board_users(id)
+  updated_by uuid references board.board_users(id)
 );
 
-drop trigger if exists profiles_set_updated_at on board.status_board_users; -- 옛 이름 정리
-drop trigger if exists production_board_users_set_updated_at on board.status_board_users; -- 옛 이름 정리
-drop trigger if exists status_board_users_set_updated_at on board.status_board_users;
-create trigger status_board_users_set_updated_at
-  before update on board.status_board_users
+drop trigger if exists profiles_set_updated_at on board.board_users; -- 옛 이름 정리
+drop trigger if exists production_board_users_set_updated_at on board.board_users; -- 옛 이름 정리
+drop trigger if exists status_board_users_set_updated_at on board.board_users; -- 옛 이름 정리
+drop trigger if exists board_users_set_updated_at on board.board_users;
+create trigger board_users_set_updated_at
+  before update on board.board_users
   for each row execute function board.set_updated_at();
 
 -- 회원가입(auth.users insert) 시 프로필 자동 생성. 이름은 가입 폼의 user metadata에서 가져온다.
 -- user_type은 기본값 'user'로만 생성된다. admin 지정은 SQL로 수동:
---   update board.status_board_users set user_type = 'admin' where id = '<uuid>';
+--   update board.board_users set user_type = 'admin' where id = '<uuid>';
 create or replace function board.handle_new_user()
 returns trigger language plpgsql security definer set search_path = board as $$
 begin
-  insert into board.status_board_users (id, name, created_by, updated_by)
+  insert into board.board_users (id, name, created_by, updated_by)
   values (
     new.id,
     coalesce(nullif(trim(new.raw_user_meta_data->>'name'), ''), split_part(new.email, '@', 1)),
@@ -100,26 +103,27 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function board.handle_new_user();
 
--- 이미 만들어진(또는 옮겨 온) 객체에 권한 부여. status_board_users의 insert/update 제한은 바로 아래에서 다시 건다.
+-- 이미 만들어진(또는 옮겨 온) 객체에 권한 부여. board_users의 insert/update 제한은 바로 아래에서 다시 건다.
 grant all on all tables in schema board to anon, authenticated, service_role;
 grant all on all sequences in schema board to anon, authenticated, service_role;
 
-alter table board.status_board_users enable row level security;
+alter table board.board_users enable row level security;
 
 -- 로그인 사용자는 모든 프로필을 읽고, 본인 프로필만 고칠 수 있다.
-drop policy if exists "authenticated can select profiles" on board.status_board_users; -- 옛 이름 정리
-drop policy if exists "authenticated can select production_board_users" on board.status_board_users; -- 옛 이름 정리
-drop policy if exists "authenticated can select status_board_users" on board.status_board_users;
-create policy "authenticated can select status_board_users" on board.status_board_users
+drop policy if exists "authenticated can select profiles" on board.board_users; -- 옛 이름 정리
+drop policy if exists "authenticated can select production_board_users" on board.board_users; -- 옛 이름 정리
+drop policy if exists "authenticated can select status_board_users" on board.board_users; -- 옛 이름 정리
+drop policy if exists "authenticated can select board_users" on board.board_users;
+create policy "authenticated can select board_users" on board.board_users
   for select to authenticated using (true);
 
-drop policy if exists "owner can update profile" on board.status_board_users;
-create policy "owner can update profile" on board.status_board_users
+drop policy if exists "owner can update profile" on board.board_users;
+create policy "owner can update profile" on board.board_users
   for update to authenticated using (auth.uid() = id) with check (auth.uid() = id);
 
 -- user_type은 본인이 바꿀 수 없다 (컬럼 단위 권한으로 차단). insert는 트리거만 한다.
-revoke insert, update, delete on board.status_board_users from anon, authenticated;
-grant update (name, updated_by) on board.status_board_users to authenticated;
+revoke insert, update, delete on board.board_users from anon, authenticated;
+grant update (name, updated_by) on board.board_users to authenticated;
 
 ------------------------------------------------------------------------
 -- board: 현황판 문서
@@ -140,10 +144,10 @@ alter table board.board add column if not exists created_by uuid;
 alter table board.board add column if not exists updated_by uuid;
 alter table board.board drop constraint if exists board_created_by_fkey;
 alter table board.board add constraint board_created_by_fkey
-  foreign key (created_by) references board.status_board_users(id);
+  foreign key (created_by) references board.board_users(id);
 alter table board.board drop constraint if exists board_updated_by_fkey;
 alter table board.board add constraint board_updated_by_fkey
-  foreign key (updated_by) references board.status_board_users(id);
+  foreign key (updated_by) references board.board_users(id);
 
 drop trigger if exists board_set_updated_at on board.board;
 create trigger board_set_updated_at
@@ -178,9 +182,9 @@ create table if not exists board.board_stages (
   position int primary key,
   name text not null,
   created_at timestamptz not null default now(),
-  created_by uuid references board.status_board_users(id),
+  created_by uuid references board.board_users(id),
   updated_at timestamptz not null default now(),
-  updated_by uuid references board.status_board_users(id)
+  updated_by uuid references board.board_users(id)
 );
 
 -- 담당자. me 플래그는 보는 사람마다 다르므로 DB에 저장하지 않는다(클라이언트 로컬).
@@ -189,9 +193,9 @@ create table if not exists board.board_people (
   name text not null,
   position int not null,
   created_at timestamptz not null default now(),
-  created_by uuid references board.status_board_users(id),
+  created_by uuid references board.board_users(id),
   updated_at timestamptz not null default now(),
-  updated_by uuid references board.status_board_users(id)
+  updated_by uuid references board.board_users(id)
 );
 
 -- 일정 종류
@@ -202,9 +206,9 @@ create table if not exists board.board_event_types (
   mark text not null default 'none' check (mark in ('none', 'red', 'bg')),
   position int not null,
   created_at timestamptz not null default now(),
-  created_by uuid references board.status_board_users(id),
+  created_by uuid references board.board_users(id),
   updated_at timestamptz not null default now(),
-  updated_by uuid references board.status_board_users(id)
+  updated_by uuid references board.board_users(id)
 );
 
 -- 카드 라벨
@@ -214,9 +218,9 @@ create table if not exists board.board_labels (
   color text not null,
   position int not null,
   created_at timestamptz not null default now(),
-  created_by uuid references board.status_board_users(id),
+  created_by uuid references board.board_users(id),
   updated_at timestamptz not null default now(),
-  updated_by uuid references board.status_board_users(id)
+  updated_by uuid references board.board_users(id)
 );
 
 -- 일정. 종류를 지우면 그 종류의 일정도 함께 지워진다(클라이언트 동작과 동일).
@@ -228,9 +232,9 @@ create table if not exists board.board_events (
   note text not null default '',
   position int not null,
   created_at timestamptz not null default now(),
-  created_by uuid references board.status_board_users(id),
+  created_by uuid references board.board_users(id),
   updated_at timestamptz not null default now(),
-  updated_by uuid references board.status_board_users(id)
+  updated_by uuid references board.board_users(id)
 );
 
 -- 프로젝트. due는 클라이언트 모델과 같게 '' 허용 문자열(YYYY-MM-DD)로 둔다.
@@ -242,9 +246,9 @@ create table if not exists board.board_projects (
   due text not null default '',
   position int not null,
   created_at timestamptz not null default now(),
-  created_by uuid references board.status_board_users(id),
+  created_by uuid references board.board_users(id),
   updated_at timestamptz not null default now(),
-  updated_by uuid references board.status_board_users(id)
+  updated_by uuid references board.board_users(id)
 );
 
 -- 프로젝트 파일 링크
@@ -256,9 +260,9 @@ create table if not exists board.board_project_files (
   url text not null,
   position int not null,
   created_at timestamptz not null default now(),
-  created_by uuid references board.status_board_users(id),
+  created_by uuid references board.board_users(id),
   updated_at timestamptz not null default now(),
-  updated_by uuid references board.status_board_users(id)
+  updated_by uuid references board.board_users(id)
 );
 
 -- 칸반 카드. labs/owners는 조인 테이블 대신 배열 + GIN 인덱스(규모 대비 단순함 우선).
@@ -273,18 +277,18 @@ create table if not exists board.board_cards (
   owners text[] not null default '{}',
   position int not null,
   created_at timestamptz not null default now(),
-  created_by uuid references board.status_board_users(id),
+  created_by uuid references board.board_users(id),
   updated_at timestamptz not null default now(),
-  updated_by uuid references board.status_board_users(id)
+  updated_by uuid references board.board_users(id)
 );
 
 -- 마지막 저장자·시각 표시용 한 행짜리 메타. 저장할 때마다 upsert된다.
 create table if not exists board.board_meta (
   id text primary key,
   created_at timestamptz not null default now(),
-  created_by uuid references board.status_board_users(id),
+  created_by uuid references board.board_users(id),
   updated_at timestamptz not null default now(),
-  updated_by uuid references board.status_board_users(id)
+  updated_by uuid references board.board_users(id)
 );
 
 -- 저장할 때마다 board_meta가 갱신되므로, 이 한 테이블만 Realtime으로 구독하면
