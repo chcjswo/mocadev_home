@@ -11,6 +11,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
+    "test": "vitest run",
     "optimize:images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
@@ -45,6 +46,7 @@
     "sharp": "^0.34.5",
     "tailwindcss": "^4.3.0",
     "tw-animate-css": "^1.4.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "4.1.11"
   }
 }
