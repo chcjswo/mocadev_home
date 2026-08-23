@@ -20,7 +20,7 @@ import { StagesDialog } from './StagesDialog';
 import { TypesDialog } from './TypesDialog';
 
 interface BoardAppProps {
-  /** DB에서 불러온 시작 데이터 */
+  /** DB에서 불러온 데이터. 다른 브라우저의 저장을 받아오면 새 객체로 바뀐다 */
   initialData: BoardData;
   /** 로그인한 사용자의 프로필 이름 (헤더 표시용) */
   userName: string;
@@ -36,6 +36,10 @@ interface BoardAppProps {
 
 export function BoardApp({ initialData, userName, lastSaved, onDataChange, allocCardId, onLogout }: BoardAppProps) {
   const [data, setData] = useState<BoardData>(initialData);
+  // DB에서 다시 읽어 온 문서를 화면에 반영 (게이트가 diff 기준도 같이 바꾸므로 저장은 무동작)
+  useEffect(() => {
+    setData(initialData);
+  }, [initialData]);
   const [today, setToday] = useState<Date | null>(null);
   const [calY, setCalY] = useState(0);
   const [calM, setCalM] = useState(0);

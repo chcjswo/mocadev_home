@@ -251,6 +251,18 @@ create table if not exists public.board_meta (
   updated_by uuid references public.status_board_users(id)
 );
 
+-- 저장할 때마다 board_meta가 갱신되므로, 이 한 테이블만 Realtime으로 구독하면
+-- 다른 브라우저·사용자의 변경을 새로고침 없이 받아올 수 있다.
+do $$
+begin
+  if not exists (
+    select 1 from pg_publication_tables
+    where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'board_meta'
+  ) then
+    alter publication supabase_realtime add table public.board_meta;
+  end if;
+end $$;
+
 -- 카드 번호는 DB가 발급한다. 클라이언트가 로컬 max+1로 계산하면 두 사용자가 동시에
 -- 카드를 만들 때 같은 번호가 나와 나중 저장이 먼저 만든 카드를 덮어쓴다.
 -- 시퀀스 nextval은 동시 호출에도 중복이 없다. JSON 가져오기처럼 명시적 id가

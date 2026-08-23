@@ -68,9 +68,13 @@ export function BoardGate() {
     return () => sub.subscription.unsubscribe();
   }, [supabase]);
 
-  /* 로그인하면 정규화 테이블에서 현황판을 읽고, 비어 있으면 초기 데이터로 시딩 */
+  const uid = session?.user.id ?? null;
+  const email = session?.user.email ?? '';
+
+  /* 로그인하면 정규화 테이블에서 현황판을 읽고, 비어 있으면 초기 데이터로 시딩.
+     session 객체는 토큰 갱신마다 새로 만들어지므로 사용자 id 기준으로만 다시 읽는다. */
   useEffect(() => {
-    if (!supabase || !session) {
+    if (!supabase || !uid) {
       setBoard(null);
       setLoadErr('');
       return;
@@ -81,11 +85,10 @@ export function BoardGate() {
         const { data: me } = await supabase
           .from('status_board_users')
           .select('name')
-          .eq('id', session.user.id)
+          .eq('id', uid)
           .maybeSingle();
         if (cancelled) return;
-        setUserName(me?.name ?? session.user.email ?? '');
-        const uid = session.user.id;
+        setUserName(me?.name ?? email ?? '');
         let rows = await fetchBoardRows(supabase);
         if (cancelled) return;
         if (isEmptyRows(rows)) {
@@ -112,7 +115,7 @@ export function BoardGate() {
     return () => {
       cancelled = true;
     };
-  }, [supabase, session]);
+  }, [supabase, uid, email]);
 
   /* 대기 중인 변경을 즉시 저장 (로그아웃·페이지 이탈 시 유실 방지).
      마지막으로 반영된 문서와 diff해서 바뀐 row(의 바뀐 컬럼)만 쓴다. */
@@ -122,7 +125,7 @@ export function BoardGate() {
       saveTimer.current = null;
     }
     const d = pending.current;
-    if (!d || !supabase || !session) return;
+    if (!d || !supabase || !uid) return;
     pending.current = null;
     writeMe(d.people.find((p) => p.me)?.id ?? null);
     const prev = lastSynced.current;
@@ -134,8 +137,8 @@ export function BoardGate() {
       return;
     }
     try {
-      await applyOps(supabase, ops, session.user.id);
-      const at = await touchMeta(supabase, session.user.id);
+      await applyOps(supabase, ops, uid);
+      const at = await touchMeta(supabase, uid);
       // 메타 갱신까지 끝난 뒤에 기준을 옮긴다 — 중간에 실패하면 다음 저장 때 전부 재시도 (쓰기는 멱등)
       lastSynced.current = d;
       setSaveErr(false);
@@ -145,7 +148,7 @@ export function BoardGate() {
       // 반영 못 한 문서를 되살려서 다음 저장 때 다시 diff되게 한다
       if (!pending.current) pending.current = d;
     }
-  }, [supabase, session, userName]);
+  }, [supabase, uid, userName]);
 
   /* 새 카드 번호는 DB 시퀀스에서 발급 — 로컬 max+1 계산은 동시 생성 시 겹친다 */
   const allocCardId = useCallback(async () => {
@@ -170,6 +173,53 @@ export function BoardGate() {
     window.addEventListener('beforeunload', h);
     return () => window.removeEventListener('beforeunload', h);
   }, [flush]);
+
+  /* 다른 브라우저·사용자가 저장한 내용을 받아온다.
+     내 미저장 편집을 먼저 내보낸 뒤 DB를 다시 읽어 화면과 diff 기준을 함께 바꾼다
+     (기준만 바꾸면 다음 편집 때 남의 변경을 되돌려 쓰게 된다). */
+  const refreshing = useRef(false);
+  const refresh = useCallback(async () => {
+    if (!supabase || !lastSynced.current || refreshing.current) return;
+    refreshing.current = true;
+    try {
+      await flush();
+      if (pending.current) return; // 저장 실패분이 남아 있으면 덮어쓰지 않는다
+      const [rows, saved] = await Promise.all([fetchBoardRows(supabase), fetchLastSaved(supabase)]);
+      if (pending.current) return; // 읽는 사이에 생긴 편집을 덮어쓰지 않는다 — 저장 후 Realtime으로 다시 온다
+      const doc = rowsToBoard(rows, readMe());
+      lastSynced.current = doc;
+      setBoard(doc);
+      setLastSaved(saved);
+    } catch {
+      /* 다음 기회(포커스·Realtime)에 다시 시도 */
+    } finally {
+      refreshing.current = false;
+    }
+  }, [supabase, flush]);
+
+  /* 탭으로 돌아올 때 + DB가 저장될 때(board_meta 갱신 Realtime) 재조회 */
+  useEffect(() => {
+    if (!supabase || !uid) return;
+    const onVisible = () => {
+      if (document.visibilityState === 'visible') void refresh();
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    window.addEventListener('focus', onVisible);
+    let timer: number | null = null;
+    const channel = supabase
+      .channel('board-meta')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'board_meta' }, () => {
+        if (timer) window.clearTimeout(timer);
+        timer = window.setTimeout(() => void refresh(), 300);
+      })
+      .subscribe();
+    return () => {
+      document.removeEventListener('visibilitychange', onVisible);
+      window.removeEventListener('focus', onVisible);
+      if (timer) window.clearTimeout(timer);
+      supabase.removeChannel(channel);
+    };
+  }, [supabase, uid, refresh]);
 
   if (!supabase) {
     return (
