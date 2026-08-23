@@ -288,3 +288,92 @@ begin
   end loop;
 end;
 $$;
+
+------------------------------------------------------------------------
+-- 마이그레이션 (#17): 기존 board.data jsonb 문서 → 정규화 테이블
+------------------------------------------------------------------------
+-- 새 테이블이 모두 비어 있을 때만 실행된다(멱등). do 블록은 한 트랜잭션이라
+-- 중간에 실패하면 아무것도 이관되지 않는다.
+
+do $$
+declare
+  doc jsonb;
+  by uuid;
+  next_card_id bigint;
+begin
+  if exists (select 1 from public.board_stages limit 1)
+     or exists (select 1 from public.board_projects limit 1)
+     or exists (select 1 from public.board_cards limit 1) then
+    return; -- 이미 이관됐거나 새 테이블을 쓰는 중
+  end if;
+
+  select data, updated_by into doc, by from public.board where id = 'main';
+  if doc is null then
+    return; -- 이관할 문서 없음 (새 설치 — 첫 로그인 때 클라이언트가 시딩한다)
+  end if;
+
+  insert into public.board_stages (position, name, created_by, updated_by)
+  select o.ord::int - 1, o.val, by, by
+  from jsonb_array_elements_text(doc->'stages') with ordinality as o(val, ord);
+
+  -- me 플래그는 보는 사람마다 다른 값이라 이관하지 않는다
+  insert into public.board_people (id, name, position, created_by, updated_by)
+  select p.val->>'id', p.val->>'name', p.ord::int - 1, by, by
+  from jsonb_array_elements(doc->'people') with ordinality as p(val, ord);
+
+  insert into public.board_event_types (id, name, color, mark, position, created_by, updated_by)
+  select t.val->>'id', t.val->>'name', t.val->>'color', coalesce(t.val->>'mark', 'none'),
+         t.ord::int - 1, by, by
+  from jsonb_array_elements(doc->'etypes') with ordinality as t(val, ord);
+
+  insert into public.board_labels (id, name, color, position, created_by, updated_by)
+  select l.val->>'id', l.val->>'name', l.val->>'color', l.ord::int - 1, by, by
+  from jsonb_array_elements(doc->'labels') with ordinality as l(val, ord);
+
+  -- 종류가 지워져 걸 곳이 없는 일정은 건너뛴다 (클라이언트도 대체 표시만 하던 데이터)
+  insert into public.board_events (id, date, type_id, title, note, position, created_by, updated_by)
+  select e.val->>'id', e.val->>'date', e.val->>'type', coalesce(e.val->>'title', ''),
+         coalesce(e.val->>'note', ''), e.ord::int - 1, by, by
+  from jsonb_array_elements(doc->'events') with ordinality as e(val, ord)
+  where exists (select 1 from public.board_event_types x where x.id = e.val->>'type');
+
+  insert into public.board_projects (id, name, kind, stage, due, position, created_by, updated_by)
+  select p.val->>'id', p.val->>'name', p.val->>'kind', coalesce((p.val->>'stage')::int, 0),
+         coalesce(p.val->>'due', ''), p.ord::int - 1, by, by
+  from jsonb_array_elements(doc->'projects') with ordinality as p(val, ord);
+
+  insert into public.board_project_files (id, project_id, name, kind, url, position, created_by, updated_by)
+  select f.val->>'id', p.val->>'id', f.val->>'name', f.val->>'kind',
+         coalesce(f.val->>'url', ''), f.ord::int - 1, by, by
+  from jsonb_array_elements(doc->'projects') as p(val),
+       jsonb_array_elements(coalesce(p.val->'files', '[]'::jsonb)) with ordinality as f(val, ord);
+
+  -- 숫자 id 카드는 id를 그대로 보존한다. 프로젝트가 지워져 걸 곳이 없는 카드는 건너뛴다.
+  insert into public.board_cards (id, project_id, list, text, due, labs, owners, position, created_by, updated_by)
+  select (c.val->>'id')::bigint, c.val->>'proj', coalesce((c.val->>'list')::int, 0),
+         coalesce(c.val->>'text', ''), coalesce(c.val->>'due', ''),
+         array(select jsonb_array_elements_text(c.val->'labs')),
+         array(select jsonb_array_elements_text(c.val->'owners')),
+         c.ord::int - 1, by, by
+  from jsonb_array_elements(doc->'cards') with ordinality as c(val, ord)
+  where c.val->>'id' ~ '^[0-9]{1,15}$'
+    and exists (select 1 from public.board_projects x where x.id = c.val->>'proj');
+
+  -- 옛 JSON 가져오기로 숫자가 아닌 id가 섞인 카드는 새 숫자 id를 받는다 (유실 방지)
+  select coalesce(max(id), 99) into next_card_id from public.board_cards;
+
+  insert into public.board_cards (id, project_id, list, text, due, labs, owners, position, created_by, updated_by)
+  select next_card_id + row_number() over (order by c.ord), c.val->>'proj',
+         coalesce((c.val->>'list')::int, 0), coalesce(c.val->>'text', ''), coalesce(c.val->>'due', ''),
+         array(select jsonb_array_elements_text(c.val->'labs')),
+         array(select jsonb_array_elements_text(c.val->'owners')),
+         c.ord::int - 1, by, by
+  from jsonb_array_elements(doc->'cards') with ordinality as c(val, ord)
+  where not (c.val->>'id' ~ '^[0-9]{1,15}$')
+    and exists (select 1 from public.board_projects x where x.id = c.val->>'proj');
+
+  insert into public.board_meta (id, created_by, updated_by)
+  values ('main', by, by)
+  on conflict (id) do nothing;
+end;
+$$;
