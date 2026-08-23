@@ -298,7 +298,7 @@ $$;
 do $$
 declare
   doc jsonb;
-  by uuid;
+  writer uuid;
   next_card_id bigint;
 begin
   if exists (select 1 from public.board_stages limit 1)
@@ -307,44 +307,44 @@ begin
     return; -- 이미 이관됐거나 새 테이블을 쓰는 중
   end if;
 
-  select data, updated_by into doc, by from public.board where id = 'main';
+  select data, updated_by into doc, writer from public.board where id = 'main';
   if doc is null then
     return; -- 이관할 문서 없음 (새 설치 — 첫 로그인 때 클라이언트가 시딩한다)
   end if;
 
   insert into public.board_stages (position, name, created_by, updated_by)
-  select o.ord::int - 1, o.val, by, by
+  select o.ord::int - 1, o.val, writer, writer
   from jsonb_array_elements_text(doc->'stages') with ordinality as o(val, ord);
 
   -- me 플래그는 보는 사람마다 다른 값이라 이관하지 않는다
   insert into public.board_people (id, name, position, created_by, updated_by)
-  select p.val->>'id', p.val->>'name', p.ord::int - 1, by, by
+  select p.val->>'id', p.val->>'name', p.ord::int - 1, writer, writer
   from jsonb_array_elements(doc->'people') with ordinality as p(val, ord);
 
   insert into public.board_event_types (id, name, color, mark, position, created_by, updated_by)
   select t.val->>'id', t.val->>'name', t.val->>'color', coalesce(t.val->>'mark', 'none'),
-         t.ord::int - 1, by, by
+         t.ord::int - 1, writer, writer
   from jsonb_array_elements(doc->'etypes') with ordinality as t(val, ord);
 
   insert into public.board_labels (id, name, color, position, created_by, updated_by)
-  select l.val->>'id', l.val->>'name', l.val->>'color', l.ord::int - 1, by, by
+  select l.val->>'id', l.val->>'name', l.val->>'color', l.ord::int - 1, writer, writer
   from jsonb_array_elements(doc->'labels') with ordinality as l(val, ord);
 
   -- 종류가 지워져 걸 곳이 없는 일정은 건너뛴다 (클라이언트도 대체 표시만 하던 데이터)
   insert into public.board_events (id, date, type_id, title, note, position, created_by, updated_by)
   select e.val->>'id', e.val->>'date', e.val->>'type', coalesce(e.val->>'title', ''),
-         coalesce(e.val->>'note', ''), e.ord::int - 1, by, by
+         coalesce(e.val->>'note', ''), e.ord::int - 1, writer, writer
   from jsonb_array_elements(doc->'events') with ordinality as e(val, ord)
   where exists (select 1 from public.board_event_types x where x.id = e.val->>'type');
 
   insert into public.board_projects (id, name, kind, stage, due, position, created_by, updated_by)
   select p.val->>'id', p.val->>'name', p.val->>'kind', coalesce((p.val->>'stage')::int, 0),
-         coalesce(p.val->>'due', ''), p.ord::int - 1, by, by
+         coalesce(p.val->>'due', ''), p.ord::int - 1, writer, writer
   from jsonb_array_elements(doc->'projects') with ordinality as p(val, ord);
 
   insert into public.board_project_files (id, project_id, name, kind, url, position, created_by, updated_by)
   select f.val->>'id', p.val->>'id', f.val->>'name', f.val->>'kind',
-         coalesce(f.val->>'url', ''), f.ord::int - 1, by, by
+         coalesce(f.val->>'url', ''), f.ord::int - 1, writer, writer
   from jsonb_array_elements(doc->'projects') as p(val),
        jsonb_array_elements(coalesce(p.val->'files', '[]'::jsonb)) with ordinality as f(val, ord);
 
@@ -354,7 +354,7 @@ begin
          coalesce(c.val->>'text', ''), coalesce(c.val->>'due', ''),
          array(select jsonb_array_elements_text(c.val->'labs')),
          array(select jsonb_array_elements_text(c.val->'owners')),
-         c.ord::int - 1, by, by
+         c.ord::int - 1, writer, writer
   from jsonb_array_elements(doc->'cards') with ordinality as c(val, ord)
   where c.val->>'id' ~ '^[0-9]{1,15}$'
     and exists (select 1 from public.board_projects x where x.id = c.val->>'proj');
@@ -367,13 +367,13 @@ begin
          coalesce((c.val->>'list')::int, 0), coalesce(c.val->>'text', ''), coalesce(c.val->>'due', ''),
          array(select jsonb_array_elements_text(c.val->'labs')),
          array(select jsonb_array_elements_text(c.val->'owners')),
-         c.ord::int - 1, by, by
+         c.ord::int - 1, writer, writer
   from jsonb_array_elements(doc->'cards') with ordinality as c(val, ord)
   where not (c.val->>'id' ~ '^[0-9]{1,15}$')
     and exists (select 1 from public.board_projects x where x.id = c.val->>'proj');
 
   insert into public.board_meta (id, created_by, updated_by)
-  values ('main', by, by)
+  values ('main', writer, writer)
   on conflict (id) do nothing;
 end;
 $$;
