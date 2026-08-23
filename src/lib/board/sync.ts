@@ -51,19 +51,17 @@ const DELETE_TIERS: (keyof BoardOps)[][] = [
   ['stages'],
 ];
 
-async function run(queries: PromiseLike<{ error: { message: string } | null }>[]) {
+/** 쿼리를 병렬 실행하고, 하나라도 실패하면 그 에러를 던진다 */
+async function runAll<T extends { error: { message: string } | null }>(queries: PromiseLike<T>[]): Promise<T[]> {
   const results = await Promise.all(queries);
   const failed = results.find((r) => r.error);
   if (failed?.error) throw new Error(failed.error.message);
+  return results;
 }
 
 /** 8개 테이블을 병렬로 읽어 온다 */
 export async function fetchBoardRows(supabase: SupabaseClient): Promise<BoardRows> {
-  const results = await Promise.all(
-    TABLE_KEYS.map((k) => supabase.from(TABLES[k].table).select(TABLES[k].cols)),
-  );
-  const failed = results.find((r) => r.error);
-  if (failed?.error) throw new Error(failed.error.message);
+  const results = await runAll(TABLE_KEYS.map((k) => supabase.from(TABLES[k].table).select(TABLES[k].cols)));
   const rows = Object.fromEntries(TABLE_KEYS.map((k, i) => [k, results[i].data ?? []]));
   return rows as unknown as BoardRows;
 }
@@ -83,7 +81,7 @@ export async function applyOps(
 ): Promise<void> {
   // upsert인 이유: 저장이 중간에 실패한 뒤 재시도해도(또는 두 사용자가 동시에 시딩해도) 안전하게 수렴한다
   for (const tier of INSERT_TIERS) {
-    await run(
+    await runAll(
       tier
         .filter((k) => ops[k].inserts.length)
         .map((k) =>
@@ -93,7 +91,7 @@ export async function applyOps(
         ),
     );
   }
-  await run(
+  await runAll(
     TABLE_KEYS.flatMap((k) =>
       ops[k].updates.map((u) =>
         supabase
@@ -104,7 +102,7 @@ export async function applyOps(
     ),
   );
   for (const tier of DELETE_TIERS) {
-    await run(
+    await runAll(
       tier
         .filter((k) => ops[k].deletes.length)
         .map((k) => supabase.from(TABLES[k].table).delete().in(TABLES[k].key, ops[k].deletes)),

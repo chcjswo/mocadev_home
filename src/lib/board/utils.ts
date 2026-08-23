@@ -44,3 +44,7 @@ export const lastStage = (data: BoardData) => data.stages.length - 1;
 export const openOf = (data: BoardData, id: string) => data.cards.filter((c) => c.proj === id && c.list < 3).length;
 
 export const openCards = (data: BoardData) => data.cards.filter((c) => c.list < 3);
+
+/** 새 카드 번호 (기존 숫자 id 최댓값 + 1). 숫자 아닌 id가 섞여 있어도 NaN이 되지 않게 거른다 */
+export const nextCardId = (cards: Card[]) =>
+  Math.max(99, ...cards.map((c) => Number(c.id)).filter((n) => !isNaN(n))) + 1;

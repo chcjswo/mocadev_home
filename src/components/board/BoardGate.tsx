@@ -130,12 +130,14 @@ export function BoardGate() {
     const ops = diffBoard(prev, d);
     if (!hasOps(ops)) {
       lastSynced.current = d;
+      setSaveErr(false);
       return;
     }
     try {
       await applyOps(supabase, ops, session.user.id);
-      lastSynced.current = d;
       const at = await touchMeta(supabase, session.user.id);
+      // 메타 갱신까지 끝난 뒤에 기준을 옮긴다 — 중간에 실패하면 다음 저장 때 전부 재시도 (쓰기는 멱등)
+      lastSynced.current = d;
       setSaveErr(false);
       setLastSaved({ name: userName, at });
     } catch {
@@ -212,9 +214,7 @@ export function BoardGate() {
 
   return (
     <>
-      {saveErr && (
-        <div className="savebar">저장하지 못했습니다 — 네트워크 연결을 확인해 주세요.</div>
-      )}
+      {saveErr && <div className="savebar">저장하지 못했습니다 — 네트워크 연결을 확인해 주세요.</div>}
       <BoardApp
         initialData={board}
         userName={userName}
