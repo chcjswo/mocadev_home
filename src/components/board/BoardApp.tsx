@@ -32,7 +32,13 @@ interface BoardAppProps {
   onLogout: () => void;
 }
 
-export function BoardApp({ initialData, userName, lastSaved, onDataChange, onLogout }: BoardAppProps) {
+export function BoardApp({
+  initialData,
+  userName,
+  lastSaved,
+  onDataChange,
+  onLogout,
+}: BoardAppProps) {
   const [data, setData] = useState<BoardData>(initialData);
   const [today, setToday] = useState<Date | null>(null);
   const [calY, setCalY] = useState(0);
@@ -124,14 +130,20 @@ export function BoardApp({ initialData, userName, lastSaved, onDataChange, onLog
   const pickProj = (id: string) => setFProj(fProj === id ? null : id);
 
   const setStage = (id: string, stage: number) =>
-    setData((d) => ({ ...d, projects: d.projects.map((p) => (p.id === id ? { ...p, stage } : p)) }));
+    setData((d) => ({
+      ...d,
+      projects: d.projects.map((p) => (p.id === id ? { ...p, stage } : p)),
+    }));
 
   const saveProj = (v: ProjectDraft) => {
     const editId = projDlg?.editId ?? null;
     setData((d) =>
       editId
         ? { ...d, projects: d.projects.map((p) => (p.id === editId ? { ...p, ...v } : p)) }
-        : { ...d, projects: [...d.projects, { id: 'p' + Date.now().toString(36), files: [], ...v }] },
+        : {
+            ...d,
+            projects: [...d.projects, { id: 'p' + Date.now().toString(36), files: [], ...v }],
+          },
     );
     setProjDlg(null);
   };
@@ -175,7 +187,9 @@ export function BoardApp({ initialData, userName, lastSaved, onDataChange, onLog
     if (!fProj || !editId) return;
     setData((d) => ({
       ...d,
-      projects: d.projects.map((p) => (p.id === fProj ? { ...p, files: p.files.filter((f) => f.id !== editId) } : p)),
+      projects: d.projects.map((p) =>
+        p.id === fProj ? { ...p, files: p.files.filter((f) => f.id !== editId) } : p,
+      ),
     }));
     setFileDlg(null);
   };
@@ -202,7 +216,10 @@ export function BoardApp({ initialData, userName, lastSaved, onDataChange, onLog
             // 불러온 JSON에 숫자 아닌 id가 섞여 있어도 새 id가 NaN이 되지 않게 거른다
             cards: [
               ...d.cards,
-              { id: Math.max(99, ...d.cards.map((c) => Number(c.id)).filter((n) => !isNaN(n))) + 1, ...v },
+              {
+                id: Math.max(99, ...d.cards.map((c) => Number(c.id)).filter((n) => !isNaN(n))) + 1,
+                ...v,
+              },
             ],
           },
     );
@@ -254,6 +271,15 @@ export function BoardApp({ initialData, userName, lastSaved, onDataChange, onLog
         if (!d.projects || !d.cards) throw new Error('형식이 다릅니다');
         d.people = d.people || [{ id: 'M1', name: '나', me: true }];
         d.projects.forEach((p) => (p.files = p.files || []));
+        // 카드 id는 DB(bigint pk) 기준으로 고유한 숫자여야 한다 — 숫자가 아니거나 겹치면 새 번호를 받는다
+        let nextId = Math.max(99, ...d.cards.map((c) => Number(c.id)).filter((n) => !isNaN(n))) + 1;
+        const seen = new Set<number>();
+        d.cards = d.cards.map((c) => {
+          const n = Number(c.id);
+          const id = !Number.isFinite(n) || seen.has(n) ? nextId++ : n;
+          seen.add(id);
+          return { ...c, id, labs: c.labs || [], owners: c.owners || [] };
+        });
         setData(d);
         setFProj(null);
       } catch (err) {
@@ -282,7 +308,13 @@ export function BoardApp({ initialData, userName, lastSaved, onDataChange, onLog
           <button onClick={() => fileInRef.current?.click()}>불러오기</button>
           <button onClick={() => setPeopleOpen(true)}>담당자</button>
           <button onClick={onLogout}>로그아웃</button>
-          <input ref={fileInRef} type="file" accept=".json,application/json" hidden onChange={loadJson} />
+          <input
+            ref={fileInRef}
+            type="file"
+            accept=".json,application/json"
+            hidden
+            onChange={loadJson}
+          />
         </span>
       </header>
 
@@ -383,10 +415,18 @@ export function BoardApp({ initialData, userName, lastSaved, onDataChange, onLog
           onClose={() => setFileDlg(null)}
         />
       )}
-      {typesOpen && <TypesDialog data={data} onUpdate={setData} onClose={() => setTypesOpen(false)} />}
-      {peopleOpen && <PeopleDialog data={data} onUpdate={setData} onClose={() => setPeopleOpen(false)} />}
-      {labelsOpen && <LabelsDialog data={data} onUpdate={setData} onClose={() => setLabelsOpen(false)} />}
-      {stagesOpen && <StagesDialog data={data} onUpdate={setData} onClose={() => setStagesOpen(false)} />}
+      {typesOpen && (
+        <TypesDialog data={data} onUpdate={setData} onClose={() => setTypesOpen(false)} />
+      )}
+      {peopleOpen && (
+        <PeopleDialog data={data} onUpdate={setData} onClose={() => setPeopleOpen(false)} />
+      )}
+      {labelsOpen && (
+        <LabelsDialog data={data} onUpdate={setData} onClose={() => setLabelsOpen(false)} />
+      )}
+      {stagesOpen && (
+        <StagesDialog data={data} onUpdate={setData} onClose={() => setStagesOpen(false)} />
+      )}
       {eventListOpen && (
         <EventListDialog
           data={data}
@@ -419,8 +459,8 @@ export function BoardApp({ initialData, userName, lastSaved, onDataChange, onLog
       )}
 
       <footer>
-        데이터는 Supabase에 저장되어 로그인한 사용자끼리 공유됩니다. <b>파일로 저장</b>·<b>불러오기</b>는 백업·복원
-        용도입니다.
+        데이터는 Supabase에 저장되어 로그인한 사용자끼리 공유됩니다. <b>파일로 저장</b>·
+        <b>불러오기</b>는 백업·복원 용도입니다.
       </footer>
     </div>
   );

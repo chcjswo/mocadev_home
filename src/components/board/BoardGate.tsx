@@ -43,7 +43,7 @@ function writeMe(id: string | null) {
   }
 }
 
-/** 로그인해야 현황판이 보이는 게이트. 데이터는 Supabase board 테이블에서 읽고 쓴다. */
+/** 로그인해야 현황판이 보이는 게이트. 데이터는 Supabase 정규화 테이블(board_*)에서 읽고 쓴다. */
 export function BoardGate() {
   const supabase = getSupabase();
   const [session, setSession] = useState<Session | null>(null);
