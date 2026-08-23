@@ -208,7 +208,7 @@ export function BoardGate() {
     let timer: number | null = null;
     const channel = supabase
       .channel('board-meta')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'board_meta' }, () => {
+      .on('postgres_changes', { event: '*', schema: 'board', table: 'board_meta' }, () => {
         if (timer) window.clearTimeout(timer);
         timer = window.setTimeout(() => void refresh(), 300);
       })

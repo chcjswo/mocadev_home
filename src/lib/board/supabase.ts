@@ -1,13 +1,19 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
-let client: SupabaseClient | null = null;
+/** `board` 스키마를 쓰는 클라이언트 타입 */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type BoardClient = SupabaseClient<any, 'board'>;
 
-/** 브라우저용 Supabase 클라이언트 (환경 변수가 없으면 null — 설정 안내 화면용) */
-export function getSupabase(): SupabaseClient | null {
+let client: BoardClient | null = null;
+
+/** 브라우저용 Supabase 클라이언트 (환경 변수가 없으면 null — 설정 안내 화면용).
+ *  현황판 테이블은 전용 스키마 `board`에 있다 (supabase/schema.sql). 대시보드의
+ *  Data API > Exposed schemas에 `board`가 들어 있어야 한다. */
+export function getSupabase(): BoardClient | null {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key) return null;
-  if (!client) client = createClient(url, key);
+  if (!client) client = createClient(url, key, { db: { schema: 'board' } });
   return client;
 }
 

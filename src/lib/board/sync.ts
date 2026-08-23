@@ -1,4 +1,4 @@
-import type { SupabaseClient } from '@supabase/supabase-js';
+import type { BoardClient } from './supabase';
 import type { BoardOps, BoardRows } from './rows';
 import type { BoardData } from './types';
 
@@ -60,7 +60,7 @@ async function runAll<T extends { error: { message: string } | null }>(queries: 
 }
 
 /** 8개 테이블을 병렬로 읽어 온다 */
-export async function fetchBoardRows(supabase: SupabaseClient): Promise<BoardRows> {
+export async function fetchBoardRows(supabase: BoardClient): Promise<BoardRows> {
   const results = await runAll(TABLE_KEYS.map((k) => supabase.from(TABLES[k].table).select(TABLES[k].cols)));
   const rows = Object.fromEntries(TABLE_KEYS.map((k, i) => [k, results[i].data ?? []]));
   return rows as unknown as BoardRows;
@@ -75,7 +75,7 @@ export function isEmptyRows(rows: BoardRows): boolean {
  *  delete를 마지막에 두는 이유: 예컨대 일정의 종류를 바꾸면서 옛 종류를 지우는 경우,
  *  종류를 먼저 지우면 DB cascade가 일정까지 지워 버린다. */
 export async function applyOps(
-  supabase: SupabaseClient,
+  supabase: BoardClient,
   ops: BoardOps,
   uid: string,
 ): Promise<void> {
@@ -111,7 +111,7 @@ export async function applyOps(
 }
 
 /** 저장 표시용 메타를 갱신하고 저장 시각을 돌려준다 */
-export async function touchMeta(supabase: SupabaseClient, uid: string): Promise<string> {
+export async function touchMeta(supabase: BoardClient, uid: string): Promise<string> {
   const { data, error } = await supabase
     .from('board_meta')
     .upsert({ id: META_ID, updated_by: uid })
@@ -123,7 +123,7 @@ export async function touchMeta(supabase: SupabaseClient, uid: string): Promise<
 
 /** 마지막 저장자·시각 (아직 없으면 null) */
 export async function fetchLastSaved(
-  supabase: SupabaseClient,
+  supabase: BoardClient,
 ): Promise<{ name: string; at: string } | null> {
   const { data, error } = await supabase
     .from('board_meta')
