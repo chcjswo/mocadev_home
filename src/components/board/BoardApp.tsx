@@ -28,11 +28,13 @@ interface BoardAppProps {
   lastSaved: LastSaved | null;
   /** 데이터가 바뀔 때마다 호출 (DB 저장용) */
   onDataChange: (d: BoardData) => void;
+  /** 새 카드 번호 발급 (DB 시퀀스 — 동시 생성해도 겹치지 않는다) */
+  allocCardId: () => Promise<number>;
   /** 로그인 게이트에서 내려주는 로그아웃 동작 */
   onLogout: () => void;
 }
 
-export function BoardApp({ initialData, userName, lastSaved, onDataChange, onLogout }: BoardAppProps) {
+export function BoardApp({ initialData, userName, lastSaved, onDataChange, allocCardId, onLogout }: BoardAppProps) {
   const [data, setData] = useState<BoardData>(initialData);
   const [today, setToday] = useState<Date | null>(null);
   const [calY, setCalY] = useState(0);
@@ -192,14 +194,20 @@ export function BoardApp({ initialData, userName, lastSaved, onDataChange, onLog
   const moveCard = (cardId: number, list: number) =>
     setData((d) => ({ ...d, cards: d.cards.map((c) => (c.id === cardId ? { ...c, list } : c)) }));
 
-  const saveCard = (v: CardDraft) => {
+  const saveCard = async (v: CardDraft) => {
     const editId = cardDlg?.editId ?? null;
-    setData((d) =>
-      editId !== null
-        ? { ...d, cards: d.cards.map((c) => (c.id === editId ? { ...c, ...v } : c)) }
-        : { ...d, cards: [...d.cards, { id: nextCardId(d.cards), ...v }] },
-    );
-    setCardDlg(null);
+    if (editId !== null) {
+      setData((d) => ({ ...d, cards: d.cards.map((c) => (c.id === editId ? { ...c, ...v } : c)) }));
+      setCardDlg(null);
+      return;
+    }
+    try {
+      const id = await allocCardId();
+      setData((d) => ({ ...d, cards: [...d.cards, { id, ...v }] }));
+      setCardDlg(null);
+    } catch {
+      window.alert('카드 번호를 받지 못했습니다 — 네트워크 연결을 확인해 주세요.');
+    }
   };
 
   const delCard = () => {

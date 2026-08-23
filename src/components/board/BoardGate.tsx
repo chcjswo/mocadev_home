@@ -147,6 +147,14 @@ export function BoardGate() {
     }
   }, [supabase, session, userName]);
 
+  /* 새 카드 번호는 DB 시퀀스에서 발급 — 로컬 max+1 계산은 동시 생성 시 겹친다 */
+  const allocCardId = useCallback(async () => {
+    if (!supabase) throw new Error('Supabase가 설정되지 않았습니다');
+    const { data, error } = await supabase.rpc('board_next_card_id');
+    if (error) throw new Error(error.message);
+    return data as number;
+  }, [supabase]);
+
   /* 편집할 때마다 디바운스해서 DB에 저장 */
   const persist = useCallback(
     (d: BoardData) => {
@@ -220,6 +228,7 @@ export function BoardGate() {
         userName={userName}
         lastSaved={lastSaved}
         onDataChange={persist}
+        allocCardId={allocCardId}
         onLogout={async () => {
           await flush();
           supabase.auth.signOut();
