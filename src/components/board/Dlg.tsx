@@ -19,7 +19,12 @@ export function Dlg({ title, onClose, children }: DlgProps) {
   return (
     <dialog ref={ref} onClose={onClose}>
       <div className="dlg">
-        <h3>{title}</h3>
+        <div className="dhead">
+          <h3>{title}</h3>
+          <button type="button" className="x" aria-label="닫기" onClick={onClose}>
+            ×
+          </button>
+        </div>
         {children}
       </div>
     </dialog>
