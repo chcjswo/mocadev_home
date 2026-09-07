@@ -73,6 +73,13 @@ create table if not exists board.board_users (
   updated_by uuid references board.board_users(id)
 );
 
+-- email_id: 이메일의 '@' 앞부분. 카드 작성자 표시용. auth.users의 이메일은 클라이언트가 못 읽으므로 여기에 복사해 둔다.
+alter table board.board_users add column if not exists email_id text not null default '';
+update board.board_users u
+   set email_id = split_part(a.email, '@', 1)
+  from auth.users a
+ where a.id = u.id and u.email_id = '';
+
 drop trigger if exists profiles_set_updated_at on board.board_users; -- 옛 이름 정리
 drop trigger if exists production_board_users_set_updated_at on board.board_users; -- 옛 이름 정리
 drop trigger if exists status_board_users_set_updated_at on board.board_users; -- 옛 이름 정리
@@ -87,10 +94,11 @@ create trigger board_users_set_updated_at
 create or replace function board.handle_new_user()
 returns trigger language plpgsql security definer set search_path = board as $$
 begin
-  insert into board.board_users (id, name, created_by, updated_by)
+  insert into board.board_users (id, name, email_id, created_by, updated_by)
   values (
     new.id,
     coalesce(nullif(trim(new.raw_user_meta_data->>'name'), ''), split_part(new.email, '@', 1)),
+    split_part(new.email, '@', 1),
     new.id,
     new.id
   );
