@@ -24,6 +24,8 @@ interface BoardAppProps {
   initialData: BoardData;
   /** 로그인한 사용자의 프로필 이름 (헤더 표시용) */
   userName: string;
+  /** 로그인한 사용자의 이메일 아이디('@' 앞부분) — 새 카드의 작성자 표시용 */
+  userEmailId: string;
   /** 마지막 저장자·시각 (아직 저장된 적 없으면 null) */
   lastSaved: LastSaved | null;
   /** 데이터가 바뀔 때마다 호출 (DB 저장용) */
@@ -34,7 +36,15 @@ interface BoardAppProps {
   onLogout: () => void;
 }
 
-export function BoardApp({ initialData, userName, lastSaved, onDataChange, allocCardId, onLogout }: BoardAppProps) {
+export function BoardApp({
+  initialData,
+  userName,
+  userEmailId,
+  lastSaved,
+  onDataChange,
+  allocCardId,
+  onLogout,
+}: BoardAppProps) {
   const [data, setData] = useState<BoardData>(initialData);
   // DB에서 다시 읽어 온 문서를 화면에 반영 (게이트가 diff 기준도 같이 바꾸므로 저장은 무동작)
   useEffect(() => {
@@ -207,7 +217,8 @@ export function BoardApp({ initialData, userName, lastSaved, onDataChange, alloc
     }
     try {
       const id = await allocCardId();
-      setData((d) => ({ ...d, cards: [...d.cards, { id, ...v }] }));
+      // 작성자는 DB가 created_by로 기록하지만, 다시 읽기 전에도 바로 보이도록 내 아이디를 넣어 둔다
+      setData((d) => ({ ...d, cards: [...d.cards, { id, ...v, creator: userEmailId }] }));
       setCardDlg(null);
     } catch {
       window.alert('카드 번호를 받지 못했습니다 — 네트워크 연결을 확인해 주세요.');

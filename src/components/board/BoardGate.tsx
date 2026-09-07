@@ -276,6 +276,7 @@ export function BoardGate() {
       <BoardApp
         initialData={board}
         userName={userName}
+        userEmailId={email.split('@')[0]}
         lastSaved={lastSaved}
         onDataChange={persist}
         allocCardId={allocCardId}
