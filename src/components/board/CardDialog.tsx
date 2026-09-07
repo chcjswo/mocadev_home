@@ -104,6 +104,12 @@ export function CardDialog({ data, editId, initialList, fProj, onSave, onDelete,
         <label>마감</label>
         <input type="date" value={due} onChange={(e) => setDue(e.target.value)} />
       </div>
+      {c?.creator && (
+        <div className="f">
+          <label>작성</label>
+          <span className="hint">{c.creator}</span>
+        </div>
+      )}
       <div className="dbtn">
         <button onClick={save}>저장</button>
         <button className="ghost" onClick={onClose}>
