@@ -19,13 +19,12 @@ export function Dlg({ title, onClose, children }: DlgProps) {
   return (
     <dialog ref={ref} onClose={onClose}>
       <div className="dlg">
-        <div className="dhead">
-          <h3>{title}</h3>
-          <button type="button" className="x" aria-label="닫기" onClick={onClose}>
-            ×
-          </button>
-        </div>
+        <h3>{title}</h3>
         {children}
+        {/* DOM 마지막에 두어 열릴 때 초기 포커스가 첫 입력란에 그대로 가게 한다. 위치는 CSS로 오른쪽 상단 */}
+        <button type="button" className="x" aria-label="닫기" onClick={onClose}>
+          ×
+        </button>
       </div>
     </dialog>
   );

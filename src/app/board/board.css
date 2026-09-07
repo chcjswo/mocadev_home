@@ -175,9 +175,9 @@ dialog{margin:auto;border:1px solid var(--ink);border-radius:var(--r);background
 dialog::backdrop{background:rgba(22,35,58,.35)}
 .dlg{padding:18px 20px 20px}
 .dlg h3{font-size:11px;letter-spacing:.12em;color:var(--ink-soft);text-transform:uppercase;margin-bottom:12px}
-.dhead{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
-.dhead .x{font:inherit;font-size:18px;line-height:1;padding:0 4px;margin:-6px -6px 0 0;border:0;background:none;color:var(--ink-soft);cursor:pointer}
-.dhead .x:hover{color:var(--ink)}
+.dlg{position:relative}
+.dlg .x{position:absolute;top:12px;right:14px;font:inherit;font-size:18px;line-height:1;padding:0 4px;border:0;background:none;color:var(--ink-soft);cursor:pointer}
+.dlg .x:hover{color:var(--ink)}
 .f{margin-bottom:12px}
 .f label{display:block;font-family:var(--mono);font-size:10px;color:var(--ink-soft);letter-spacing:.06em;margin-bottom:4px}
 .f input,.f select,.f textarea{width:100%;font:inherit;font-size:14px;padding:7px 9px;border:1px solid var(--line);border-radius:var(--r-sm);background:#fff;color:var(--ink)}
