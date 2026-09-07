@@ -82,6 +82,7 @@ export function KanbanBoard({ data, today, fProj, onMoveCard, onOpenCard, onOpen
                         {owners(data, c)}
                       </span>
                     </div>
+                    {c.creator && <div className="by">작성: {c.creator}</div>}
                   </div>
                 );
               })}
