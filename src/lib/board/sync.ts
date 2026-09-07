@@ -31,7 +31,7 @@ const TABLES: Record<keyof BoardOps, { table: string; key: string; cols: string 
   cards: {
     table: 'board_cards',
     key: 'id',
-    cols: 'id, project_id, list, text, due, labs, owners, position',
+    cols: 'id, project_id, list, text, due, labs, owners, position, creator:board_users!board_cards_created_by_fkey(email_id)',
   },
 };
 

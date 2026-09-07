@@ -58,6 +58,8 @@ export interface Card {
   labs: string[];
   owners: string[];
   due: string;
+  /** 작성자 이메일 아이디('@' 앞부분). DB에서 읽을 때만 채워지는 읽기 전용 값 */
+  creator?: string;
 }
 
 export interface BoardData {

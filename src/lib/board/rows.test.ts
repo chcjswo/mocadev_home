@@ -96,6 +96,17 @@ describe('rowsToBoard', () => {
     expect(rowsToBoard(shuffled, 'M1')).toEqual(doc);
   });
 
+  it('카드 row에 조인된 작성자 email_id를 creator로 담고, 없으면 붙이지 않는다', () => {
+    const rows = boardToRows(doc);
+    const withCreator = {
+      ...rows,
+      cards: rows.cards.map((c) => (c.id === 1 ? { ...c, creator: { email_id: 'mc.jeon' } } : { ...c, creator: null })),
+    };
+    const cards = rowsToBoard(withCreator, 'M1').cards;
+    expect(cards[0].creator).toBe('mc.jeon');
+    expect('creator' in cards[1]).toBe(false);
+  });
+
   it('meId가 없거나 사라진 사람이면 아무에게도 me를 붙이지 않는다', () => {
     const restored = rowsToBoard(boardToRows(doc), 'M999');
     expect(restored.people).toEqual([
@@ -120,6 +131,11 @@ describe('diffBoard', () => {
       ],
     };
     expect(hasOps(diffBoard(doc, meMoved))).toBe(false);
+    const withCreator: BoardData = {
+      ...doc,
+      cards: doc.cards.map((c) => ({ ...c, creator: 'mc.jeon' })),
+    };
+    expect(hasOps(diffBoard(doc, withCreator))).toBe(false);
   });
 });
 

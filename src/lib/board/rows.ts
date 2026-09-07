@@ -64,6 +64,8 @@ export interface CardRow {
   labs: string[];
   owners: string[];
   position: number;
+  /** 조회 시 board_users 조인으로 붙는 작성자. 쓰기 row에는 없다 */
+  creator?: { email_id: string } | null;
 }
 
 export interface BoardRows {
@@ -188,6 +190,7 @@ export function rowsToBoard(rows: BoardRows, meId: string | null): BoardData {
       labs: c.labs,
       owners: c.owners,
       due: c.due,
+      ...(c.creator?.email_id ? { creator: c.creator.email_id } : {}),
     })),
   };
 }
