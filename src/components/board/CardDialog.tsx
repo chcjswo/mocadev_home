@@ -53,7 +53,7 @@ export function CardDialog({ data, editId, initialList, fProj, onSave, onDelete,
     <Dlg title={c ? '카드 고치기' : '새 카드'} onClose={onClose}>
       <div className="f">
         <label>할 일</label>
-        <textarea ref={textRef} value={text} onChange={(e) => setText(e.target.value)} autoFocus />
+        <textarea ref={textRef} rows={6} value={text} onChange={(e) => setText(e.target.value)} autoFocus />
       </div>
       <div className="two">
         <div className="f">
