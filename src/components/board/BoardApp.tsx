@@ -436,6 +436,7 @@ export function BoardApp({
           data={data}
           editId={cardDlg.editId}
           initialList={cardDlg.list}
+          todayKey={todayKey}
           fProj={fProj}
           onSave={saveCard}
           onDelete={delCard}

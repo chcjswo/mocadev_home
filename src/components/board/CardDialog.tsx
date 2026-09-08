@@ -20,13 +20,15 @@ interface CardDialogProps {
   editId: number | null;
   /** 새 카드일 때 시작 칸 */
   initialList: number;
+  /** 새 카드일 때 기본 마감일 (YYYY-MM-DD) */
+  todayKey: string;
   fProj: string | null;
   onSave: (v: CardDraft) => void;
   onDelete: () => void;
   onClose: () => void;
 }
 
-export function CardDialog({ data, editId, initialList, fProj, onSave, onDelete, onClose }: CardDialogProps) {
+export function CardDialog({ data, editId, initialList, todayKey, fProj, onSave, onDelete, onClose }: CardDialogProps) {
   const c = editId !== null ? data.cards.find((x) => x.id === editId) : undefined;
   const me = meId(data);
   const [text, setText] = useState(c ? c.text : '');
@@ -34,7 +36,7 @@ export function CardDialog({ data, editId, initialList, fProj, onSave, onDelete,
   const [list, setList] = useState(c ? c.list : initialList);
   const [labs, setLabs] = useState<string[]>(c ? [...c.labs] : []);
   const [own, setOwn] = useState<string[]>(c ? [...(c.owners || [])] : me ? [me] : []);
-  const [due, setDue] = useState(c ? c.due : '');
+  const [due, setDue] = useState(c ? c.due : todayKey);
   const textRef = useRef<HTMLTextAreaElement>(null);
 
   const toggle = (arr: string[], set: (v: string[]) => void, id: string) =>
