@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { LISTS } from '@/lib/board/data';
+import { LIST_ORDER, LISTS } from '@/lib/board/data';
 import type { BoardData } from '@/lib/board/types';
 import { ddCls, ddText, dleft, labCol, labName, owners, proj } from '@/lib/board/utils';
 
@@ -22,7 +22,8 @@ export function KanbanBoard({ data, today, fProj, onMoveCard, onOpenCard, onOpen
   return (
     <>
       <div className="board">
-        {LISTS.map((name, i) => {
+        {LIST_ORDER.map((i) => {
+          const name = LISTS[i];
           const cs = shown.filter((c) => c.list === i);
           return (
             <div

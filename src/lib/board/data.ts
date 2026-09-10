@@ -1,7 +1,10 @@
 import type { BoardData, FileKind } from './types';
 
-/** 보드 칸 이름 */
+/** 보드 칸 이름 (인덱스는 카드의 list 값과 같음. DB에 저장되므로 순서를 바꾸지 말 것) */
 export const LISTS = ['할 일', '진행 중', '검토', '완료'];
+
+/** 화면에 칸을 보여주는 순서 (list 인덱스): 할 일 → 검토 → 진행 중 → 완료 */
+export const LIST_ORDER = [0, 2, 1, 3];
 
 /** 라벨·일정 종류 색상 팔레트 */
 export const PALETTE = [

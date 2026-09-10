@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { LISTS } from '@/lib/board/data';
+import { LIST_ORDER, LISTS } from '@/lib/board/data';
 import type { BoardData } from '@/lib/board/types';
 import { meId } from '@/lib/board/utils';
 import { Dlg } from './Dlg';
@@ -71,9 +71,9 @@ export function CardDialog({ data, editId, initialList, todayKey, fProj, onSave,
         <div className="f">
           <label>칸</label>
           <select value={list} onChange={(e) => setList(Number(e.target.value))}>
-            {LISTS.map((n, i) => (
+            {LIST_ORDER.map((i) => (
               <option key={i} value={i}>
-                {n}
+                {LISTS[i]}
               </option>
             ))}
           </select>
