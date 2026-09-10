@@ -290,6 +290,18 @@ create table if not exists board.board_cards (
   updated_by uuid references board.board_users(id)
 );
 
+-- 카드 댓글 (#20). 카드가 지워지면 같이 지워진다. 작성자·시각은 created_by/created_at을 그대로 쓴다.
+create table if not exists board.board_card_comments (
+  id text primary key,
+  card_id bigint not null references board.board_cards(id) on delete cascade,
+  text text not null,
+  position int not null,
+  created_at timestamptz not null default now(),
+  created_by uuid references board.board_users(id),
+  updated_at timestamptz not null default now(),
+  updated_by uuid references board.board_users(id)
+);
+
 -- 마지막 저장자·시각 표시용 한 행짜리 메타. 저장할 때마다 upsert된다.
 create table if not exists board.board_meta (
   id text primary key,
@@ -338,6 +350,7 @@ create index if not exists board_cards_project_id_idx on board.board_cards (proj
 create index if not exists board_cards_owners_idx on board.board_cards using gin (owners);
 create index if not exists board_events_date_idx on board.board_events (date);
 create index if not exists board_project_files_project_id_idx on board.board_project_files (project_id);
+create index if not exists board_card_comments_card_id_idx on board.board_card_comments (card_id);
 
 -- updated_at 트리거 + RLS (로그인 사용자만 읽기/쓰기, anon 차단)
 do $$
@@ -346,7 +359,8 @@ declare
 begin
   foreach t in array array[
     'board_stages', 'board_people', 'board_event_types', 'board_labels',
-    'board_events', 'board_projects', 'board_project_files', 'board_cards', 'board_meta'
+    'board_events', 'board_projects', 'board_project_files', 'board_cards', 'board_card_comments',
+    'board_meta'
   ] loop
     execute format('drop trigger if exists %I on board.%I', t || '_set_updated_at', t);
     execute format(
