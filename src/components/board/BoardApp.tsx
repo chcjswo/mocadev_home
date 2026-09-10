@@ -232,6 +232,17 @@ export function BoardApp({
     setCardDlg(null);
   };
 
+  /** 열린 카드에 댓글을 단다. 다이얼로그는 열어 둔 채 문서만 바꿔 바로 저장되게 한다 */
+  const addComment = (text: string) => {
+    const editId = cardDlg?.editId;
+    if (editId == null) return;
+    const m = { id: 'C' + Date.now().toString(36), text };
+    setData((d) => ({
+      ...d,
+      cards: d.cards.map((c) => (c.id === editId ? { ...c, comments: [...(c.comments ?? []), m] } : c)),
+    }));
+  };
+
   /* 일정 */
   const saveEvent = (v: EventDraft) => {
     const editId = eventDlg?.editId ?? null;
@@ -440,6 +451,7 @@ export function BoardApp({
           fProj={fProj}
           onSave={saveCard}
           onDelete={delCard}
+          onAddComment={addComment}
           onClose={() => setCardDlg(null)}
         />
       )}

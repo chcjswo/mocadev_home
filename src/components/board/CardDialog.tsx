@@ -25,10 +25,29 @@ interface CardDialogProps {
   fProj: string | null;
   onSave: (v: CardDraft) => void;
   onDelete: () => void;
+  /** 댓글 등록 (기존 카드에서만). 카드 저장/취소와 무관하게 즉시 반영된다 */
+  onAddComment: (text: string) => void;
   onClose: () => void;
 }
 
-export function CardDialog({ data, editId, initialList, todayKey, fProj, onSave, onDelete, onClose }: CardDialogProps) {
+/** 댓글 저장 시각을 '월/일 시:분'으로. 아직 DB에서 안 온 값(빈 문자열)은 그대로 빈 칸 */
+const fmtAt = (at?: string) => {
+  if (!at) return '';
+  const d = new Date(at);
+  return `${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+};
+
+export function CardDialog({
+  data,
+  editId,
+  initialList,
+  todayKey,
+  fProj,
+  onSave,
+  onDelete,
+  onAddComment,
+  onClose,
+}: CardDialogProps) {
   const c = editId !== null ? data.cards.find((x) => x.id === editId) : undefined;
   const me = meId(data);
   const [text, setText] = useState(c ? c.text : '');
@@ -37,7 +56,15 @@ export function CardDialog({ data, editId, initialList, todayKey, fProj, onSave,
   const [labs, setLabs] = useState<string[]>(c ? [...c.labs] : []);
   const [own, setOwn] = useState<string[]>(c ? [...(c.owners || [])] : me ? [me] : []);
   const [due, setDue] = useState(c ? c.due : todayKey);
+  const [cmt, setCmt] = useState('');
   const textRef = useRef<HTMLTextAreaElement>(null);
+
+  const addComment = () => {
+    const t = cmt.trim();
+    if (!t) return;
+    onAddComment(t);
+    setCmt('');
+  };
 
   const toggle = (arr: string[], set: (v: string[]) => void, id: string) =>
     set(arr.includes(id) ? arr.filter((x) => x !== id) : [...arr, id]);
@@ -110,6 +137,38 @@ export function CardDialog({ data, editId, initialList, todayKey, fProj, onSave,
         <div className="f">
           <label>작성</label>
           <span className="hint">{c.creator}</span>
+        </div>
+      )}
+      {c && (
+        <div className="f">
+          <label>댓글</label>
+          <div className="cmt-in">
+            <input
+              value={cmt}
+              placeholder="댓글을 입력하고 Enter"
+              onChange={(e) => setCmt(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+                  e.preventDefault();
+                  addComment();
+                }
+              }}
+            />
+            <button type="button" onClick={addComment}>
+              등록
+            </button>
+          </div>
+          {/* 최근 댓글이 입력창 바로 아래 오도록 뒤집어 보여준다 */}
+          <ul className="cmts">
+            {[...(c.comments ?? [])].reverse().map((m) => (
+              <li key={m.id}>
+                <span>{m.text}</span>
+                <small>
+                  {m.author ?? ''} {fmtAt(m.at)}
+                </small>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
       <div className="dbtn">
