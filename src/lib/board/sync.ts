@@ -33,6 +33,11 @@ const TABLES: Record<keyof BoardOps, { table: string; key: string; cols: string 
     key: 'id',
     cols: 'id, project_id, list, text, due, labs, owners, position, creator:board_users!board_cards_created_by_fkey(email_id)',
   },
+  comments: {
+    table: 'board_card_comments',
+    key: 'id',
+    cols: 'id, card_id, text, position, created_at, author:board_users!board_card_comments_created_by_fkey(email_id)',
+  },
 };
 
 const TABLE_KEYS = Object.keys(TABLES) as (keyof BoardOps)[];
@@ -42,10 +47,12 @@ const INSERT_TIERS: (keyof BoardOps)[][] = [
   ['stages', 'people', 'etypes', 'labels'],
   ['projects'],
   ['events', 'files', 'cards'],
+  ['comments'],
 ];
 
 /** delete 순서 (자식 → 부모) */
 const DELETE_TIERS: (keyof BoardOps)[][] = [
+  ['comments'],
   ['cards', 'files', 'events'],
   ['projects', 'labels', 'etypes', 'people'],
   ['stages'],
@@ -59,7 +66,7 @@ async function runAll<T extends { error: { message: string } | null }>(queries: 
   return results;
 }
 
-/** 8개 테이블을 병렬로 읽어 온다 */
+/** 9개 테이블을 병렬로 읽어 온다 */
 export async function fetchBoardRows(supabase: BoardClient): Promise<BoardRows> {
   const results = await runAll(TABLE_KEYS.map((k) => supabase.from(TABLES[k].table).select(TABLES[k].cols)));
   const rows = Object.fromEntries(TABLE_KEYS.map((k, i) => [k, results[i].data ?? []]));
