@@ -1,4 +1,4 @@
-import type { BoardData, EventMark, FileKind, ProjectKind } from './types';
+import type { BoardData, CardComment, EventMark, FileKind, ProjectKind } from './types';
 
 /** 정규화 테이블 row 타입 (supabase/schema.sql의 board_* 테이블 컬럼과 1:1) */
 
@@ -68,6 +68,17 @@ export interface CardRow {
   creator?: { email_id: string } | null;
 }
 
+export interface CardCommentRow {
+  id: string;
+  card_id: number;
+  text: string;
+  position: number;
+  /** 조회 시 board_users 조인으로 붙는 작성자. 쓰기 row에는 없다 */
+  author?: { email_id: string } | null;
+  /** 조회 시에만 오는 저장 시각. 쓰기 row에는 없다 */
+  created_at?: string;
+}
+
 export interface BoardRows {
   stages: StageRow[];
   people: PersonRow[];
@@ -77,6 +88,7 @@ export interface BoardRows {
   projects: ProjectRow[];
   files: ProjectFileRow[];
   cards: CardRow[];
+  comments: CardCommentRow[];
 }
 
 /** 한 테이블에 실행할 row 단위 쓰기 작업. updates.set에는 바뀐 컬럼만 담긴다. */
@@ -95,6 +107,7 @@ export interface BoardOps {
   projects: TableOps<ProjectRow, string>;
   files: TableOps<ProjectFileRow, string>;
   cards: TableOps<CardRow, number>;
+  comments: TableOps<CardCommentRow, string>;
 }
 
 function diffTable<R extends object, K extends string | number>(
@@ -134,6 +147,7 @@ export function diffBoard(prev: BoardData, next: BoardData): BoardOps {
     projects: diffTable(a.projects, b.projects, (r) => r.id),
     files: diffTable(a.files, b.files, (r) => r.id),
     cards: diffTable(a.cards, b.cards, (r) => r.id),
+    comments: diffTable(a.comments, b.comments, (r) => r.id),
   };
 }
 
@@ -191,6 +205,21 @@ export function rowsToBoard(rows: BoardRows, meId: string | null): BoardData {
       owners: c.owners,
       due: c.due,
       ...(c.creator?.email_id ? { creator: c.creator.email_id } : {}),
+      ...commentsOf(rows.comments, c.id),
+    })),
+  };
+}
+
+/** 카드에 딸린 댓글을 position 순으로 모은다. 없으면 빈 객체(문서에 comments 키를 남기지 않기 위해) */
+function commentsOf(rows: CardCommentRow[], cardId: number): { comments?: CardComment[] } {
+  const mine = byPos(rows.filter((m) => m.card_id === cardId));
+  if (!mine.length) return {};
+  return {
+    comments: mine.map((m) => ({
+      id: m.id,
+      text: m.text,
+      ...(m.author?.email_id ? { author: m.author.email_id } : {}),
+      ...(m.created_at ? { at: m.created_at } : {}),
     })),
   };
 }
@@ -245,5 +274,8 @@ export function boardToRows(d: BoardData): BoardRows {
       owners: c.owners,
       position: i,
     })),
+    comments: d.cards.flatMap((c) =>
+      (c.comments ?? []).map((m, i) => ({ id: m.id, card_id: c.id, text: m.text, position: i })),
+    ),
   };
 }

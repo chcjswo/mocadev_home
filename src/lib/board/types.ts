@@ -49,6 +49,15 @@ export interface Project {
   files: ProjectFile[];
 }
 
+export interface CardComment {
+  id: string;
+  text: string;
+  /** 작성자 이메일 아이디('@' 앞부분). DB에서 읽을 때만 채워지는 읽기 전용 값 */
+  author?: string;
+  /** 저장 시각 (DB created_at, ISO 문자열). DB에서 읽을 때만 채워지는 읽기 전용 값 */
+  at?: string;
+}
+
 export interface Card {
   id: number;
   proj: string;
@@ -60,6 +69,8 @@ export interface Card {
   due: string;
   /** 작성자 이메일 아이디('@' 앞부분). DB에서 읽을 때만 채워지는 읽기 전용 값 */
   creator?: string;
+  /** 댓글 목록 (오래된 순). 없으면 생략 */
+  comments?: CardComment[];
 }
 
 export interface BoardData {

@@ -24,7 +24,16 @@ const doc: BoardData = {
     { id: 'p2', name: '게임 하나', kind: '게임', stage: 0, due: '', files: [] },
   ],
   cards: [
-    { id: 1, proj: 'p1', list: 0, text: '할 일', labs: ['L1'], owners: ['M1'], due: '' },
+    {
+      id: 1,
+      proj: 'p1',
+      list: 0,
+      text: '할 일',
+      labs: ['L1'],
+      owners: ['M1'],
+      due: '',
+      comments: [{ id: 'C1', text: '첫 댓글' }],
+    },
     { id: 2, proj: 'p2', list: 1, text: '진행', labs: [], owners: ['M2'], due: '2026-08-30' },
   ],
 };
@@ -76,6 +85,7 @@ describe('boardToRows', () => {
         position: 1,
       },
     ]);
+    expect(rows.comments).toEqual([{ id: 'C1', card_id: 1, text: '첫 댓글', position: 0 }]);
   });
 });
 
@@ -92,8 +102,29 @@ describe('rowsToBoard', () => {
       projects: [...rows.projects].reverse(),
       files: [...rows.files].reverse(),
       cards: [...rows.cards].reverse(),
+      comments: [...rows.comments].reverse(),
     };
     expect(rowsToBoard(shuffled, 'M1')).toEqual(doc);
+  });
+
+  it('댓글 row에 조인된 작성자 email_id와 created_at을 author·at으로 담고, 없으면 붙이지 않는다', () => {
+    const rows = boardToRows(doc);
+    const withMeta = {
+      ...rows,
+      comments: [
+        { ...rows.comments[0], author: { email_id: 'mc.jeon' }, created_at: '2026-09-11T01:02:03+00:00' },
+        { id: 'C2', card_id: 1, text: '둘째', position: 1, author: null },
+      ],
+    };
+    const comments = rowsToBoard(withMeta, 'M1').cards[0].comments;
+    expect(comments).toEqual([
+      { id: 'C1', text: '첫 댓글', author: 'mc.jeon', at: '2026-09-11T01:02:03+00:00' },
+      { id: 'C2', text: '둘째' },
+    ]);
+  });
+
+  it('댓글이 없는 카드에는 comments를 붙이지 않는다', () => {
+    expect('comments' in rowsToBoard(boardToRows(doc), 'M1').cards[1]).toBe(false);
   });
 
   it('카드 row에 조인된 작성자 email_id를 creator로 담고, 없으면 붙이지 않는다', () => {
@@ -136,6 +167,14 @@ describe('diffBoard', () => {
       cards: doc.cards.map((c) => ({ ...c, creator: 'mc.jeon' })),
     };
     expect(hasOps(diffBoard(doc, withCreator))).toBe(false);
+    const withCommentMeta: BoardData = {
+      ...doc,
+      cards: doc.cards.map((c) => ({
+        ...c,
+        comments: c.comments?.map((m) => ({ ...m, author: 'mc.jeon', at: '2026-09-11T00:00:00+00:00' })),
+      })),
+    };
+    expect(hasOps(diffBoard(doc, withCommentMeta))).toBe(false);
   });
 });
 
@@ -166,6 +205,29 @@ describe('diffBoard 쓰기 작업', () => {
     expect(ops.projects.deletes).toEqual(['p2']);
     expect(ops.cards.deletes).toEqual([2]);
     expect(ops.labels.inserts).toEqual([{ id: 'L2', name: '버그', color: '#333333', position: 1 }]);
+  });
+
+  it('카드에 댓글을 달면 그 댓글만 insert로 나오고 카드는 바뀌지 않는다', () => {
+    const next: BoardData = {
+      ...doc,
+      cards: doc.cards.map((c) =>
+        c.id === 2 ? { ...c, comments: [{ id: 'C9', text: '새 댓글', author: 'mc.jeon' }] } : c,
+      ),
+    };
+    const ops = diffBoard(doc, next);
+    expect(ops.comments).toEqual({
+      inserts: [{ id: 'C9', card_id: 2, text: '새 댓글', position: 0 }],
+      updates: [],
+      deletes: [],
+    });
+    expect(ops.cards).toEqual({ inserts: [], updates: [], deletes: [] });
+  });
+
+  it('카드를 지우면 딸린 댓글도 delete로 나온다', () => {
+    const next: BoardData = { ...doc, cards: doc.cards.filter((c) => c.id !== 1) };
+    const ops = diffBoard(doc, next);
+    expect(ops.cards.deletes).toEqual([1]);
+    expect(ops.comments.deletes).toEqual(['C1']);
   });
 
   it('중간 항목을 지우면 뒤 항목들의 position이 당겨진다', () => {
