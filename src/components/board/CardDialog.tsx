@@ -30,7 +30,7 @@ interface CardDialogProps {
   onClose: () => void;
 }
 
-/** 댓글 저장 시각을 '월/일 시:분'으로. 아직 DB에서 안 온 값(빈 문자열)은 그대로 빈 칸 */
+/** 댓글 저장 시각을 '월/일 시:분'으로. 아직 DB에서 안 온 값(undefined)은 빈 칸 */
 const fmtAt = (at?: string) => {
   if (!at) return '';
   const d = new Date(at);
@@ -164,7 +164,7 @@ export function CardDialog({
               <li key={m.id}>
                 <span>{m.text}</span>
                 <small>
-                  {m.author ?? ''} {fmtAt(m.at)}
+                  {m.author} {fmtAt(m.at)}
                 </small>
               </li>
             ))}
